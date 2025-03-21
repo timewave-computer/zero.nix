@@ -1,7 +1,7 @@
 {
   nixConfig = {
-    substituters = "https://timewave.cachix.org";
-    trusted-public-keys = ''
+    extra-substituters = "https://timewave.cachix.org";
+    extra-trusted-public-keys = ''
       timewave.cachix.org-1:nu3Uqsm3sikI9xFK3Mt4AD4Q6z+j6eS9+kND1vtznq4=
     '';
   };
@@ -18,12 +18,12 @@
       ];
       imports = [
         ./nixosModules/default.nix
+        ./packages/default.nix
       ];
     };
 
   inputs = {
-    # Nix Inputs
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs";
     cosmos-nix.url = "github:timewave-computer/cosmos.nix";
     flake-parts.url = "github:hercules-ci/flake-parts";
   };

@@ -1,0 +1,4 @@
+name: hi
+age: '{{int(25, 30)}}'
+country: '{{country()}}'
+blah: hi
