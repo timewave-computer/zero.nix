@@ -17,6 +17,7 @@
         "x86_64-linux"
       ];
       imports = [
+        ./flakeModules/default.nix
         ./nixosModules/default.nix
         ./packages/default.nix
       ];
@@ -26,5 +27,6 @@
     nixpkgs.url = "github:nixos/nixpkgs";
     cosmos-nix.url = "github:timewave-computer/cosmos.nix";
     flake-parts.url = "github:hercules-ci/flake-parts";
+    crane.url = "github:ipetkov/crane";
   };
 }
