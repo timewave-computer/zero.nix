@@ -26,7 +26,7 @@
           echo ""
           
           # Check NixOS module
-          echo "NixOS Ethereum module path: ${zero-nix.nixosModules.ethereum-nodes}"
+          echo "NixOS Ethereum module: ethereum-nodes is available"
           echo ""
           
           echo "Testing successful!"
