@@ -26,14 +26,14 @@
           echo ""
           
           # Check NixOS module
-          echo "NixOS Ethereum module path: ${zero-nix.nixosModules.ethereum-node}"
+          echo "NixOS Ethereum module path: ${zero-nix.nixosModules.ethereum-nodes}"
           echo ""
           
           echo "Testing successful!"
         '';
       
       nixosModules.test = { config, lib, pkgs, ... }: {
-        imports = [ zero-nix.nixosModules.ethereum-node ];
+        imports = [ zero-nix.nixosModules.ethereum-nodes ];
         
         services.ethereum = {
           enable = true;
