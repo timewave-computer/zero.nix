@@ -18,22 +18,22 @@
           
           # List available Ethereum tools
           echo "Available Ethereum tools:"
-          echo "* foundry-installer: ${zero-nix.packages.${system}.ethereum-tools.foundry-installer}"
-          echo "* foundry-forge: ${zero-nix.packages.${system}.ethereum-tools.foundry-forge}"
-          echo "* foundry-anvil: ${zero-nix.packages.${system}.ethereum-tools.foundry-anvil}"
-          echo "* foundry-cast: ${zero-nix.packages.${system}.ethereum-tools.foundry-cast}"
-          echo "* foundry-chisel: ${zero-nix.packages.${system}.ethereum-tools.foundry-chisel}"
+          echo "* foundry-installer: ${zero-nix.packages.${system}.foundry-installer}"
+          echo "* foundry-forge: ${zero-nix.packages.${system}.foundry-forge}"
+          echo "* foundry-anvil: ${zero-nix.packages.${system}.foundry-anvil}"
+          echo "* foundry-cast: ${zero-nix.packages.${system}.foundry-cast}"
+          echo "* foundry-chisel: ${zero-nix.packages.${system}.foundry-chisel}"
           echo ""
           
           # Check NixOS module
-          echo "NixOS Ethereum module path: ${zero-nix.nixosModules.ethereum-nodes}"
+          echo "NixOS Ethereum module path: ${zero-nix.nixosModules.ethereum-node}"
           echo ""
           
           echo "Testing successful!"
         '';
       
       nixosModules.test = { config, lib, pkgs, ... }: {
-        imports = [ zero-nix.nixosModules.ethereum-nodes ];
+        imports = [ zero-nix.nixosModules.ethereum-node ];
         
         services.ethereum = {
           enable = true;
@@ -55,9 +55,9 @@
       # Add a devShell for interactive testing
       devShells.${system}.default = pkgs.mkShell {
         buildInputs = [
-          zero-nix.packages.${system}.ethereum-tools.foundry-forge
-          zero-nix.packages.${system}.ethereum-tools.foundry-anvil
-          zero-nix.packages.${system}.ethereum-tools.foundry-cast
+          zero-nix.packages.${system}.foundry-forge
+          zero-nix.packages.${system}.foundry-anvil
+          zero-nix.packages.${system}.foundry-cast
         ];
         
         shellHook = ''
