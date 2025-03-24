@@ -29,9 +29,9 @@
           inherit pkgs; 
           self = self'; 
         };
-      in {
-        # Main development shell
-        devShells.default = pkgs.mkShell {
+        
+        # Define main development shell
+        mainDevShell = pkgs.mkShell {
           packages = [
             self'.packages.foundry-forge
             self'.packages.foundry-anvil
@@ -49,9 +49,11 @@
             echo "  anvil --help"
           '';
         };
-
-        # Expose test shells
-        devShells = tests.devShells // { inherit (self'.devShells) default; };
+      in {
+        # Combine all devShells
+        devShells = tests.devShells // { 
+          default = mainDevShell;
+        };
         
         # Expose test packages
         packages = lib.recursiveUpdate self'.packages tests.packages;
