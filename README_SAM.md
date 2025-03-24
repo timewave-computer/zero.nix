@@ -6,7 +6,7 @@ A Nix-based factory for creating and managing heterogeneous blockchain environme
 
 Timewave Zero.nix is a toolkit that simplifies the deployment and management of heterogeneous blockchain networks. It supports both Cosmos-based chains and Ethereum nodes within the same infrastructure, leveraging the Nix ecosystem to provide reproducible, declarative configurations for various blockchains, smart contract deployments, and cross-chain communication protocols.
 
-![](zero.pmg)
+![](zero.png)
 
 ## Features
 
