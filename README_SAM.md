@@ -2,13 +2,11 @@
 
 A Nix-based factory for creating and managing heterogeneous blockchain environments.
 
-![](zero.jpg)
-
 ## Overview
 
-Timewave Zero.nix is a toolkit that simplifies the deployment and management of heterogeneous blockchain networks. It supports both Cosmos-based chains and Ethereum nodes within the same infrastructure, leveraging the Nix ecosystem to provide reproducible, declarative configurations for various blockchain types, smart contract deployment, and cross-chain communication.
+Timewave Zero.nix is a toolkit that simplifies the deployment and management of heterogeneous blockchain networks. It supports both Cosmos-based chains and Ethereum nodes within the same infrastructure, leveraging the Nix ecosystem to provide reproducible, declarative configurations for various blockchains, smart contract deployments, and cross-chain communication protocols.
 
-The project is available on GitHub at [https://github.com/timewave-computer/zero.nix](https://github.com/timewave-computer/zero.nix).
+![](zero.pmg)
 
 ## Features
 
@@ -83,7 +81,7 @@ Located in the `packages/` directory:
 }
 ```
 
-3. **Configure IBC with Hermes**:
+3. **Configure IBC with Hermes Relayer**:
 
 ```nix
 {
@@ -141,7 +139,7 @@ Located in the `packages/` directory:
 
 ## Real-World Usage Patterns
 
-Based on the Timewave infrastructure repository, Zero.nix is used to deploy and manage complex blockchain environments with multiple chains. Here are some practical usage patterns:
+Zero.nix is used to deploy and manage a complex blockchain environment in the Timewave infrastructure repository. Here are some practical usage patterns:
 
 ### 1. Deploying Multi-Chain Test Environments
 
