@@ -1,0 +1,22 @@
+# Nix build outputs
+result
+result-*
+
+# direnv
+.direnv/
+
+# Editor and IDE files
+.vscode/
+.idea/
+*.swp
+*~
+
+# macOS specific
+.DS_Store
+
+# Logs and temporary files
+*.log
+tmp/
+
+# Local development files
+.envrc.local 
