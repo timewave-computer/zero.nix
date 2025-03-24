@@ -1,58 +1,49 @@
 # Zero.nix Tests
 
-This directory contains tests for Zero.nix components.
+This directory contains tests for the Zero.nix project.
 
 ## Test Structure
 
-Each test is organized as a separate flake in its own directory.
+Tests are organized as modules within the main flake, rather than as separate flakes. This approach simplifies the structure and makes it easier to run and maintain tests.
 
-Current tests:
-- [Ethereum Integration Test](./ethereum-integration-test/) - Tests the Ethereum integration components
+Current tests include:
+- Ethereum integration test: Tests the Foundry tools and Ethereum node setup
 
 ## Running Tests
 
-You can run all tests with:
+You can run all tests at once:
 
 ```bash
-cd tests
-nix run
+nix run .#test-all
 ```
 
-Or you can run a specific test:
+Or run a specific test:
 
 ```bash
-cd tests
-nix run .#ethereum-test
-```
-
-You can also run a test directly from its directory:
-
-```bash
-cd tests/ethereum-integration-test
-nix run
+nix run .#test-ethereum
 ```
 
 ## Development Shells
 
-You can enter development shells for specific tests:
+To enter a development shell for working with specific test environments:
 
 ```bash
-cd tests
-nix develop .#ethereum-test
-```
+# Enter the Ethereum test shell
+nix develop .#test-ethereum
 
-Or directly from the test directory:
-
-```bash
-cd tests/ethereum-integration-test
-nix develop
+# Enter the test runner shell with all tests
+nix develop .#test-all
 ```
 
 ## Adding New Tests
 
 To add a new test:
 
-1. Create a new directory for your test (e.g., `my-new-test`)
-2. Add a `flake.nix` inside the directory
-3. Add the test to the inputs in the main `flake.nix`
-4. Include the test in the combined test runner 
+1. Add your test implementation to the `run-tests.nix` file in this directory
+2. Follow the pattern of existing tests:
+   - Create a test script using `pkgs.writeShellScriptBin`
+   - Add the test to the `allTests` runner
+   - Add corresponding devShell if needed
+   - Add any NixOS test modules if applicable
+
+The main flake will automatically expose your new test through its packages and devShells. 
