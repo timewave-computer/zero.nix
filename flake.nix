@@ -24,8 +24,8 @@
       
       perSystem = { self', pkgs, system, lib, ... }: 
       let 
-        # Import test functionality
-        tests = import ./tests/run-tests.nix { 
+        # Import test functionality with modular structure
+        tests = import ./tests/all-tests.nix { 
           inherit pkgs; 
           self = self'; 
         };

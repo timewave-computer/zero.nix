@@ -2,12 +2,16 @@
 
 This directory contains tests for the Zero.nix project.
 
-## Test Structure
+## File Structure
 
-Tests are organized as modules within the main flake, rather than as separate flakes. This approach simplifies the structure and makes it easier to run and maintain tests.
+The test system is organized with clear file naming to avoid confusion:
 
-Current tests include:
-- Ethereum integration test: Tests the Foundry tools and Ethereum node setup
+- `all-tests.nix` - Main coordinator that imports and combines all individual tests
+- Each test type has its own directory with a descriptive `test.nix` file
+
+Current test directories:
+- `ethereum/` - Tests for the Ethereum integration components
+  - `ethereum/test.nix` - The Ethereum test implementation
 
 ## Running Tests
 
@@ -39,11 +43,37 @@ nix develop .#test-all
 
 To add a new test:
 
-1. Add your test implementation to the `run-tests.nix` file in this directory
-2. Follow the pattern of existing tests:
-   - Create a test script using `pkgs.writeShellScriptBin`
-   - Add the test to the `allTests` runner
-   - Add corresponding devShell if needed
-   - Add any NixOS test modules if applicable
+1. Create a new directory for your test type (e.g., `tests/cosmos/`)
+2. Create a `test.nix` in your test directory following this pattern:
+   ```nix
+   { pkgs, self, ... }:
+   
+   let
+     testScript = pkgs.writeShellScriptBin "test-your-test-name" ''
+       # Your test script here
+     '';
+   
+   in {
+     package = testScript;
+     
+     runnerEntry = ''
+       echo "Running your test..."
+       ${testScript}/bin/test-your-test-name
+     '';
+     
+     devShell = pkgs.mkShell {
+       # Your test shell environment
+     };
+     
+     nixosModule = { config, lib, pkgs, ... }: {
+       # Optional NixOS test module
+     };
+   }
+   ```
+
+3. Add your test module to `tests/all-tests.nix`:
+   - Import your test module: `yourTests = import ./your-test/test.nix { inherit pkgs self; };`
+   - Add it to the `allTests` list
+   - Add it to the exports sections (packages, devShells, nixosModules)
 
 The main flake will automatically expose your new test through its packages and devShells. 
