@@ -7,5 +7,6 @@
     valence-contracts = import ./valence-contracts/default.nix {
       inherit (inputs) crane;
     };
+    ethereum-contracts = import ./ethereum-contracts;
   };
 }
