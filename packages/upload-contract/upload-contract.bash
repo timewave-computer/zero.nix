@@ -29,7 +29,7 @@ print_help() {
     echo "  -s, --source <string>         URI or Path that the contract is sourced from to be included in data file."
     echo "      \$SOURCE                     (or set SOURCE in the environment)"
     echo "  -N, --node-home <path>        Data directory to pass node command. (default: node data folder in \$HOME)"
-    echo "      \$NODE_HOME                  (or set DATA_DIR in the environment)"
+    echo "      \$NODE_HOME                  (or set NODE_HOME in the environment)"
     echo "  -k, --keyring-backend <value> Keyring backend to use. (default: test)"
     echo "      \$KEYRING_BACKEND           (or set KEYRING_BACKEND in the environment)"
     echo "  -I, --instantiate             Instantiate contract after uploading it."
@@ -50,7 +50,7 @@ COMMAND=${COMMAND:-""}
 CONTRACT_PATH=${CONTRACT_PATH:-""}
 CHAIN_ID=${CHAIN_ID:-""}
 ADMIN_ADDRESS=${ADMIN_ADDRESS:-""}
-NODE_ADDRESS=${RPC_ADDRESS:-""}
+NODE_ADDRESS=${NODE_ADDRESS:-""}
 DENOM=${DENOM:-""}
 MAX_FEES=${MAX_FEES:-""}
 
@@ -58,7 +58,7 @@ MAX_FEES=${MAX_FEES:-""}
 FROM_ADDRESS=${FROM_ADDRESS:-""}     # Defaults to final value of $ADMIN_ADDRESS
 CONTRACT_LABEL=${CONTRACT_LABEL:-""} # Defaults to basename of $CONTRACT_PATH with .wasm removed
 NODE_HOME=${NODE_HOME:-""}           # --home will not be passed to $COMMAND unless this this is set
-DATA_FILE=${DATA_DIR:-""}            # Defaults to $(basename $COMMAND)-contracts.json
+DATA_FILE=${DATA_FILE:-""}            # Defaults to $(basename $COMMAND)-contracts.json
 SOURCE=${SOURCE:-""}                 # Defaults to $CONTRACT_PATH
 
 # Optional values with static defaults
