@@ -16,9 +16,15 @@ let
   contractCargoTomls = lib.filter
     (lib.hasSuffix "Cargo.toml")
     (lib.filesystem.listFilesRecursive "${src}/${contractsDir}");
+  getCrateNameFromPath = path:
+    let
+      cargoTomlCrate = builtins.fromTOML (builtins.readFile path);
+    in
+      cargoTomlCrate.package.name or null;
+
   contractNames =
     if packages == null then
-      lib.map (lib.removeSuffix "Cargo.toml") contractCargoTomls
+      lib.filter (x: x != null) (lib.map getCrateNameFromPath contractCargoTomls)
     else
       packages;
 

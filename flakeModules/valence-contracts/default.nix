@@ -32,7 +32,7 @@ in
             Valence program contracts to create packages for
           '';
 
-          type = types.lazyAttrsOf (types.submodule contractOpts);
+          type = types.attrsOf (types.submodule contractOpts);
           default = { };
         };
         config = {
