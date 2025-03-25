@@ -1,7 +1,31 @@
-{ name, lib, config, pkgs, ... }:
+{ name, lib, config, pkgs, options, data-dir, ... }:
 let
   inherit (lib) types;
   jsonFormat = pkgs.formats.json {};
+
+  contractOpts = { name, config, ... }: {
+    options.package = lib.mkOption {
+      type = types.package;
+    };
+    options.path = lib.mkOption {
+      type = types.path;
+      default = "${config.package}/${name}.wasm";
+    };
+    options.initial-state = lib.mkOption {
+      type = jsonFormat.type;
+      apply = s: builtins.toJSON s;
+      default = {};
+    };
+    options.instantiate = lib.mkOption {
+      type = types.bool;
+      default = false;
+      apply = x: if x then "1" else "0";
+    };
+    options.source = lib.mkOption {
+      type = types.str;
+      default = config.package.src.rev or config.path;
+    };
+  };
 in
 {
   options = {
@@ -34,7 +58,7 @@ in
     };
     data-file = lib.mkOption {
       type = types.str;
-      default = "${name}-contracts.yaml";
+      default = "${data-dir}/${name}.yaml";
     };
     gas-multiplier = lib.mkOption {
       type = types.float;
@@ -49,23 +73,18 @@ in
       type = types.str;
       default = "test";
     };
+    contractDefaults = lib.mkOption {
+      type = types.submodule {
+        _module.args.name = lib.mkForce "<name>";
+        imports = [ contractOpts ];
+      };
+    };
     contracts = lib.mkOption {
-      type = types.attrsOf (types.submodule ({ config, ... }: {
-        options.path = lib.mkOption {
-          type = types.path;
-        };
-        options.initial-state = lib.mkOption {
-          type = jsonFormat.type;
-          apply = s: builtins.toJSON s;
-          default = {};
-        };
-        options.instantiate = lib.mkOption {
-          type = types.boolean;
-          default = false;
-          apply = x: if x then "1" else "0";
-        };
-      }));
+      type = types.attrsOf (types.submodule {
+        imports = [ contractOpts ]
+          ++ options.contractDefaults.definitions;
+      });
       default = {};
     };
   };
-};
+}
