@@ -248,7 +248,9 @@ query_hash() {
 }
 
 extract_fee() {
-    yq .raw_log | grep -oP 'required: [^0-9]*\K[0-9]+(\.[0-9]+)?'"$DENOM" |
+    # .*? is non-greedy allowing for anything to be before the <value>$DENOM line
+    # but we will stilll match all the numbers before $DENOM
+    yq .raw_log | grep -oP 'required: .*?\K[0-9]+(\.[0-9]+)?'"$DENOM" |
         awk -F"$DENOM" '{printf "%f", ($1*1.5)}'
 }
 
