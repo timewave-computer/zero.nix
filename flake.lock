@@ -195,6 +195,7 @@
         "nix-std": "nix-std",
         "nix2container": "nix2container",
         "nixpkgs": "nixpkgs_2",
+        "noble-src": "noble-src",
         "osmosis-src": "osmosis-src",
         "provenance-src": "provenance-src",
         "regen-src": "regen-src",
@@ -209,6 +210,7 @@
         "stargaze-src": "stargaze-src",
         "stoml-src": "stoml-src",
         "stride-src": "stride-src",
+        "terra-src": "terra-src",
         "umee-src": "umee-src",
         "wasmd-src": "wasmd-src",
         "wasmvm_1-src": "wasmvm_1-src",
@@ -231,11 +233,11 @@
         "wasmvm_2_1_4-src": "wasmvm_2_1_4-src"
       },
       "locked": {
-        "lastModified": 1742422750,
-        "narHash": "sha256-twRrUdopO1LhPXLArxam/yJD+r6JW/Lf1kL6r07Fgr8=",
+        "lastModified": 1742953442,
+        "narHash": "sha256-NH5amvolWBDYdxJaYHGdpwEICrnOA1n3CQJREUFcVQQ=",
         "owner": "timewave-computer",
         "repo": "cosmos.nix",
-        "rev": "fc320ad45284d91e558f5146b0fbd14d2aee197a",
+        "rev": "af8897e895751a4c0d28bf866b3832a404d8ff25",
         "type": "github"
       },
       "original": {
@@ -1529,6 +1531,23 @@
         "type": "github"
       }
     },
+    "noble-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1741794934,
+        "narHash": "sha256-57sCHDp/hySGWbIlqA/bJz5BJGCAL67yzRCUvFVZHvk=",
+        "owner": "noble-assets",
+        "repo": "noble",
+        "rev": "ea16e65b132b8758d69095446aa87a3edaf764e2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "noble-assets",
+        "ref": "v9.0.2",
+        "repo": "noble",
+        "type": "github"
+      }
+    },
     "osmosis-src": {
       "flake": false,
       "locked": {
@@ -1868,6 +1887,23 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "terra-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1724341730,
+        "narHash": "sha256-/a58FXB94csL1sxkH6c+Gd12VYXVOyWJvnHX+qlFAuw=",
+        "owner": "terra-money",
+        "repo": "core",
+        "rev": "ec5e2c5ef5c76280868d9b0da22f07149c81858a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "terra-money",
+        "ref": "v2.12.4",
+        "repo": "core",
         "type": "github"
       }
     },
