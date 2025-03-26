@@ -104,7 +104,7 @@ help
 parse_opts() {
     getopt -o "$SHORT_OPTS" -l "$(echo "$LONG_OPTS" | tr '\n[:space:]' ',')" -n "$0" -- "$@"
 }
-if ! parse_opts "$@"; then
+if ! parse_opts "$@" > /dev/null; then
     echo "Failed to parse options." >&2
     print_help
     exit 1
