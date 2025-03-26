@@ -94,6 +94,7 @@ in
                   text = ''
                     mkdir -p ${networkCfg.data-dir}
                     ${uploadAllChainContracts chain chainCfg}
+                    ${lib.getExe print-contracts-toml} ${networkCfg.data-dir}/${chain}.yaml
                   '';
                 };
               }) networkCfg.chains
