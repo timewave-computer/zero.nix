@@ -5,7 +5,7 @@
       zero-nix = self;
     };
     valence-contracts = import ./valence-contracts/default.nix {
-      inherit (inputs) crane;
+      inherit (inputs) crane rust-overlay;
     };
   };
 }

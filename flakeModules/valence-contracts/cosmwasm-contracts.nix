@@ -1,17 +1,24 @@
 { lib
 , crane
-, coreutils
-, findutils
-, lld
+, rust-overlay
 , binaryen
 , pkgs
 , src
 , packages
 , contractsDir
 , version
+, rustVersion ? "1.81.0" # same as cosmwasm/optimizer
 }:
 let
-  craneLib = crane.mkLib pkgs;
+  rustPkgs = pkgs.appendOverlays [
+    rust-overlay.overlays.rust-overlay
+  ];
+
+  craneLib =
+    if rustVersion == null then crane.mkLib pkgs
+    else (crane.mkLib rustPkgs).overrideToolchain (p: p.rust-bin.stable.${rustVersion}.default.override {
+      targets = [ "wasm32-unknown-unknown" ];
+    });
 
   contractCargoTomls = lib.filter
     (lib.hasSuffix "Cargo.toml")

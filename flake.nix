@@ -28,5 +28,6 @@
     cosmos-nix.url = "github:timewave-computer/cosmos.nix";
     flake-parts.url = "github:hercules-ci/flake-parts";
     crane.url = "github:ipetkov/crane";
+    rust-overlay.url = "github:oxalica/rust-overlay";
   };
 }
