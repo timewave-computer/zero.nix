@@ -20,6 +20,7 @@
         ./flakeModules/default.nix
         ./nixosModules/default.nix
         ./packages/default.nix
+        ./tools/default.nix
       ];
     };
 

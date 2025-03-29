@@ -21,6 +21,7 @@ let
 
     strictDeps = true;
     doCheck = false;
+    dontStrip = true;
 
     LIBCLANG_PATH = lib.makeLibraryPath [ libclang ];
 
