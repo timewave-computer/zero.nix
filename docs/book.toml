@@ -1,0 +1,11 @@
+[book]
+authors = ["Timewave"]
+language = "en"
+multilingual = false
+src = "."
+title = "Zero.nix Docs"
+
+[output.html]
+git-repository-url = "https://github.com/timewave-computer/zero.nix"
+edit-url-template = "https://github.com/timewave-computer/zero.nix/edit/main/manual/{path}"
+

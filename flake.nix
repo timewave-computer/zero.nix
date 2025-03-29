@@ -21,6 +21,7 @@
         ./nixosModules/default.nix
         ./packages/default.nix
         ./tools/default.nix
+        ./docs/default.nix
       ];
     };
 
@@ -30,6 +31,10 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     crane.url = "github:ipetkov/crane";
     rust-overlay.url = "github:oxalica/rust-overlay";
+    flake-parts-website.url = "github:hercules-ci/flake.parts-website";
+    # This is a flake but we just need the render module
+    # Theres a lot of inputs so it would pollute the lock file if its added as a flake
+    flake-parts-website.flake = false;
     valence-contracts-v0_1_1.url = "github:timewave-computer/valence-protocol/v0.1.1";
     valence-contracts-v0_1_1.flake = false;
     valence-contracts-v0_1_2.url = "github:timewave-computer/valence-protocol/v0.1.2";
