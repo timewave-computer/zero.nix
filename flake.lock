@@ -413,6 +413,22 @@
         "type": "github"
       }
     },
+    "flake-parts-website": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1744793376,
+        "narHash": "sha256-ZMib3zNNCox3B2jDiXQceS3ERo2bdGd7Wa90KJKC6FU=",
+        "owner": "hercules-ci",
+        "repo": "flake.parts-website",
+        "rev": "4f3a74c0005e66183593fa719f5fafbe61fe5c59",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "flake.parts-website",
+        "type": "github"
+      }
+    },
     "flake-parts_2": {
       "inputs": {
         "nixpkgs-lib": "nixpkgs-lib_2"
@@ -1682,6 +1698,7 @@
         "cosmos-nix": "cosmos-nix",
         "crane": "crane",
         "flake-parts": "flake-parts_2",
+        "flake-parts-website": "flake-parts-website",
         "nixpkgs": "nixpkgs_5",
         "rust-overlay": "rust-overlay_2",
         "valence-contracts-main": "valence-contracts-main",
