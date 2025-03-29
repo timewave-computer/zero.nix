@@ -1,4 +1,4 @@
-{ zero-nix }:
+{ zero-nix, cosmos-nix }:
 
 { lib, flake-parts-lib, ... }:
 let
@@ -10,13 +10,6 @@ in
     perSystem = mkPerSystemOption (
       { config, options, pkgs, ... }:
       let
-        chainOpts = {
-          imports = [ ./chain-opts.nix ];
-          _module.args = {
-            inherit pkgs;
-          };
-        };
-
         print-contracts-toml = pkgs.writeShellApplication {
           name = "print-contracts-toml";
           runtimeInputs = with pkgs; [ yq coreutils ];
@@ -44,45 +37,27 @@ in
           export KEYRING_BACKEND="${keyring-backend}"
           ${lib.concatStringsSep "\n" (lib.mapAttrsToList uploadContract contracts)}
         '';
+
+        networkOpts = import ./network-opts.nix {
+          inherit cosmos-nix pkgs;
+        };
       in
       {
-        options.upload-contracts.networks = lib.mkOption {
-          type = types.attrsOf (types.submodule ({name, ...}@args: {
-            options.data-dir = lib.mkOption {
-              description = ''
-                where to store data about contracts
-              '';
-              default = "${args.name}-contracts";
-              type = types.str;
-            };
-            options.chains = lib.mkOption {
-              description = ''
-                Chains to upload contracts to
-              '';
-
-              type = types.attrsOf (types.submodule {
-                _module.args = { inherit (args.config) data-dir; };
-                imports = [
-                  chainOpts
-                ] ++ args.options.chainDefaults.definitions;
-              });
-
-              default = { };
-            };
-            options.chainDefaults = lib.mkOption {
-              type = types.submodule {
-                _module.args.name = lib.mkForce "<name>";
-                _module.args = { inherit (args) data-dir; };
-                imports = [ chainOpts ];
-              };
-              default = {};
-              description = ''
-                Default settings for all chains
-              '';
-            };
-          }));
+        options.upload-contracts.networkDefaults = lib.mkOption {
+          type = types.submodule {
+            _module.args.name = lib.mkForce "<name>";
+            imports = [ networkOpts ];
+          };
+          default = {};
         };
-
+        options.upload-contracts.networks = lib.mkOption {
+          type = types.attrsOf (types.submodule {
+              imports = [
+                networkOpts
+              ] ++ options.upload-contracts.networkDefaults.definitions;
+            });
+          default = {};
+        };
         config = lib.mkMerge [
           {
             apps = lib.concatMapAttrs (network: networkCfg:
