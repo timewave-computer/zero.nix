@@ -30,5 +30,11 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     crane.url = "github:ipetkov/crane";
     rust-overlay.url = "github:oxalica/rust-overlay";
+    valence-contracts-v0_1_1.url = "github:timewave-computer/valence-protocol/v0.1.1";
+    valence-contracts-v0_1_1.flake = false;
+    valence-contracts-v0_1_2.url = "github:timewave-computer/valence-protocol/v0.1.2";
+    valence-contracts-v0_1_2.flake = false;
+    valence-contracts-main.url = "github:timewave-computer/valence-protocol";
+    valence-contracts-main.flake = false;
   };
 }

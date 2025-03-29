@@ -1518,11 +1518,11 @@
     },
     "nixpkgs_5": {
       "locked": {
-        "lastModified": 1742588796,
-        "narHash": "sha256-xw5FJfUSd3E2KxR2NimVw2XRpGMmWX+BRxN9aYa4/uQ=",
+        "lastModified": 1743199800,
+        "narHash": "sha256-8JlZ3nNqGPlGJnxu+X6jEyr2FZVHbSU9iZ+hjjU2Tx4=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "f2a6bcf21227ad2d92ccd4adc6040cbd576d600d",
+        "rev": "8c4cc63cb41c4b2d780b621e2eb67b2511e6b1a8",
         "type": "github"
       },
       "original": {
@@ -1683,7 +1683,10 @@
         "crane": "crane",
         "flake-parts": "flake-parts_2",
         "nixpkgs": "nixpkgs_5",
-        "rust-overlay": "rust-overlay_2"
+        "rust-overlay": "rust-overlay_2",
+        "valence-contracts-main": "valence-contracts-main",
+        "valence-contracts-v0_1_1": "valence-contracts-v0_1_1",
+        "valence-contracts-v0_1_2": "valence-contracts-v0_1_2"
       }
     },
     "rust-overlay": {
@@ -1955,6 +1958,56 @@
         "owner": "umee-network",
         "ref": "v2.0.0",
         "repo": "umee",
+        "type": "github"
+      }
+    },
+    "valence-contracts-main": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1743118505,
+        "narHash": "sha256-EMy3NNv7naemwcEI7fN1+kAaZQLxudRaOLBTM1iP9Cc=",
+        "owner": "timewave-computer",
+        "repo": "valence-protocol",
+        "rev": "9a37fe1dc2feafb5283879915bf8597776ffb443",
+        "type": "github"
+      },
+      "original": {
+        "owner": "timewave-computer",
+        "repo": "valence-protocol",
+        "type": "github"
+      }
+    },
+    "valence-contracts-v0_1_1": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1742840178,
+        "narHash": "sha256-Zh6Fsta5k1mw3/7O0+97a/olYtR20UhVZvl8XU175+M=",
+        "owner": "timewave-computer",
+        "repo": "valence-protocol",
+        "rev": "85ecf4974c62bcb6443ac16b9dd7d178eed07841",
+        "type": "github"
+      },
+      "original": {
+        "owner": "timewave-computer",
+        "ref": "v0.1.1",
+        "repo": "valence-protocol",
+        "type": "github"
+      }
+    },
+    "valence-contracts-v0_1_2": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1743164415,
+        "narHash": "sha256-8o+enG3QNAhWcXrKsk5yrO9TltW/R3ytDa7QNnPWuDw=",
+        "owner": "timewave-computer",
+        "repo": "valence-protocol",
+        "rev": "16e604bcdeb54d9b458809487166b8e9c3371299",
+        "type": "github"
+      },
+      "original": {
+        "owner": "timewave-computer",
+        "ref": "v0.1.2",
+        "repo": "valence-protocol",
         "type": "github"
       }
     },
