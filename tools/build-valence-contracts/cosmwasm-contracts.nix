@@ -1,13 +1,13 @@
 { lib
 , crane
 , rust-overlay
-, binaryen
 , pkgs
 , src
 , packages
 , contractsDir
 , version
-, rustVersion ? "1.81.0" # same as cosmwasm/optimizer
+, rustVersion
+, binaryen
 }:
 let
   rustPkgs = pkgs.appendOverlays [
@@ -43,15 +43,8 @@ let
     inherit cargoVendorDir contractNames craneLib version src;
   };
 
-in
-craneLib.buildPackage (cargoArtifacts.commonArgs // {
-  inherit cargoArtifacts;
-  passthru = { inherit cargoArtifacts; };
-  nativeBuildInputs = cargoArtifacts.commonArgs.nativeBuildInputs ++ [
-    binaryen
-  ];
   # Based on CosmWasm optimizer optimize.sh
-  postInstall = ''
+  optimizeScript = ''
     for WASM in $out/lib/*.wasm; do
       [ -e "$WASM" ] || continue # https://superuser.com/a/519493
 
@@ -62,8 +55,38 @@ craneLib.buildPackage (cargoArtifacts.commonArgs // {
     done
 
     rm -rf $out/lib
-
-    echo "Post-processing artifacts..."
-    sha256sum -- $out/*.wasm | tee $out/checksums.txt
   '';
-})
+
+  buildContractPackage = contract:
+    craneLib.buildPackage (cargoArtifacts.commonArgs // {
+      pname = "valence-contract-${contract}";
+      inherit cargoArtifacts;
+      passthru = { inherit cargoArtifacts; };
+      nativeBuildInputs = cargoArtifacts.commonArgs.nativeBuildInputs ++ [
+        binaryen
+      ];
+      cargoExtraArgs = "-p ${contract} --lib --locked";
+      postInstall = optimizeScript;
+    });
+
+  contractPackages = lib.genAttrs contractNames buildContractPackage;
+
+  drvArgs = {
+    passthru.contracts = contractPackages;
+  };
+
+  symlinkContract = contract:
+    let
+      contractPath = "${lib.replaceStrings [ "-" ] [ "_" ] contract}.wasm";
+    in ''
+      ln -s ${contractPackages.${contract}}/${contractPath} $out/${contractPath}
+    '';
+
+in
+pkgs.runCommandLocal "valence-contracts-${version}" drvArgs ''
+  mkdir -p $out
+  ${lib.concatStringsSep "\n" (lib.map symlinkContract contractNames)}
+
+  echo "Post-processing artifacts..."
+  sha256sum -- $out/*.wasm | tee $out/checksums.txt
+''
