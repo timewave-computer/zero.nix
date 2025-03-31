@@ -72,6 +72,7 @@ let
   contractPackages = lib.genAttrs contractNames buildContractPackage;
 
   drvArgs = {
+    inherit src;
     passthru.contracts = contractPackages;
   };
 
