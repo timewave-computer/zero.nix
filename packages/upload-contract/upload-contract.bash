@@ -225,7 +225,7 @@ if [[ -z "$DATA_FILE" ]]; then
     DATA_FILE="$(basename "$COMMAND")-contracts.json"
 fi
 if [[ -z "$SOURCE" ]]; then
-    SOURCE="$CONTRACT_PATH"
+    SOURCE="$(readlink -f "$CONTRACT_PATH")" # trace back any symlinks to get original path
 fi
 
 COMMON_FLAGS=("--keyring-backend=$KEYRING_BACKEND" "--node=$NODE_ADDRESS")

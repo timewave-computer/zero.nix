@@ -24,7 +24,7 @@ let
     };
     options.source = lib.mkOption {
       type = types.str;
-      default = config.package.src.rev or config.path;
+      default = config.package.src.rev or "";
     };
   };
 in
