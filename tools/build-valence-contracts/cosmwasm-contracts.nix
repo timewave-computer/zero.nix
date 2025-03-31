@@ -44,7 +44,7 @@ let
   };
 
   # Based on CosmWasm optimizer optimize.sh
-  optimizeScript = ''
+  postInstall = ''
     for WASM in $out/lib/*.wasm; do
       [ -e "$WASM" ] || continue # https://superuser.com/a/519493
 
@@ -66,7 +66,7 @@ let
         binaryen
       ];
       cargoExtraArgs = "-p ${contract} --lib --locked";
-      postInstall = optimizeScript;
+      inherit postInstall;
     });
 
   contractPackages = lib.genAttrs contractNames buildContractPackage;
@@ -88,6 +88,7 @@ pkgs.runCommandLocal "valence-contracts-${version}" drvArgs ''
   mkdir -p $out
   ${lib.concatStringsSep "\n" (lib.map symlinkContract contractNames)}
 
+  cd $out # so that sha256sum prints paths without /nix/store/...
   echo "Post-processing artifacts..."
-  sha256sum -- $out/*.wasm | tee $out/checksums.txt
+  sha256sum -- *.wasm | tee $out/checksums.txt
 ''
