@@ -117,7 +117,7 @@ in
     };
     trusting-period = lib.mkOption {
       type = types.str;
-      default = "336h";
+      default = "224h";
     };
     transactions.gas-price = lib.mkOption {
       type = types.submodule gasPriceOpts;
