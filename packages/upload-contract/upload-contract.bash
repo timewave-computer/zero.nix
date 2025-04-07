@@ -240,7 +240,7 @@ store_contract() {
 
 instantiate_contract() {
     $COMMAND tx wasm instantiate "$CODE_ID" "$INITIAL_STATE" --yes "${COMMON_FLAGS[@]}" --output=json \
-        --admin "$ROOT_ADDRESS" --from "$ROOT_ADDRESS" --label "$CONTRACT_LABEL" --chain-id "$CHAIN_ID" "$@"
+        --admin "$ADMIN_ADDRESS" --from "$ADMIN_ADDRESS" --label "$CONTRACT_LABEL" --chain-id "$CHAIN_ID" "$@"
 }
 
 query_hash() {
@@ -252,6 +252,11 @@ extract_fee() {
     # but we will stilll match all the numbers before $DENOM
     yq .raw_log | grep -oP 'required: .*?\K[0-9]+(\.[0-9]+)?'"$DENOM" |
         awk -F"$DENOM" '{printf "%f", ($1*1.5)}'
+}
+
+query_contract() {
+    $COMMAND query wasm list-contract-by-code "$CODE_ID" --chain-id "$CHAIN_ID" \
+      --node "$NODE_ADDRESS" --output json
 }
 
 set_contract_attr() {
