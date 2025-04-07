@@ -13,6 +13,7 @@
       {self', inputs', ... }:
       import ./cosmos-node {
         inherit (inputs') cosmos-nix;
+        zero-nix = self';
       }
     );
   };

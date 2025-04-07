@@ -1,4 +1,4 @@
-{ cosmos-nix, ... }:
+{ cosmos-nix, zero-nix, ... }:
 { config, options, lib, pkgs, ... }:
 let
   inherit (lib) types;
@@ -70,123 +70,10 @@ let
       }
       (builtins.readFile ./toml-merge.py);
 
-  mkContractService = name: nodeCfg:
-    let
-      inherit (nodeCfg) command chain-id denom;
-      rpcPort = toString (getPort nodeCfg.settings.rpc.laddr);
-      commonFlags = "--keyring-backend=test --home=$HOME --node http://localhost:${rpcPort}";
-      gasMultiplier = toString nodeCfg.transactions.gas-multiplier;
-
-      uploadContract = label: contract:
-        let
-          instantiateContract = ''
-            ${command} tx wasm instantiate $CODE_ID '${contract.initialState}' --yes ${commonFlags} --output=json \
-              --admin $ROOT_ADDRESS --from $ROOT_ADDRESS --label "${label}" --chain-id ${chain-id} \
-          '';
-          storeContract = ''
-            ${command} tx wasm store ${contract.path} --from $ROOT_ADDRESS --gas-adjustment ${gasMultiplier} \
-              --gas auto --chain-id ${chain-id} ${commonFlags} --output json --yes \
-          '';
-          queryHash = "${command} query tx $TXHASH --node http://localhost:${rpcPort} --output json";
-          queryContract = ''
-            ${command} query wasm list-contract-by-code $CODE_ID --chain-id ${chain-id} \
-              --node http://localhost:${rpcPort} --output json \
-          '';
-          extractFee = ''
-            jq .raw_log | grep -oP 'required: [^0-9]*\K[0-9]+(\.[0-9]+)?${denom}' \
-            | awk -F'${denom}' '{printf "%f${denom}\n", ($1*1.5)}' \
-          '';
-        in
-        ''
-          CONTRACT_HASH=$(sha256sum ${contract.path} | awk '{print $1}')
-          CONTRACT_DIR=$HOME/contracts/${label}
-          HASH_FILE=$CONTRACT_DIR/hash
-          UPDATE_NEEDED=false
-          if [[ -d "$CONTRACT_DIR" ]]; then
-            echo "contract ${label} has already been created, checking to see if contract has changed from previous upload"
-            if [[ -f "$HASH_FILE" && "$CONTRACT_HASH" == "$(cat "$HASH_FILE")" ]]; then
-              echo "contract ${label} has remain unchanged, skipping"
-            else
-              UPDATE_NEEDED=true
-            fi
-          else
-            UPDATE_NEEDED=true
-          fi
-          if [[ "$UPDATE_NEEDED" == true ]]; then
-            echo "Starting upload of contract ${label}"
-
-            mkdir -p $CONTRACT_DIR
-
-            STORE_FEES=$(${storeContract} --fees 0.01${denom} | ${extractFee})
-            echo "Found fees for storing contract to be $STORE_FEES"
-            echo "storing contract"
-            ${storeContract} --fees $STORE_FEES > $CONTRACT_DIR/store-output.json
-
-            TXHASH=$(jq -r '.txhash' $CONTRACT_DIR/store-output.json)
-            while ! ${queryHash}; do
-              echo "waiting for tx hash $TXHASH for contract ${label} to be available"
-              sleep 1
-            done
-            ${queryHash} > $CONTRACT_DIR/block-data.json
-            CODE_ID=$(jq -r '.events[].attributes[] | select(.key == "code_id") | .value' $CONTRACT_DIR/block-data.json)
-            echo "found code id to be $CODE_ID"
-
-            INST_FEES=$(${instantiateContract} --fees 0.01${denom} | ${extractFee})
-            echo "Found fees for instantiating contract to be $INST_FEES"
-            echo "Instantiating contract"
-            ${instantiateContract} --fees $INST_FEES > $CONTRACT_DIR/instantiate-output.json
-
-            while ${queryContract} | jq -e '.contracts | length == 0'; do
-              echo "waiting for contract address to be available"
-              sleep 1
-            done
-            ${queryContract} > $CONTRACT_DIR/addresses.json
-
-            echo $CODE_ID > $CONTRACT_DIR/code-id
-
-            echo "Successfully uploaded ${label} contract with code id $CODE_ID"
-            echo "$CONTRACT_HASH" > $CONTRACT_DIR/hash # create hash file to indicate success
-
-            sleep 5 # prevent "account sequence mismatch" error
-          fi
-        '';
-    in
-    {
-      name = "cosmos-upload-contracts-${name}";
-      value = {
-        description = "uploading of contracts to ${name}";
-        wantedBy = ["multi-user.target"];
-        wants = [ "cosmos-node-${name}.service" ];
-        after = ["network.target" "cosmos-node-${name}.service"];
-        # %S/%N refers to $STATE_DIRECTORY, env vars aren't expanded in systemd config
-        environment = {
-          HOME = "%S/cosmos-node-${name}";
-          GAHOME = "%S/cosmos-node-${name}";
-        };
-        path = with pkgs; [ jq gawk ];
-        script = ''
-          mkdir -p $HOME/contracts
-          ROOT_ADDRESS=$(jq -r '.address' $HOME/keys/root.json)
-          ${lib.concatStringsSep "\n" (lib.mapAttrsToList uploadContract nodeCfg.contracts)}
-        '';
-        serviceConfig = {
-          WorkingDirectory = "%S/cosmos-node-${name}";
-          StateDirectory = "cosmos-node-${name}";
-          Type = "oneshot";
-        };
-      };
-    };
-
-  mkService = name: nodeCfg:
+  mkSetupService = name: nodeCfg:
     let
       inherit (nodeCfg) command genesisSubcommand genesisAccounts chain-id denom;
-      mkArg = name: val: ''--${name}="${val}"'';
-      args = lib.concatStringsSep " " (lib.mapAttrsToList mkArg nodeCfg.flags);
-      configFile = tomlFormat.generate "config.toml" nodeCfg.settings;
-      appConfigFile = tomlFormat.generate "app.toml" nodeCfg.appSettings;
       genesisFile = jsonFormat.generate "genesis.json" nodeCfg.genesisSettings;
-
-      rpcPort = toString (getPort nodeCfg.settings.rpc.laddr);
 
       commonFlags = "--keyring-backend=test --home=$HOME";
 
@@ -203,14 +90,112 @@ let
              ${commonFlags} --chain-id="${chain-id}"
         ''}
       '';
+    in
+      {
+        name = "cosmos-setup-${name}";
+        value = {
+          description = "setup of ${name}";
+          wantedBy = [ "multi-user.target" ];
+          environment = {
+            HOME = "%S/cosmos-node-${name}";
+            GAHOME = "%S/cosmos-node-${name}";
+          };
+          path = with pkgs; [ jq gawk zero-nix.packages.upload-contract ];
+          script = ''
+            if [ ! -f $HOME/config/genesis.json ]; then
+              mkdir -p keys
+              ${command} init ${nodeCfg.moniker} --home="$HOME" --chain-id="${chain-id}"
+              sed -i -E 's|"([a-z]*_?denom)": "[^"]+",|"\1": "${denom}",|' config/genesis.json
 
+              ${lib.concatStringsSep "\n" (lib.mapAttrsToList setupGenesisAccount genesisAccounts)}
+
+              ${if nodeCfg.isConsumer then ''
+                ${command} add-consumer-section --home $HOME
+              '' else ''
+                ${command} ${genesisSubcommand} collect-gentxs --home="$HOME"
+              ''}
+
+              mv config/config.toml config/config.default.toml
+              mv config/app.toml config/app.default.toml
+              mv config/genesis.json config/genesis.default.json
+
+              # Merge default genesis file with nixos genesis settings
+              jq -s '.[0] * .[1]' \
+                config/genesis.default.json ${genesisFile} > config/genesis.json
+            fi
+          '';
+          serviceConfig = {
+            WorkingDirectory = "%S/cosmos-node-${name}";
+            StateDirectory = "cosmos-node-${name}";
+            Type = "oneshot";
+          };
+        };
+      };
+
+
+  mkContractService = name: nodeCfg:
+    let
+      inherit (nodeCfg) command chain-id denom dataDir;
+      rpcPort = toString (getPort nodeCfg.settings.rpc.laddr);
+
+      uploadContract = label: contract: ''
+        export COMMAND=${command}
+        export CONTRACT_PATH=${contract.path}
+        export CHAIN_ID=${chain-id}
+        export ADMIN_ADDRESS="$ROOT_ADDRESS"
+        export NODE_ADDRESS="http://localhost:${rpcPort}"
+        export MAX_FEES="100000000000"
+        export DENOM=${denom}
+        export NODE_HOME="${dataDir}"
+        export DATA_FILE="${dataDir}/contracts.yaml"
+        export INSTANTIATE="1"
+        export INITIAL_STATE='${contract.initial-state}'
+        export GAS_MULTIPLIER="${toString nodeCfg.transactions.gas-multiplier}"
+        upload-contract
+      '';
+    in
+    {
+      name = "cosmos-upload-contracts-${name}";
+      value = {
+        description = "uploading of contracts to ${name}";
+        wantedBy = ["multi-user.target"];
+        wants = [ "cosmos-node-${name}.service" ];
+        after = ["network.target" "cosmos-node-${name}.service"];
+        # %S/%N refers to $STATE_DIRECTORY, env vars aren't expanded in systemd config
+        environment = {
+          HOME = "%S/cosmos-node-${name}";
+          GAHOME = "%S/cosmos-node-${name}";
+        };
+        path = with pkgs; [ jq gawk zero-nix.packages.upload-contract ];
+        script = ''
+          ROOT_ADDRESS=$(jq -r '.address' $HOME/keys/root.json)
+          ${lib.concatStringsSep "\n" (lib.mapAttrsToList uploadContract nodeCfg.contracts)}
+        '';
+        serviceConfig = {
+          WorkingDirectory = "%S/cosmos-node-${name}";
+          StateDirectory = "cosmos-node-${name}";
+          Type = "oneshot";
+        };
+      };
+    };
+
+  mkService = name: nodeCfg:
+    let
+      inherit (nodeCfg) command;
+      mkArg = name: val: ''--${name}="${val}"'';
+      args = lib.concatStringsSep " " (lib.mapAttrsToList mkArg nodeCfg.flags);
+      configFile = tomlFormat.generate "config.toml" nodeCfg.settings;
+      appConfigFile = tomlFormat.generate "app.toml" nodeCfg.appSettings;
+
+      rpcPort = toString (getPort nodeCfg.settings.rpc.laddr);
     in
     {
       name = "cosmos-node-${name}";
       value = {
         description = "${name} daemon";
         wantedBy = ["multi-user.target"];
-        after = ["network.target"];
+        after = ["network.target" "cosmos-setup-${name}.service" ];
+        requires = [ "cosmos-setup-${name}.service" ];
         # %S/%N refers to $STATE_DIRECTORY, env vars aren't expanded in systemd config
         environment = {
           HOME = "%S/%N";
@@ -218,31 +203,9 @@ let
         };
         path = with pkgs; [ jq curl netcat ];
         preStart = ''
-          if [ ! -f $HOME/config/genesis.json ]; then
-            mkdir -p keys
-            ${command} init ${nodeCfg.moniker} --home="$HOME" --chain-id="${chain-id}"
-            sed -i -E 's|"([a-z]*_?denom)": "[^"]+",|"\1": "${denom}",|' config/genesis.json
-
-            ${lib.concatStringsSep "\n" (lib.mapAttrsToList setupGenesisAccount genesisAccounts)}
-
-            ${if nodeCfg.isConsumer then ''
-              ${command} add-consumer-section --home $HOME
-            '' else ''
-              ${command} ${genesisSubcommand} collect-gentxs --home="$HOME"
-            ''}
-
-            mv config/config.toml config/config.default.toml
-            mv config/app.toml config/app.default.toml
-            mv config/genesis.json config/genesis.default.json
-
-            # Merge default genesis file with nixos genesis settings
-            jq -s '.[0] * .[1]' \
-              config/genesis.default.json ${genesisFile} > config/genesis.json
-          fi
-
           # Merge default config files with nixos settings
-          ${lib.getExe py-toml-merge} config/config.default.toml ${configFile} > config/config.toml
-          ${lib.getExe py-toml-merge} config/app.default.toml ${appConfigFile} > config/app.toml
+          ${lib.getExe toml-merge} config/config.default.toml ${configFile} > config/config.toml
+          ${lib.getExe toml-merge} config/app.default.toml ${appConfigFile} > config/app.toml
         '';
         postStart =
           let
@@ -308,6 +271,7 @@ in
     };
     systemd.services = (lib.mapAttrs' mkService cfg.nodes)
                        // (lib.mapAttrs' mkContractService cfg.nodes);
+                       // (lib.mapAttrs' mkSetupService cfg.nodes);
 
     networking.firewall.allowedTCPPorts = lib.flatten (
       lib.mapAttrsToList

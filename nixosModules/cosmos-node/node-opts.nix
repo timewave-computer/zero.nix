@@ -44,6 +44,31 @@ let
       default = config.denom;
     };
   };
+
+  contractOpts = { name, config, ... }: {
+    options.package = lib.mkOption {
+      type = types.package;
+    };
+    options.path = lib.mkOption {
+      type = types.path;
+      default = "${config.package}/${name}.wasm";
+    };
+    options.initial-state = lib.mkOption {
+      type = jsonFormat.type;
+      apply = s: builtins.toJSON s;
+      default = {};
+    };
+    options.instantiate = lib.mkOption {
+      type = types.bool;
+      default = true;
+      apply = x: if x then "1" else "0";
+    };
+    options.source = lib.mkOption {
+      type = types.str;
+      default = config.package.src.rev or "";
+    };
+  };
+
 in
 {
   config = {
@@ -157,16 +182,9 @@ in
       type = types.attrsOf (types.submodule genesisAccountOpts);
     };
     contracts = lib.mkOption {
-      type = types.attrsOf (types.submodule ({ config, ... }: {
-        options.path = lib.mkOption {
-          type = types.path;
-        };
-        options.initialState = lib.mkOption {
-          type = jsonFormat.type;
-          apply = s: builtins.toJSON s;
-          default = {};
-        };
-      }));
+      type = types.attrsOf (types.submodule {
+        imports = [ contractOpts ];
+      });
       default = {};
     };
   };
