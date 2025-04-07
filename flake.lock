@@ -233,11 +233,11 @@
         "wasmvm_2_1_4-src": "wasmvm_2_1_4-src"
       },
       "locked": {
-        "lastModified": 1742953442,
-        "narHash": "sha256-NH5amvolWBDYdxJaYHGdpwEICrnOA1n3CQJREUFcVQQ=",
+        "lastModified": 1743605400,
+        "narHash": "sha256-hYVUFBvlvYDBO+uhWp7JEkSVSkITtCDFtXDcZKMn6lQ=",
         "owner": "timewave-computer",
         "repo": "cosmos.nix",
-        "rev": "af8897e895751a4c0d28bf866b3832a404d8ff25",
+        "rev": "948898bf5bf7843a0662610e9272be1e75338ae4",
         "type": "github"
       },
       "original": {
