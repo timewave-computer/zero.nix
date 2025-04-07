@@ -52,7 +52,7 @@ in
     };
     package = lib.mkOption {
       type = types.package;
-      default = cosmos-nix.packages.${pkgs.system}.${name};
+      default = cosmos-nix.packages.${name};
     };
     command = lib.mkOption {
       type = types.path;

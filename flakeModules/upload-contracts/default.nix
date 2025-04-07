@@ -65,7 +65,7 @@ in
                 name = "${network}-${chain}-upload-contracts";
                 value.program = pkgs.writeShellApplication {
                   name = "${network}-${chain}-upload-contracts";
-                  runtimeInputs = [ zero-nix.packages.${pkgs.system}.upload-contract ];
+                  runtimeInputs = [ zero-nix.packages.upload-contract ];
                   text = ''
                     mkdir -p ${networkCfg.data-dir}
                     ${uploadAllChainContracts chain chainCfg}
@@ -76,7 +76,7 @@ in
               // {
                 "${network}-upload-contracts".program = pkgs.writeShellApplication {
                   name = "${network}-upload-contracts";
-                  runtimeInputs = [ zero-nix.packages.${pkgs.system}.upload-contract ];
+                  runtimeInputs = [ zero-nix.packages.upload-contract ];
                   text = ''
                     mkdir -p ${networkCfg.data-dir}
                     ${lib.concatStringsSep "\n" (lib.mapAttrsToList uploadAllChainContracts networkCfg.chains)}

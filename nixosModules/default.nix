@@ -1,11 +1,14 @@
 {
-  inputs',
+  moduleWithSystem,
   ...
 }: {
   flake.nixosModules = {
-    hermes = import ./hermes.nix {
-      inherit (inputs') cosmos-nix;
-    };
     cosmos-nodes = import ./cosmos-node;
+    hermes = moduleWithSystem (
+      { inputs', ... }:
+      import ./hermes.nix {
+        inherit (inputs') cosmos-nix;
+      }
+    );
   };
 }
