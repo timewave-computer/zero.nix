@@ -94,6 +94,11 @@ in
       type = types.bool;
       default = false;
     };
+    supportsContracts = lib.mkOption {
+      type = types.bool;
+      # Set default based on wether libwasmvm is a build input of the package
+      default = (lib.length (lib.filter (p: (p.pname or null) == "libwasmvm") config.package.buildInputs)) > 0;
+    };
     # consumer-link = lib.mkOption {
     #   type = types.nullOr (types.enum nodeNames);
     #   default = null;

@@ -270,7 +270,7 @@ in
       };
     };
     systemd.services = (lib.mapAttrs' mkService cfg.nodes)
-                       // (lib.mapAttrs' mkContractService cfg.nodes);
+                       // (lib.mapAttrs' mkContractService (lib.filterAttrs (n: v: v.supportsContracts) cfg.nodes))
                        // (lib.mapAttrs' mkSetupService cfg.nodes);
 
     networking.firewall.allowedTCPPorts = lib.flatten (
