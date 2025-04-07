@@ -54,7 +54,6 @@ let
 
   createDefaultChainSettings = name:
     let
-      inherit (nodeCfg) gas-price;
       nodeCfg = nodes.${name};
       getPort = addr: lib.last (lib.splitString ":" addr);
       rpcPort = getPort nodeCfg.settings.rpc.laddr;

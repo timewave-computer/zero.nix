@@ -1,4 +1,5 @@
-{ config, options, lib, pkgs, ... }@args:
+{ cosmos-nix, ... }:
+{ config, options, lib, pkgs, ... }:
 let
   inherit (lib) types;
 
@@ -8,7 +9,6 @@ let
   jsonFormat = pkgs.formats.json {};
 
   nodeNames = lib.attrNames cfg.nodes;
-  nodeServices = lib.map (n: "cosmos-node-${n}.service") nodeNames;
 
   getPort = addr: lib.toInt (lib.last (lib.splitString ":" addr));
 

@@ -105,7 +105,7 @@ in
       type = types.path;
       default = lib.getExe config.package;
     };
-    settings = lib.mkOption rec {
+    settings = lib.mkOption {
       type = types.submodule {
         freeformType = tomlFormat.type;
       };
@@ -114,7 +114,7 @@ in
         settings to override in config.toml
       '';
     };
-    appSettings = lib.mkOption rec {
+    appSettings = lib.mkOption {
       type = types.submodule {
         freeformType = tomlFormat.type;
       };
@@ -132,7 +132,7 @@ in
         settings to override in genesis.json
       '';
     };
-    flags = lib.mkOption rec {
+    flags = lib.mkOption {
       type = types.attrsOf types.str;
       default = {};
       # apply = x: default // x;
