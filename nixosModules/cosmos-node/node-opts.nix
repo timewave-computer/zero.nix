@@ -1,5 +1,5 @@
 { cosmos-nix, ... }:
-{ name, lib, pkgs, nodeNames, config, ... }:
+{ name, lib, pkgs, nodeNames, config, options, ... }:
 let
   inherit (lib) types;
 
@@ -186,9 +186,16 @@ in
       default = {};
       type = types.attrsOf (types.submodule genesisAccountOpts);
     };
+    contractDefaults = lib.mkOption {
+      type = types.submodule {
+        _module.args.name = lib.mkForce "<name>";
+        imports = [ contractOpts ];
+      };
+    };
     contracts = lib.mkOption {
       type = types.attrsOf (types.submodule {
-        imports = [ contractOpts ];
+        imports = [ contractOpts ]
+          ++ options.contractDefaults.definitions;
       });
       default = {};
     };
