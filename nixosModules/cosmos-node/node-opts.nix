@@ -1,3 +1,4 @@
+{ cosmos-nix, ... }:
 { name, lib, pkgs, nodeNames, config, ... }:
 let
   inherit (lib) types;
@@ -100,6 +101,7 @@ in
     };
     package = lib.mkOption {
       type = types.package;
+      default = cosmos-nix.packages.${name};
     };
     command = lib.mkOption {
       type = types.path;

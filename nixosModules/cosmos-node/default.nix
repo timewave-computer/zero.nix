@@ -53,7 +53,7 @@ let
 
   nodeOpts = {
     imports = [
-      ./node-opts.nix
+      (import ./node-opts.nix { inherit cosmos-nix; })
     ];
     _module.args = {
       inherit pkgs nodeNames;
