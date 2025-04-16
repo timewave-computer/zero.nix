@@ -1,0 +1,39 @@
+name: Deploy Docs
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  deploy-docs:
+    name: Deploy Docs
+
+    runs-on: ubuntu-latest
+    if: github.repository == 'timewave-computer/zero.nix'
+
+    steps:
+      - uses: actions/checkout@v4.2.2
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@b92f66560d6f97d6576405a7bae901ab57e72b6a # v15
+
+      - name: Enable Binary Cache
+        uses: cachix/cachix-action@v15
+        with:
+          name: timewave
+          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+
+      # == Docs
+      - name: Build Docs
+        run: nix build .#docs -L
+
+      - name: Deploy manual
+        if: github.event_name == 'push'
+        uses: JamesIves/github-pages-deploy-action@v4.6.9
+        with:
+          branch: gh-pages
+          folder: result
