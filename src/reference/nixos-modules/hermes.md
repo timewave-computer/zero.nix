@@ -18,7 +18,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/hermes/options\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/hermes/options.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/hermes/options\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/hermes/options.nix)
 
 
 
@@ -39,7 +39,7 @@ package
 ` cosmos-nix.packages.hermes `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/hermes/options\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/hermes/options.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/hermes/options\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/hermes/options.nix)
 
 
 
@@ -56,6 +56,6 @@ TOML value
 ` { } `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/hermes/options\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/hermes/options.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/hermes/options\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/hermes/options.nix)
 
 

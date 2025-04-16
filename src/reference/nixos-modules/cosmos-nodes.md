@@ -9,7 +9,7 @@ submodule
 ` { } `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/options\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/options.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/options\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/options.nix)
 
 
 
@@ -21,7 +21,7 @@ submodule
 package
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -42,7 +42,7 @@ TOML value
 ` { } `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -59,7 +59,7 @@ string
 ` "cosmos" `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -71,7 +71,7 @@ string
 string
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -88,7 +88,7 @@ absolute path
 ` "\${config.package}/bin/\${config.package.meta.mainProgram}" `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -105,7 +105,7 @@ attribute set of (submodule)
 ` { } `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -122,7 +122,7 @@ JSON value
 ` { } `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -134,7 +134,7 @@ JSON value
 absolute path
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -151,7 +151,7 @@ absolute path
 ` "/var/lib/cosmos-node-<name>" `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -168,7 +168,7 @@ string
 ` "stake" `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -195,7 +195,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -216,7 +216,7 @@ attribute set of string
 ` { } `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -233,7 +233,7 @@ attribute set of (submodule)
 ` { } `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -250,7 +250,7 @@ string
 ` "0" `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -267,7 +267,7 @@ string
 ` "stake" `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -289,7 +289,7 @@ string
 ```
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -306,7 +306,7 @@ string
 ` "0" `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -327,7 +327,7 @@ JSON value
 ` { } `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -349,7 +349,7 @@ string
 ` "genesis" `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -366,7 +366,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -383,7 +383,7 @@ submodule
 ` { } `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -400,7 +400,7 @@ string
 ` "stake" `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -417,7 +417,7 @@ floating point number
 ` 0.0 `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -434,7 +434,7 @@ string
 ` "\${name}" `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -455,7 +455,7 @@ TOML value
 ` { } `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -472,7 +472,7 @@ floating point number
 ` 1.5 `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -498,7 +498,7 @@ submodule
 ```
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -515,7 +515,7 @@ string
 ` "stake" `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -532,7 +532,7 @@ floating point number
 ` 0.0 `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -549,7 +549,7 @@ string
 ` "336h" `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -561,7 +561,7 @@ string
 attribute set of (submodule)
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/options\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/options.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/options\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/options.nix)
 
 
 
@@ -573,7 +573,7 @@ attribute set of (submodule)
 package
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -594,7 +594,7 @@ TOML value
 ` { } `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -611,7 +611,7 @@ string
 ` "cosmos" `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -623,7 +623,7 @@ string
 string
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -640,7 +640,7 @@ absolute path
 ` "\${config.package}/bin/\${config.package.meta.mainProgram}" `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -657,7 +657,7 @@ attribute set of (submodule)
 ` { } `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -674,7 +674,7 @@ JSON value
 ` { } `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -686,7 +686,7 @@ JSON value
 absolute path
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -703,7 +703,7 @@ absolute path
 ` "/var/lib/cosmos-node-‹name›" `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -720,7 +720,7 @@ string
 ` "stake" `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -747,7 +747,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -768,7 +768,7 @@ attribute set of string
 ` { } `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -785,7 +785,7 @@ attribute set of (submodule)
 ` { } `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -802,7 +802,7 @@ string
 ` "0" `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -819,7 +819,7 @@ string
 ` "stake" `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -841,7 +841,7 @@ string
 ```
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -858,7 +858,7 @@ string
 ` "0" `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -879,7 +879,7 @@ JSON value
 ` { } `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -901,7 +901,7 @@ string
 ` "genesis" `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -918,7 +918,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -935,7 +935,7 @@ submodule
 ` { } `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -952,7 +952,7 @@ string
 ` "stake" `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -969,7 +969,7 @@ floating point number
 ` 0.0 `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -986,7 +986,7 @@ string
 ` "\${name}" `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -1007,7 +1007,7 @@ TOML value
 ` { } `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -1024,7 +1024,7 @@ floating point number
 ` 1.5 `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -1050,7 +1050,7 @@ submodule
 ```
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -1067,7 +1067,7 @@ string
 ` "stake" `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -1084,7 +1084,7 @@ floating point number
 ` 0.0 `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
 
@@ -1101,6 +1101,6 @@ string
 ` "336h" `
 
 *Declared by:*
- - [/nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/mm7dbk5c64hyhk4sc867nqxikl0nwxsb-source/nixosModules/cosmos-node/node-opts.nix)
+ - [/nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts\.nix](file:///nix/store/0a23qamphxj884mmgnbqx2jfanf6kymg-source/nixosModules/cosmos-node/node-opts.nix)
 
 
