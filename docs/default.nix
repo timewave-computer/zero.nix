@@ -64,13 +64,15 @@
 
         pname = "zero.nix-docs";
 
-        src = ./.;
+        src = ../.; # Include files from repo so they can be linked in mdbook
 
         nativeBuildInputs = [ mdbook mdbook-linkcheck python3 ];
 
         outputs = [ "out" ];
 
         buildPhase = ''
+          cd docs
+
           mkdir -p reference/flake-modules
           mkdir -p reference/nixos-modules
 
