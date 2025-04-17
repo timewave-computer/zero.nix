@@ -1,13 +1,12 @@
-{ moduleWithSystem, ... }:
+{ self, inputs, ... }:
 {
   flake.flakeModules = {
-    upload-contracts = moduleWithSystem (
-      { self', inputs', ... }:
-      import ./upload-contracts {
-        zero-nix = self';
-        inherit (inputs') cosmos-nix;
-      }
-    );
-    upload-valence-contracts = ./upload-valence-contracts.nix;
+    upload-contracts = import ./upload-contracts {
+      zero-nix = self;
+      inherit (inputs) cosmos-nix;
+    };
+    valence-contracts = import ./valence-contracts.nix {
+      zero-nix = self;
+    };
   };
 }

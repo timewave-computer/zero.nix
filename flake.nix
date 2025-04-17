@@ -8,7 +8,7 @@
 
   description = "A nix based factory for creating chains";
 
-  outputs = inputs @ {flake-parts, ...}:
+  outputs = inputs @ {self, flake-parts, ...}:
     flake-parts.lib.mkFlake {inherit inputs;} {
       systems = [
         "aarch64-darwin"
@@ -22,6 +22,9 @@
         ./packages/default.nix
         ./tools/default.nix
         ./docs/default.nix
+        (import ./flakeModules/valence-contracts.nix {
+          zero-nix = self;
+        })
       ];
     };
 
