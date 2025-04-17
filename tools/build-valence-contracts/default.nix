@@ -2,9 +2,9 @@
 
 { src
 , version
-, contractsDir ? "contracts"
+, contracts-dir ? "contracts"
 , packages ? null
-, rustVersion ? "1.81.0" # same as cosmwasm/optimizer
+, rust-version ? "1.81.0" # same as cosmwasm/optimizer
 }:
 
 pkgs.callPackage ./cosmwasm-contracts.nix {
@@ -14,7 +14,7 @@ pkgs.callPackage ./cosmwasm-contracts.nix {
     version
     src
     packages
-    contractsDir
-    rustVersion
+    contracts-dir
+    rust-version
   ;
 }
