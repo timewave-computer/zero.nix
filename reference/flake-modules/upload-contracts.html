@@ -158,7 +158,18 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id=""><a class="header" href="#"></a></h1>
+                        <h1 id="upload-contracts"><a class="header" href="#upload-contracts">Upload Contracts</a></h1>
+<p><a href="https://github.com/timewave-computer/zero.nix/blob/main/flakeModules/upload-contracts/default.nix"><code>upload-contracts</code></a>
+is a flake-parts module that creates runnables that will upload cosmwasm contracts to networks of chains.</p>
+<h2 id="example"><a class="header" href="#example">Example</a></h2>
+<p>The following example example shows how to configure the
+upload for valence_processor and valence_base_account contracts
+to neutron and juno.</p>
+<pre><code class="language-nix">{{#include uploading-contracts.nix}}
+</code></pre>
+<p>This flake will now have multiple runnables in the <code>apps</code> output
+with scripts to upload contracts to all chains.</p>
+<h1 id=""><a class="header" href="#"></a></h1>
 <h2 id="installation"><a class="header" href="#installation">Installation</a></h2>
 <p>To use these options, add to your flake inputs:</p>
 <pre><code class="language-nix">upload-contracts.url = "github:timewave-computer/zero.nix";
@@ -170,403 +181,272 @@
 </code></pre>
 <p>Run <code>nix flake lock</code> and you're set.</p>
 <h2 id="options"><a class="header" href="#options">Options</a></h2>
-<h2 id="opt-perSystem.upload-contracts.networks._name_.chainDefaults.package"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chainDefaults.package">perSystem.upload-contracts.networks.&lt;name&gt;.chainDefaults.package</a></h2>
+<h2 id="opt-perSystem.upload-contracts.networkDefaults"><a class="header" href="#opt-perSystem.upload-contracts.networkDefaults">perSystem.upload-contracts.networkDefaults</a></h2>
+<p>Default settings to merge into all networks.
+Options are the same as the ones for each network.
+Since this is a module it can dynamically reference network specific names and configuration as seen in the example.</p>
 <p><em>Type:</em>
-package</p>
-<p><em>Declared by:</em></p>
-<ul>
-<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/upload-contracts/chain-opts.nix">upload-contracts/upload-contracts/chain-opts.nix</a></li>
-</ul>
-<h2 id="opt-perSystem.upload-contracts.networks._name_.chainDefaults.admin-address"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chainDefaults.admin-address">perSystem.upload-contracts.networks.&lt;name&gt;.chainDefaults.admin-address</a></h2>
-<p><em>Type:</em>
-string</p>
-<p><em>Default:</em>
-<code>""</code></p>
-<p><em>Declared by:</em></p>
-<ul>
-<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/upload-contracts/chain-opts.nix">upload-contracts/upload-contracts/chain-opts.nix</a></li>
-</ul>
-<h2 id="opt-perSystem.upload-contracts.networks._name_.chainDefaults.chain-id"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chainDefaults.chain-id">perSystem.upload-contracts.networks.&lt;name&gt;.chainDefaults.chain-id</a></h2>
-<p><em>Type:</em>
-string</p>
-<p><em>Default:</em>
-<code>""</code></p>
-<p><em>Declared by:</em></p>
-<ul>
-<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/upload-contracts/chain-opts.nix">upload-contracts/upload-contracts/chain-opts.nix</a></li>
-</ul>
-<h2 id="opt-perSystem.upload-contracts.networks._name_.chainDefaults.command"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chainDefaults.command">perSystem.upload-contracts.networks.&lt;name&gt;.chainDefaults.command</a></h2>
-<p><em>Type:</em>
-absolute path</p>
-<p><em>Default:</em>
-<code>"\${config.package}/bin/\${config.package.meta.mainProgram}"</code></p>
-<p><em>Declared by:</em></p>
-<ul>
-<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/upload-contracts/chain-opts.nix">upload-contracts/upload-contracts/chain-opts.nix</a></li>
-</ul>
-<h2 id="opt-perSystem.upload-contracts.networks._name_.chainDefaults.contractDefaults"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chainDefaults.contractDefaults">perSystem.upload-contracts.networks.&lt;name&gt;.chainDefaults.contractDefaults</a></h2>
-<p><em>Type:</em>
-submodule</p>
-<p><em>Declared by:</em></p>
-<ul>
-<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/upload-contracts/chain-opts.nix">upload-contracts/upload-contracts/chain-opts.nix</a></li>
-</ul>
-<h2 id="opt-perSystem.upload-contracts.networks._name_.chainDefaults.contractDefaults.package"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chainDefaults.contractDefaults.package">perSystem.upload-contracts.networks.&lt;name&gt;.chainDefaults.contractDefaults.package</a></h2>
-<p><em>Type:</em>
-package</p>
-<p><em>Declared by:</em></p>
-<ul>
-<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/upload-contracts/chain-opts.nix">upload-contracts/upload-contracts/chain-opts.nix</a></li>
-</ul>
-<h2 id="opt-perSystem.upload-contracts.networks._name_.chainDefaults.contractDefaults.initial-state"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chainDefaults.contractDefaults.initial-state">perSystem.upload-contracts.networks.&lt;name&gt;.chainDefaults.contractDefaults.initial-state</a></h2>
-<p><em>Type:</em>
-JSON value</p>
+module</p>
 <p><em>Default:</em>
 <code>{ }</code></p>
+<p><em>Example:</em></p>
+<pre><code>{ name, ... }: {
+  data-dir = "./${name}/contracts-data";
+}
+
+</code></pre>
 <p><em>Declared by:</em></p>
 <ul>
-<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/upload-contracts/chain-opts.nix">upload-contracts/upload-contracts/chain-opts.nix</a></li>
+<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/default.nix">upload-contracts/default.nix</a></li>
 </ul>
-<h2 id="opt-perSystem.upload-contracts.networks._name_.chainDefaults.contractDefaults.instantiate"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chainDefaults.contractDefaults.instantiate">perSystem.upload-contracts.networks.&lt;name&gt;.chainDefaults.contractDefaults.instantiate</a></h2>
-<p><em>Type:</em>
-boolean</p>
-<p><em>Default:</em>
-<code>false</code></p>
-<p><em>Declared by:</em></p>
-<ul>
-<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/upload-contracts/chain-opts.nix">upload-contracts/upload-contracts/chain-opts.nix</a></li>
-</ul>
-<h2 id="opt-perSystem.upload-contracts.networks._name_.chainDefaults.contractDefaults.path"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chainDefaults.contractDefaults.path">perSystem.upload-contracts.networks.&lt;name&gt;.chainDefaults.contractDefaults.path</a></h2>
-<p><em>Type:</em>
-absolute path</p>
-<p><em>Default:</em>
-<code>"\${config.package}/\${name}.wasm"</code></p>
-<p><em>Declared by:</em></p>
-<ul>
-<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/upload-contracts/chain-opts.nix">upload-contracts/upload-contracts/chain-opts.nix</a></li>
-</ul>
-<h2 id="opt-perSystem.upload-contracts.networks._name_.chainDefaults.contractDefaults.source"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chainDefaults.contractDefaults.source">perSystem.upload-contracts.networks.&lt;name&gt;.chainDefaults.contractDefaults.source</a></h2>
-<p><em>Type:</em>
-string</p>
-<p><em>Default:</em>
-<code>"config.package.src.rev if it exists, otherwise config.path"</code></p>
-<p><em>Declared by:</em></p>
-<ul>
-<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/upload-contracts/chain-opts.nix">upload-contracts/upload-contracts/chain-opts.nix</a></li>
-</ul>
-<h2 id="opt-perSystem.upload-contracts.networks._name_.chainDefaults.contracts"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chainDefaults.contracts">perSystem.upload-contracts.networks.&lt;name&gt;.chainDefaults.contracts</a></h2>
+<h2 id="opt-perSystem.upload-contracts.networks"><a class="header" href="#opt-perSystem.upload-contracts.networks">perSystem.upload-contracts.networks</a></h2>
+<p>Networks to upload contracts to.</p>
 <p><em>Type:</em>
 attribute set of (submodule)</p>
 <p><em>Default:</em>
 <code>{ }</code></p>
 <p><em>Declared by:</em></p>
 <ul>
-<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/upload-contracts/chain-opts.nix">upload-contracts/upload-contracts/chain-opts.nix</a></li>
+<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/default.nix">upload-contracts/default.nix</a></li>
 </ul>
-<h2 id="opt-perSystem.upload-contracts.networks._name_.chainDefaults.contracts._name_.package"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chainDefaults.contracts._name_.package">perSystem.upload-contracts.networks.&lt;name&gt;.chainDefaults.contracts.&lt;name&gt;.package</a></h2>
+<h2 id="opt-perSystem.upload-contracts.networks._name_.chainDefaults"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chainDefaults">perSystem.upload-contracts.networks.&lt;name&gt;.chainDefaults</a></h2>
+<p>Default settings for all chains.</p>
 <p><em>Type:</em>
-package</p>
-<p><em>Declared by:</em></p>
-<ul>
-<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/upload-contracts/chain-opts.nix">upload-contracts/upload-contracts/chain-opts.nix</a></li>
-</ul>
-<h2 id="opt-perSystem.upload-contracts.networks._name_.chainDefaults.contracts._name_.initial-state"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chainDefaults.contracts._name_.initial-state">perSystem.upload-contracts.networks.&lt;name&gt;.chainDefaults.contracts.&lt;name&gt;.initial-state</a></h2>
-<p><em>Type:</em>
-JSON value</p>
+module</p>
 <p><em>Default:</em>
 <code>{ }</code></p>
 <p><em>Declared by:</em></p>
 <ul>
-<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/upload-contracts/chain-opts.nix">upload-contracts/upload-contracts/chain-opts.nix</a></li>
+<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/default.nix">upload-contracts/default.nix</a></li>
 </ul>
-<h2 id="opt-perSystem.upload-contracts.networks._name_.chainDefaults.contracts._name_.instantiate"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chainDefaults.contracts._name_.instantiate">perSystem.upload-contracts.networks.&lt;name&gt;.chainDefaults.contracts.&lt;name&gt;.instantiate</a></h2>
+<h2 id="opt-perSystem.upload-contracts.networks._name_.chains"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chains">perSystem.upload-contracts.networks.&lt;name&gt;.chains</a></h2>
+<p>Chains to upload contracts to.</p>
 <p><em>Type:</em>
-boolean</p>
+attribute set of (submodule)</p>
 <p><em>Default:</em>
-<code>false</code></p>
+<code>{ }</code></p>
 <p><em>Declared by:</em></p>
 <ul>
-<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/upload-contracts/chain-opts.nix">upload-contracts/upload-contracts/chain-opts.nix</a></li>
-</ul>
-<h2 id="opt-perSystem.upload-contracts.networks._name_.chainDefaults.contracts._name_.path"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chainDefaults.contracts._name_.path">perSystem.upload-contracts.networks.&lt;name&gt;.chainDefaults.contracts.&lt;name&gt;.path</a></h2>
-<p><em>Type:</em>
-absolute path</p>
-<p><em>Default:</em>
-<code>"\${config.package}/\${name}.wasm"</code></p>
-<p><em>Declared by:</em></p>
-<ul>
-<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/upload-contracts/chain-opts.nix">upload-contracts/upload-contracts/chain-opts.nix</a></li>
-</ul>
-<h2 id="opt-perSystem.upload-contracts.networks._name_.chainDefaults.contracts._name_.source"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chainDefaults.contracts._name_.source">perSystem.upload-contracts.networks.&lt;name&gt;.chainDefaults.contracts.&lt;name&gt;.source</a></h2>
-<p><em>Type:</em>
-string</p>
-<p><em>Default:</em>
-<code>"config.package.src.rev if it exists, otherwise config.path"</code></p>
-<p><em>Declared by:</em></p>
-<ul>
-<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/upload-contracts/chain-opts.nix">upload-contracts/upload-contracts/chain-opts.nix</a></li>
-</ul>
-<h2 id="opt-perSystem.upload-contracts.networks._name_.chainDefaults.data-file"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chainDefaults.data-file">perSystem.upload-contracts.networks.&lt;name&gt;.chainDefaults.data-file</a></h2>
-<p><em>Type:</em>
-string</p>
-<p><em>Default:</em>
-<code>"‹name›-contracts/‹name›.yaml"</code></p>
-<p><em>Declared by:</em></p>
-<ul>
-<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/upload-contracts/chain-opts.nix">upload-contracts/upload-contracts/chain-opts.nix</a></li>
-</ul>
-<h2 id="opt-perSystem.upload-contracts.networks._name_.chainDefaults.denom"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chainDefaults.denom">perSystem.upload-contracts.networks.&lt;name&gt;.chainDefaults.denom</a></h2>
-<p><em>Type:</em>
-string</p>
-<p><em>Default:</em>
-<code>""</code></p>
-<p><em>Declared by:</em></p>
-<ul>
-<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/upload-contracts/chain-opts.nix">upload-contracts/upload-contracts/chain-opts.nix</a></li>
-</ul>
-<h2 id="opt-perSystem.upload-contracts.networks._name_.chainDefaults.from-address"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chainDefaults.from-address">perSystem.upload-contracts.networks.&lt;name&gt;.chainDefaults.from-address</a></h2>
-<p><em>Type:</em>
-string</p>
-<p><em>Default:</em>
-<code>""</code></p>
-<p><em>Declared by:</em></p>
-<ul>
-<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/upload-contracts/chain-opts.nix">upload-contracts/upload-contracts/chain-opts.nix</a></li>
-</ul>
-<h2 id="opt-perSystem.upload-contracts.networks._name_.chainDefaults.gas-multiplier"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chainDefaults.gas-multiplier">perSystem.upload-contracts.networks.&lt;name&gt;.chainDefaults.gas-multiplier</a></h2>
-<p><em>Type:</em>
-floating point number</p>
-<p><em>Default:</em>
-<code>1.5</code></p>
-<p><em>Declared by:</em></p>
-<ul>
-<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/upload-contracts/chain-opts.nix">upload-contracts/upload-contracts/chain-opts.nix</a></li>
-</ul>
-<h2 id="opt-perSystem.upload-contracts.networks._name_.chainDefaults.keyring-backend"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chainDefaults.keyring-backend">perSystem.upload-contracts.networks.&lt;name&gt;.chainDefaults.keyring-backend</a></h2>
-<p><em>Type:</em>
-string</p>
-<p><em>Default:</em>
-<code>"test"</code></p>
-<p><em>Declared by:</em></p>
-<ul>
-<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/upload-contracts/chain-opts.nix">upload-contracts/upload-contracts/chain-opts.nix</a></li>
-</ul>
-<h2 id="opt-perSystem.upload-contracts.networks._name_.chainDefaults.max-fees"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chainDefaults.max-fees">perSystem.upload-contracts.networks.&lt;name&gt;.chainDefaults.max-fees</a></h2>
-<p><em>Type:</em>
-string</p>
-<p><em>Default:</em>
-<code>""</code></p>
-<p><em>Declared by:</em></p>
-<ul>
-<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/upload-contracts/chain-opts.nix">upload-contracts/upload-contracts/chain-opts.nix</a></li>
-</ul>
-<h2 id="opt-perSystem.upload-contracts.networks._name_.chainDefaults.node-address"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chainDefaults.node-address">perSystem.upload-contracts.networks.&lt;name&gt;.chainDefaults.node-address</a></h2>
-<p><em>Type:</em>
-string</p>
-<p><em>Default:</em>
-<code>""</code></p>
-<p><em>Declared by:</em></p>
-<ul>
-<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/upload-contracts/chain-opts.nix">upload-contracts/upload-contracts/chain-opts.nix</a></li>
+<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/default.nix">upload-contracts/default.nix</a></li>
 </ul>
 <h2 id="opt-perSystem.upload-contracts.networks._name_.chains._name_.package"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chains._name_.package">perSystem.upload-contracts.networks.&lt;name&gt;.chains.&lt;name&gt;.package</a></h2>
+<p>Package with node command for chain.</p>
 <p><em>Type:</em>
 package</p>
+<p><em>Default:</em></p>
+<pre><code>cosmos-nix.packages.${name}
+
+</code></pre>
 <p><em>Declared by:</em></p>
 <ul>
-<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/upload-contracts/chain-opts.nix">upload-contracts/upload-contracts/chain-opts.nix</a></li>
+<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/default.nix">upload-contracts/default.nix</a></li>
 </ul>
 <h2 id="opt-perSystem.upload-contracts.networks._name_.chains._name_.admin-address"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chains._name_.admin-address">perSystem.upload-contracts.networks.&lt;name&gt;.chains.&lt;name&gt;.admin-address</a></h2>
+<p>Admin address to use for contracts;</p>
 <p><em>Type:</em>
 string</p>
 <p><em>Default:</em>
 <code>""</code></p>
 <p><em>Declared by:</em></p>
 <ul>
-<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/upload-contracts/chain-opts.nix">upload-contracts/upload-contracts/chain-opts.nix</a></li>
+<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/default.nix">upload-contracts/default.nix</a></li>
 </ul>
 <h2 id="opt-perSystem.upload-contracts.networks._name_.chains._name_.chain-id"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chains._name_.chain-id">perSystem.upload-contracts.networks.&lt;name&gt;.chains.&lt;name&gt;.chain-id</a></h2>
+<p>Unique chain ID.</p>
 <p><em>Type:</em>
 string</p>
 <p><em>Default:</em>
 <code>""</code></p>
 <p><em>Declared by:</em></p>
 <ul>
-<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/upload-contracts/chain-opts.nix">upload-contracts/upload-contracts/chain-opts.nix</a></li>
+<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/default.nix">upload-contracts/default.nix</a></li>
 </ul>
 <h2 id="opt-perSystem.upload-contracts.networks._name_.chains._name_.command"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chains._name_.command">perSystem.upload-contracts.networks.&lt;name&gt;.chains.&lt;name&gt;.command</a></h2>
+<p>Chain command to use for all operations.</p>
 <p><em>Type:</em>
 absolute path</p>
-<p><em>Default:</em>
-<code>"\${config.package}/bin/\${config.package.meta.mainProgram}"</code></p>
+<p><em>Default:</em></p>
+<pre><code>"${package}/bin/${package.meta.mainProgram}"
+
+</code></pre>
 <p><em>Declared by:</em></p>
 <ul>
-<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/upload-contracts/chain-opts.nix">upload-contracts/upload-contracts/chain-opts.nix</a></li>
+<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/default.nix">upload-contracts/default.nix</a></li>
 </ul>
 <h2 id="opt-perSystem.upload-contracts.networks._name_.chains._name_.contractDefaults"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chains._name_.contractDefaults">perSystem.upload-contracts.networks.&lt;name&gt;.chains.&lt;name&gt;.contractDefaults</a></h2>
+<p>Default settings to merge into all contracts</p>
 <p><em>Type:</em>
-submodule</p>
-<p><em>Declared by:</em></p>
-<ul>
-<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/upload-contracts/chain-opts.nix">upload-contracts/upload-contracts/chain-opts.nix</a></li>
-</ul>
-<h2 id="opt-perSystem.upload-contracts.networks._name_.chains._name_.contractDefaults.package"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chains._name_.contractDefaults.package">perSystem.upload-contracts.networks.&lt;name&gt;.chains.&lt;name&gt;.contractDefaults.package</a></h2>
-<p><em>Type:</em>
-package</p>
-<p><em>Declared by:</em></p>
-<ul>
-<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/upload-contracts/chain-opts.nix">upload-contracts/upload-contracts/chain-opts.nix</a></li>
-</ul>
-<h2 id="opt-perSystem.upload-contracts.networks._name_.chains._name_.contractDefaults.initial-state"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chains._name_.contractDefaults.initial-state">perSystem.upload-contracts.networks.&lt;name&gt;.chains.&lt;name&gt;.contractDefaults.initial-state</a></h2>
-<p><em>Type:</em>
-JSON value</p>
+module</p>
 <p><em>Default:</em>
 <code>{ }</code></p>
 <p><em>Declared by:</em></p>
 <ul>
-<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/upload-contracts/chain-opts.nix">upload-contracts/upload-contracts/chain-opts.nix</a></li>
-</ul>
-<h2 id="opt-perSystem.upload-contracts.networks._name_.chains._name_.contractDefaults.instantiate"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chains._name_.contractDefaults.instantiate">perSystem.upload-contracts.networks.&lt;name&gt;.chains.&lt;name&gt;.contractDefaults.instantiate</a></h2>
-<p><em>Type:</em>
-boolean</p>
-<p><em>Default:</em>
-<code>false</code></p>
-<p><em>Declared by:</em></p>
-<ul>
-<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/upload-contracts/chain-opts.nix">upload-contracts/upload-contracts/chain-opts.nix</a></li>
-</ul>
-<h2 id="opt-perSystem.upload-contracts.networks._name_.chains._name_.contractDefaults.path"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chains._name_.contractDefaults.path">perSystem.upload-contracts.networks.&lt;name&gt;.chains.&lt;name&gt;.contractDefaults.path</a></h2>
-<p><em>Type:</em>
-absolute path</p>
-<p><em>Default:</em>
-<code>"\${config.package}/\${name}.wasm"</code></p>
-<p><em>Declared by:</em></p>
-<ul>
-<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/upload-contracts/chain-opts.nix">upload-contracts/upload-contracts/chain-opts.nix</a></li>
-</ul>
-<h2 id="opt-perSystem.upload-contracts.networks._name_.chains._name_.contractDefaults.source"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chains._name_.contractDefaults.source">perSystem.upload-contracts.networks.&lt;name&gt;.chains.&lt;name&gt;.contractDefaults.source</a></h2>
-<p><em>Type:</em>
-string</p>
-<p><em>Default:</em>
-<code>"config.package.src.rev if it exists, otherwise config.path"</code></p>
-<p><em>Declared by:</em></p>
-<ul>
-<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/upload-contracts/chain-opts.nix">upload-contracts/upload-contracts/chain-opts.nix</a></li>
+<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/default.nix">upload-contracts/default.nix</a></li>
 </ul>
 <h2 id="opt-perSystem.upload-contracts.networks._name_.chains._name_.contracts"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chains._name_.contracts">perSystem.upload-contracts.networks.&lt;name&gt;.chains.&lt;name&gt;.contracts</a></h2>
+<p>Default settings to merge into all contracts</p>
 <p><em>Type:</em>
 attribute set of (submodule)</p>
 <p><em>Default:</em>
 <code>{ }</code></p>
 <p><em>Declared by:</em></p>
 <ul>
-<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/upload-contracts/chain-opts.nix">upload-contracts/upload-contracts/chain-opts.nix</a></li>
+<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/default.nix">upload-contracts/default.nix</a></li>
 </ul>
 <h2 id="opt-perSystem.upload-contracts.networks._name_.chains._name_.contracts._name_.package"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chains._name_.contracts._name_.package">perSystem.upload-contracts.networks.&lt;name&gt;.chains.&lt;name&gt;.contracts.&lt;name&gt;.package</a></h2>
+<p>Package where contract is stored.
+Only used to automatically set <code>path</code> and <code>source</code> options.</p>
 <p><em>Type:</em>
 package</p>
 <p><em>Declared by:</em></p>
 <ul>
-<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/upload-contracts/chain-opts.nix">upload-contracts/upload-contracts/chain-opts.nix</a></li>
+<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/default.nix">upload-contracts/default.nix</a></li>
 </ul>
 <h2 id="opt-perSystem.upload-contracts.networks._name_.chains._name_.contracts._name_.initial-state"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chains._name_.contracts._name_.initial-state">perSystem.upload-contracts.networks.&lt;name&gt;.chains.&lt;name&gt;.contracts.&lt;name&gt;.initial-state</a></h2>
+<p>Initial state to pass to contract when instantiating.
+Only used if <code>instantiat</code> is also set.</p>
 <p><em>Type:</em>
 JSON value</p>
 <p><em>Default:</em>
 <code>{ }</code></p>
 <p><em>Declared by:</em></p>
 <ul>
-<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/upload-contracts/chain-opts.nix">upload-contracts/upload-contracts/chain-opts.nix</a></li>
+<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/default.nix">upload-contracts/default.nix</a></li>
 </ul>
 <h2 id="opt-perSystem.upload-contracts.networks._name_.chains._name_.contracts._name_.instantiate"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chains._name_.contracts._name_.instantiate">perSystem.upload-contracts.networks.&lt;name&gt;.chains.&lt;name&gt;.contracts.&lt;name&gt;.instantiate</a></h2>
+<p>Whether or not to instantiate contract.</p>
 <p><em>Type:</em>
 boolean</p>
 <p><em>Default:</em>
 <code>false</code></p>
 <p><em>Declared by:</em></p>
 <ul>
-<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/upload-contracts/chain-opts.nix">upload-contracts/upload-contracts/chain-opts.nix</a></li>
+<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/default.nix">upload-contracts/default.nix</a></li>
 </ul>
 <h2 id="opt-perSystem.upload-contracts.networks._name_.chains._name_.contracts._name_.path"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chains._name_.contracts._name_.path">perSystem.upload-contracts.networks.&lt;name&gt;.chains.&lt;name&gt;.contracts.&lt;name&gt;.path</a></h2>
+<p>Location of contract.</p>
 <p><em>Type:</em>
 absolute path</p>
-<p><em>Default:</em>
-<code>"\${config.package}/\${name}.wasm"</code></p>
+<p><em>Default:</em></p>
+<pre><code>"${package}/${name}.wasm"
+
+</code></pre>
 <p><em>Declared by:</em></p>
 <ul>
-<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/upload-contracts/chain-opts.nix">upload-contracts/upload-contracts/chain-opts.nix</a></li>
+<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/default.nix">upload-contracts/default.nix</a></li>
 </ul>
 <h2 id="opt-perSystem.upload-contracts.networks._name_.chains._name_.contracts._name_.source"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chains._name_.contracts._name_.source">perSystem.upload-contracts.networks.&lt;name&gt;.chains.&lt;name&gt;.contracts.&lt;name&gt;.source</a></h2>
+<p>Text to indicate where contract is sourced from. Could be a git revision, url, or local path.</p>
 <p><em>Type:</em>
 string</p>
-<p><em>Default:</em>
-<code>"config.package.src.rev if it exists, otherwise config.path"</code></p>
+<p><em>Default:</em></p>
+<pre><code>`package.src.rev` if it exists, otherwise absolute path of contract
+
+</code></pre>
 <p><em>Declared by:</em></p>
 <ul>
-<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/upload-contracts/chain-opts.nix">upload-contracts/upload-contracts/chain-opts.nix</a></li>
+<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/default.nix">upload-contracts/default.nix</a></li>
 </ul>
 <h2 id="opt-perSystem.upload-contracts.networks._name_.chains._name_.data-file"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chains._name_.data-file">perSystem.upload-contracts.networks.&lt;name&gt;.chains.&lt;name&gt;.data-file</a></h2>
+<p>File where data about uploaded contracts will be stored.</p>
 <p><em>Type:</em>
 string</p>
-<p><em>Default:</em>
-<code>"‹name›-contracts/‹name›.yaml"</code></p>
+<p><em>Default:</em></p>
+<pre><code>"${data-dir}/${name}.yaml"
+
+</code></pre>
 <p><em>Declared by:</em></p>
 <ul>
-<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/upload-contracts/chain-opts.nix">upload-contracts/upload-contracts/chain-opts.nix</a></li>
+<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/default.nix">upload-contracts/default.nix</a></li>
 </ul>
 <h2 id="opt-perSystem.upload-contracts.networks._name_.chains._name_.denom"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chains._name_.denom">perSystem.upload-contracts.networks.&lt;name&gt;.chains.&lt;name&gt;.denom</a></h2>
+<p>Denom to use when submitting transactions on chain.</p>
 <p><em>Type:</em>
 string</p>
 <p><em>Default:</em>
 <code>""</code></p>
+<p><em>Example:</em>
+<code>"uatom"</code></p>
 <p><em>Declared by:</em></p>
 <ul>
-<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/upload-contracts/chain-opts.nix">upload-contracts/upload-contracts/chain-opts.nix</a></li>
+<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/default.nix">upload-contracts/default.nix</a></li>
 </ul>
 <h2 id="opt-perSystem.upload-contracts.networks._name_.chains._name_.from-address"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chains._name_.from-address">perSystem.upload-contracts.networks.&lt;name&gt;.chains.&lt;name&gt;.from-address</a></h2>
+<p>The account that transactions should be sent from.
+The private key for this account will need to be available in the
+keyring specified in the <code>keyring</code> option.</p>
 <p><em>Type:</em>
 string</p>
 <p><em>Default:</em>
-<code>""</code></p>
+<code>admin-address</code></p>
 <p><em>Declared by:</em></p>
 <ul>
-<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/upload-contracts/chain-opts.nix">upload-contracts/upload-contracts/chain-opts.nix</a></li>
+<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/default.nix">upload-contracts/default.nix</a></li>
 </ul>
 <h2 id="opt-perSystem.upload-contracts.networks._name_.chains._name_.gas-multiplier"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chains._name_.gas-multiplier">perSystem.upload-contracts.networks.&lt;name&gt;.chains.&lt;name&gt;.gas-multiplier</a></h2>
+<p>This number will be multiplied to the estimated gas computed for any transaction.</p>
 <p><em>Type:</em>
 floating point number</p>
 <p><em>Default:</em>
 <code>1.5</code></p>
 <p><em>Declared by:</em></p>
 <ul>
-<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/upload-contracts/chain-opts.nix">upload-contracts/upload-contracts/chain-opts.nix</a></li>
+<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/default.nix">upload-contracts/default.nix</a></li>
 </ul>
 <h2 id="opt-perSystem.upload-contracts.networks._name_.chains._name_.keyring-backend"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chains._name_.keyring-backend">perSystem.upload-contracts.networks.&lt;name&gt;.chains.&lt;name&gt;.keyring-backend</a></h2>
+<p>Keyring backend to use.</p>
 <p><em>Type:</em>
 string</p>
 <p><em>Default:</em>
 <code>"test"</code></p>
 <p><em>Declared by:</em></p>
 <ul>
-<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/upload-contracts/chain-opts.nix">upload-contracts/upload-contracts/chain-opts.nix</a></li>
+<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/default.nix">upload-contracts/default.nix</a></li>
 </ul>
 <h2 id="opt-perSystem.upload-contracts.networks._name_.chains._name_.max-fees"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chains._name_.max-fees">perSystem.upload-contracts.networks.&lt;name&gt;.chains.&lt;name&gt;.max-fees</a></h2>
+<p>Maximum fees allowed for any transaction.</p>
 <p><em>Type:</em>
 string</p>
 <p><em>Default:</em>
 <code>""</code></p>
+<p><em>Example:</em>
+<code>"1000000"</code></p>
 <p><em>Declared by:</em></p>
 <ul>
-<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/upload-contracts/chain-opts.nix">upload-contracts/upload-contracts/chain-opts.nix</a></li>
+<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/default.nix">upload-contracts/default.nix</a></li>
 </ul>
 <h2 id="opt-perSystem.upload-contracts.networks._name_.chains._name_.node-address"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chains._name_.node-address">perSystem.upload-contracts.networks.&lt;name&gt;.chains.&lt;name&gt;.node-address</a></h2>
+<p>RPC address of node to use for all chain operations.</p>
 <p><em>Type:</em>
 string</p>
 <p><em>Default:</em>
 <code>""</code></p>
 <p><em>Declared by:</em></p>
 <ul>
-<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/upload-contracts/chain-opts.nix">upload-contracts/upload-contracts/chain-opts.nix</a></li>
+<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/default.nix">upload-contracts/default.nix</a></li>
+</ul>
+<h2 id="opt-perSystem.upload-contracts.networks._name_.data-dir"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.data-dir">perSystem.upload-contracts.networks.&lt;name&gt;.data-dir</a></h2>
+<p>Folder where data about uploaded contracts should be stored.</p>
+<p><em>Type:</em>
+string</p>
+<p><em>Default:</em></p>
+<pre><code>"${name}-contracts";
+
+</code></pre>
+<p><em>Declared by:</em></p>
+<ul>
+<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/default.nix">upload-contracts/default.nix</a></li>
+</ul>
+<h2 id="opt-perSystem.upload-contracts.networks._name_.program-manager-chains-toml"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.program-manager-chains-toml">perSystem.upload-contracts.networks.&lt;name&gt;.program-manager-chains-toml</a></h2>
+<p>Chains.toml file in format used for valence program manager
+to pull default chain information from.</p>
+<p><em>Type:</em>
+null or absolute path</p>
+<p><em>Default:</em>
+<code>null</code></p>
+<p><em>Declared by:</em></p>
+<ul>
+<li><a href="https://github.com/timewave-computer/zero.nix/blob/main/default.nix">upload-contracts/default.nix</a></li>
 </ul>
 
                     </main>
@@ -577,6 +457,9 @@ string</p>
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
+                            <a rel="next prefetch" href="../../reference/flake-modules/valence-contracts.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -588,6 +471,9 @@ string</p>
                         <i class="fa fa-angle-left"></i>
                     </a>
 
+                    <a rel="next prefetch" href="../../reference/flake-modules/valence-contracts.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
             </nav>
 
         </div>

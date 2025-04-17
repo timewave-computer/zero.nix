@@ -17,20 +17,6 @@
           };
         };
 
-      getOptionsMd = module:
-        (pkgs.nixosOptionsDoc {
-          inherit (pkgs.lib.evalModules {
-            modules = [
-              module
-              suppressModuleArgsDocs
-              {
-                _module.args.pkgs = pkgs;
-              }
-            ];
-            # specialArgs = { name = "nixos"; };
-          }) options;
-        }).optionsCommonMark;
-
       nixosModuleOptionsMd =
         lib.mapAttrs (name: module:
           (pkgs.nixosOptionsDoc {
@@ -60,7 +46,7 @@
               ${name} = {
                 flake.flakeModules.${name} = module;
                 title = "";
-                sourcePath = ../flakeModules;
+                sourcePath = ../flakeModules/${name};
                 baseUrl = "https://github.com/timewave-computer/zero.nix/blob/main";
                 attributePath = [ "flakeModules" name ];
                 intro = "";
@@ -89,9 +75,9 @@
             cat ${doc}/options.md >> reference/flake-modules/${name}.md
           '') flakeModuleOptionsMd)}
 
-          ${lib.concatStringsSep "\n" (lib.mapAttrsToList (name: doc: ''
+          ${/*lib.concatStringsSep "\n" (lib.mapAttrsToList (name: doc: ''
             cat ${doc} >> reference/nixos-modules/${name}.md
-          '') nixosModuleOptionsMd)}
+          '') nixosModuleOptionsMd)*/"true"}
 
           mdbook build -d ./build
           cp -r ./build $out
