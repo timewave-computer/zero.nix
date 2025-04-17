@@ -4,9 +4,9 @@
 , pkgs
 , src
 , packages
-, contractsDir
+, contracts-dir
 , version
-, rustVersion
+, rust-version
 , binaryen
 }:
 let
@@ -15,14 +15,14 @@ let
   ];
 
   craneLib =
-    if rustVersion == null then crane.mkLib pkgs
-    else (crane.mkLib rustPkgs).overrideToolchain (p: p.rust-bin.stable.${rustVersion}.default.override {
+    if rust-version == null then crane.mkLib pkgs
+    else (crane.mkLib rustPkgs).overrideToolchain (p: p.rust-bin.stable.${rust-version}.default.override {
       targets = [ "wasm32-unknown-unknown" ];
     });
 
   contractCargoTomls = lib.filter
     (lib.hasSuffix "Cargo.toml")
-    (lib.filesystem.listFilesRecursive "${src}/${contractsDir}");
+    (lib.filesystem.listFilesRecursive "${src}/${contracts-dir}");
   getCrateNameFromPath = path:
     let
       cargoTomlCrate = builtins.fromTOML (builtins.readFile path);
