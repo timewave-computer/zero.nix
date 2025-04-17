@@ -16,39 +16,43 @@ let
 in
 {
   options.data-dir = lib.mkOption {
-    description = ''
-      where to store data about contracts
-    '';
     default = "${args.name}-contracts";
+    defaultText = lib.literalExpression ''
+      "''${name}-contracts";
+    '';
     type = types.str;
+    description = ''
+      Folder where data about uploaded contracts should be stored.
+    '';
   };
   options.program-manager-chains-toml = lib.mkOption {
     type = types.nullOr types.path;
     default = null;
+    description = ''
+      Chains.toml file in format used for valence program manager
+      to pull default chain information from.
+    '';
   };
   options.chains = lib.mkOption {
     description = ''
-      Chains to upload contracts to
+      Chains to upload contracts to.
     '';
 
     type = types.attrsOf (types.submodule {
       _module.args = { inherit (args.config) data-dir; };
       imports = [
         chainOpts
-      ] ++ args.options.chainDefaults.definitions;
+        args.config.chainDefaults
+      ];
     });
 
     default = { };
   };
   options.chainDefaults = lib.mkOption {
-    type = types.submodule {
-      _module.args.name = lib.mkForce "<name>";
-      _module.args = { inherit (args) data-dir; };
-      imports = [ chainOpts ];
-    };
+    type = types.deferredModule;
     default = {};
     description = ''
-      Default settings for all chains
+      Default settings for all chains.
     '';
   };
   config.chains =
