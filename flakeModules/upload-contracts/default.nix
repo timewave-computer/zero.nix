@@ -6,9 +6,10 @@ let
   inherit (lib) types;
 in
 {
+  _file = ./default.nix;
   options = {
     perSystem = mkPerSystemOption (
-      { config, options, pkgs, ... }:
+      { config, pkgs, system, ... }:
       let
         print-contracts-toml = pkgs.writeShellApplication {
           name = "print-contracts-toml";
@@ -44,19 +45,30 @@ in
       in
       {
         options.upload-contracts.networkDefaults = lib.mkOption {
-          type = types.submodule {
-            _module.args.name = lib.mkForce "<name>";
-            imports = [ networkOpts ];
-          };
+          type = types.deferredModule;
           default = {};
+          description = ''
+            Default settings to merge into all networks.
+            Options are the same as the ones for each network.
+            Since this is a module it can dynamically reference network specific names and configuration as seen in the example.
+          '';
+          example = lib.literalExpression ''
+            { name, ... }: {
+              data-dir = "./''${name}/contracts-data";
+            }
+          '';
         };
         options.upload-contracts.networks = lib.mkOption {
           type = types.attrsOf (types.submodule {
               imports = [
                 networkOpts
-              ] ++ options.upload-contracts.networkDefaults.definitions;
+                config.upload-contracts.networkDefaults
+              ];
             });
           default = {};
+          description = ''
+            Networks to upload contracts to.
+          '';
         };
         config = lib.mkMerge [
           {
@@ -65,7 +77,7 @@ in
                 name = "${network}-${chain}-upload-contracts";
                 value.program = pkgs.writeShellApplication {
                   name = "${network}-${chain}-upload-contracts";
-                  runtimeInputs = [ zero-nix.packages.upload-contract ];
+                  runtimeInputs = [ zero-nix.packages.${system}.upload-contract ];
                   text = ''
                     mkdir -p ${networkCfg.data-dir}
                     ${uploadAllChainContracts chain chainCfg}
@@ -76,7 +88,7 @@ in
               // {
                 "${network}-upload-contracts".program = pkgs.writeShellApplication {
                   name = "${network}-upload-contracts";
-                  runtimeInputs = [ zero-nix.packages.upload-contract ];
+                  runtimeInputs = [ zero-nix.packages.${system}.upload-contract ];
                   text = ''
                     mkdir -p ${networkCfg.data-dir}
                     ${lib.concatStringsSep "\n" (lib.mapAttrsToList uploadAllChainContracts networkCfg.chains)}
@@ -86,14 +98,14 @@ in
               }
             ) config.upload-contracts.networks;
           }
-          {
+          (lib.mkIf (config.upload-contracts.networks != {}) {
             apps.print-contracts-toml.program = pkgs.writeShellApplication {
               name = "print-contracts-toml";
               text = ''
                 ${lib.getExe print-contracts-toml} "$@"
               '';
             };
-          }
+          })
         ];
       }
     );
