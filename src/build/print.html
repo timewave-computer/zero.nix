@@ -235,14 +235,6 @@ If the input is called <code>zero-nix</code> in the flake then run:</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="upload-contracts"><a class="header" href="#upload-contracts">Upload Contracts</a></h1>
 <p><a href="https://github.com/timewave-computer/zero.nix/blob/main/flakeModules/upload-contracts/default.nix"><code>upload-contracts</code></a>
 is a flake-parts module that creates runnables that will upload cosmwasm contracts to networks of chains.</p>
-<h2 id="example-1"><a class="header" href="#example-1">Example</a></h2>
-<p>The following example example shows how to configure the
-upload for valence_processor and valence_base_account contracts
-to neutron and juno.</p>
-<pre><code class="language-nix">{{#include uploading-contracts.nix}}
-</code></pre>
-<p>This flake will now have multiple runnables in the <code>apps</code> output
-with scripts to upload contracts to all chains.</p>
 <h1 id=""><a class="header" href="#"></a></h1>
 <h2 id="installation"><a class="header" href="#installation">Installation</a></h2>
 <p>To use these options, add to your flake inputs:</p>

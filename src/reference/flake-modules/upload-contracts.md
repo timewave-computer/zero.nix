@@ -2,19 +2,6 @@
 
 [`upload-contracts`](https://github.com/timewave-computer/zero.nix/blob/main/flakeModules/upload-contracts/default.nix)
 is a flake-parts module that creates runnables that will upload cosmwasm contracts to networks of chains.
-
-## Example
-
-The following example example shows how to configure the
-upload for valence_processor and valence_base_account contracts 
-to neutron and juno.
-
-```nix
-{{#include uploading-contracts.nix}}
-```
-
-This flake will now have multiple runnables in the `apps` output
-with scripts to upload contracts to all chains.
 # 
 
 
