@@ -1,4 +1,3 @@
-{ zero-nix }:
 { lib, flake-parts-lib, ... }:
 let
   inherit (flake-parts-lib) mkPerSystemOption;
@@ -10,18 +9,28 @@ in
   imports = [
     # Can't use zero-nix.flakeModules.upload-contracts, because it causes
     # infinite recursion since this module is used by zero.nix itself
-    (import ./upload-contracts {
-      inherit zero-nix;
-      inherit (zero-nix.inputs) cosmos-nix;
-    })
+    ./upload-contracts/default.nix
   ];
 
   options.perSystem = mkPerSystemOption (
     { config, system, options, ... }:
+    let
+      cfg = config.valence-contracts;
+    in
     {
       options.valence-contracts.upload = lib.mkEnableOption ''
         Setup all valence contracts from latest stable release to be uploaded.
       '';
+      options.valence-contracts.default-inputs = {
+        zero-nix = lib.mkOption {
+          type = types.path;
+          internal = true;
+        };
+        cosmos-nix = lib.mkOption {
+          type = types.path;
+          internal = true;
+        };
+      };
       options.valence-contracts.builds = lib.mkOption {
         description = ''
           Valence contract builds to add to packages output.
@@ -75,6 +84,9 @@ in
       config = lib.mkMerge [
         (lib.mkIf config.valence-contracts.upload {
           upload-contracts.networkDefaults.chainDefaults = { config, ... }: {
+          upload-contracts.default-inputs = {
+            inherit (cfg) cosmos-nix zero-nix;
+          };
             contracts = lib.mkMerge [
               # Contract paths are inferred based on name
               # but can be manually set with the `path` option within each contract
@@ -103,7 +115,7 @@ in
         {
           packages = lib.mapAttrs' (name: buildAttrs: {
             name = "valence-contracts-${buildAttrs.version}";
-            value = zero-nix.tools.${system}.buildValenceContracts buildAttrs;
+            value = cfg.default-inputs.zero-nix.tools.${system}.buildValenceContracts buildAttrs;
           }) config.valence-contracts.builds;
         }
       ];

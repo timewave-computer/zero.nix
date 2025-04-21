@@ -1,5 +1,3 @@
-{ zero-nix, cosmos-nix }:
-
 { lib, flake-parts-lib, ... }:
 let
   inherit (flake-parts-lib) mkPerSystemOption;
@@ -11,6 +9,8 @@ in
     perSystem = mkPerSystemOption (
       { config, pkgs, system, ... }:
       let
+        cfg = config.upload-contracts;
+
         print-contracts-toml = pkgs.writeShellApplication {
           name = "print-contracts-toml";
           runtimeInputs = with pkgs; [ yq coreutils ];
@@ -40,7 +40,8 @@ in
         '';
 
         networkOpts = import ./network-opts.nix {
-          inherit cosmos-nix pkgs;
+          inherit (cfg.default-inputs) cosmos-nix;
+          inherit pkgs;
         };
       in
       {
@@ -70,6 +71,20 @@ in
             Networks to upload contracts to.
           '';
         };
+        options.upload-contracts.default-inputs = {
+          zero-nix = lib.mkOption {
+            type = types.path;
+            internal = true;
+          };
+          cosmos-nix = lib.mkOption {
+            type = types.path;
+            internal = true;
+            defaultText = "cosmos-nix input in zero.nix";
+            description = ''
+              Cosmos.nix input to use when setting default cosmos node packages.
+            '';
+          };
+        };
         config = lib.mkMerge [
           {
             apps = lib.concatMapAttrs (network: networkCfg:
@@ -77,7 +92,7 @@ in
                 name = "${network}-${chain}-upload-contracts";
                 value.program = pkgs.writeShellApplication {
                   name = "${network}-${chain}-upload-contracts";
-                  runtimeInputs = [ zero-nix.packages.${system}.upload-contract ];
+                  runtimeInputs = [ cfg.default-inputs.zero-nix.packages.${system}.upload-contract ];
                   text = ''
                     mkdir -p ${networkCfg.data-dir}
                     ${uploadAllChainContracts chain chainCfg}
@@ -88,7 +103,7 @@ in
               // {
                 "${network}-upload-contracts".program = pkgs.writeShellApplication {
                   name = "${network}-upload-contracts";
-                  runtimeInputs = [ zero-nix.packages.${system}.upload-contract ];
+                  runtimeInputs = [ cfg.default-inputs.zero-nix.packages.${system}.upload-contract ];
                   text = ''
                     mkdir -p ${networkCfg.data-dir}
                     ${lib.concatStringsSep "\n" (lib.mapAttrsToList uploadAllChainContracts networkCfg.chains)}

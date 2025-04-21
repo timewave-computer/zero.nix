@@ -22,9 +22,7 @@
         ./packages/default.nix
         ./tools/default.nix
         ./docs/default.nix
-        (import ./flakeModules/valence-contracts.nix {
-          zero-nix = self;
-        })
+        ./flakeModules/valence-contracts.nix
       ];
     };
 
