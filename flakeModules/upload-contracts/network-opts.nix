@@ -42,13 +42,13 @@ in
       _module.args = { inherit (args.config) data-dir; };
       imports = [
         chainOpts
-        args.config.chainDefaults
+        args.config.chain-defaults
       ];
     });
 
     default = { };
   };
-  options.chainDefaults = lib.mkOption {
+  options.chain-defaults = lib.mkOption {
     type = types.deferredModule;
     default = {};
     description = ''

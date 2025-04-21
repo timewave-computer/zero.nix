@@ -83,10 +83,10 @@ in
       };
       config = lib.mkMerge [
         (lib.mkIf config.valence-contracts.upload {
-          upload-contracts.networkDefaults.chainDefaults = { config, ... }: {
           upload-contracts.default-inputs = {
             inherit (cfg) cosmos-nix zero-nix;
           };
+          upload-contracts.network-defaults.chain-defaults = { config, ... }: {
             contracts = lib.mkMerge [
               # Contract paths are inferred based on name
               # but can be manually set with the `path` option within each contract
