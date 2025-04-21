@@ -341,7 +341,7 @@ is a flake-parts module that creates runnables that will upload cosmwasm contrac
 </code></pre>
 <p>Run <code>nix flake lock</code> and you're set.</p>
 <h2 id="options"><a class="header" href="#options">Options</a></h2>
-<h2 id="opt-perSystem.upload-contracts.networkDefaults"><a class="header" href="#opt-perSystem.upload-contracts.networkDefaults">perSystem.upload-contracts.networkDefaults</a></h2>
+<h2 id="opt-perSystem.upload-contracts.network-defaults"><a class="header" href="#opt-perSystem.upload-contracts.network-defaults">perSystem.upload-contracts.network-defaults</a></h2>
 <p>Default settings to merge into all networks.
 Options are the same as the ones for each network.
 Since this is a module it can dynamically reference network specific names and configuration as seen in the example.</p>
@@ -369,7 +369,7 @@ attribute set of (submodule)</p>
 <ul>
 <li><a href="https://github.com/timewave-computer/zero.nix/blob/main/default.nix">upload-contracts/default.nix</a></li>
 </ul>
-<h2 id="opt-perSystem.upload-contracts.networks._name_.chainDefaults"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chainDefaults">perSystem.upload-contracts.networks.&lt;name&gt;.chainDefaults</a></h2>
+<h2 id="opt-perSystem.upload-contracts.networks._name_.chain-defaults"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chain-defaults">perSystem.upload-contracts.networks.&lt;name&gt;.chain-defaults</a></h2>
 <p>Default settings for all chains.</p>
 <p><em>Type:</em>
 module</p>
@@ -433,8 +433,8 @@ absolute path</p>
 <ul>
 <li><a href="https://github.com/timewave-computer/zero.nix/blob/main/default.nix">upload-contracts/default.nix</a></li>
 </ul>
-<h2 id="opt-perSystem.upload-contracts.networks._name_.chains._name_.contractDefaults"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chains._name_.contractDefaults">perSystem.upload-contracts.networks.&lt;name&gt;.chains.&lt;name&gt;.contractDefaults</a></h2>
-<p>Default settings to merge into all contracts</p>
+<h2 id="opt-perSystem.upload-contracts.networks._name_.chains._name_.contract-defaults"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chains._name_.contract-defaults">perSystem.upload-contracts.networks.&lt;name&gt;.chains.&lt;name&gt;.contract-defaults</a></h2>
+<p>Default settings to merge into all contracts.</p>
 <p><em>Type:</em>
 module</p>
 <p><em>Default:</em>
@@ -444,7 +444,7 @@ module</p>
 <li><a href="https://github.com/timewave-computer/zero.nix/blob/main/default.nix">upload-contracts/default.nix</a></li>
 </ul>
 <h2 id="opt-perSystem.upload-contracts.networks._name_.chains._name_.contracts"><a class="header" href="#opt-perSystem.upload-contracts.networks._name_.chains._name_.contracts">perSystem.upload-contracts.networks.&lt;name&gt;.chains.&lt;name&gt;.contracts</a></h2>
-<p>Default settings to merge into all contracts</p>
+<p>Contracts to upload to this chain.</p>
 <p><em>Type:</em>
 attribute set of (submodule)</p>
 <p><em>Default:</em>

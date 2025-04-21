@@ -34,26 +34,29 @@
           }).optionsCommonMark
         ) self.nixosModules;
 
-      flakeModuleOptionsMd =
-        lib.mapAttrs (name: module:
-          (flake-parts-lib.mkFlake { inherit inputs; } {
-            systems = [ system ];
-            imports = [ "${inputs.flake-parts-website}/render/render-module.nix" ];
-            perSystem.render.officialFlakeInputs = inputs;
-            perSystem.render.inputs = {
-              # render-module requires core flake-parts options to exist
-              flake-parts = { title = ""; baseUrl = ""; intro = ""; getModules = _: []; };
-              ${name} = {
-                flake.flakeModules.${name} = module;
-                title = "";
-                sourcePath = ../flakeModules/${name};
-                baseUrl = "https://github.com/timewave-computer/zero.nix/blob/main";
-                attributePath = [ "flakeModules" name ];
-                intro = "";
-              };
-            };
-          }).packages.${system}."generated-docs-${name}"
-        ) self.flakeModules;
+      docsFlake = flake-parts-lib.mkFlake { inherit inputs; } {
+        systems = [ system ];
+        imports = [ "${inputs.flake-parts-website}/render/render-module.nix" ];
+        perSystem.render.officialFlakeInputs = inputs;
+        perSystem.render.inputs =
+          {
+            # render-module requires core flake-parts options to exist
+            flake-parts = { title = ""; baseUrl = ""; intro = ""; getModules = _: []; };
+          }
+          // (lib.mapAttrs (name: module: {
+            flake.flakeModules.${name} = module;
+            title = "";
+            sourcePath = ../flakeModules/${name};
+            baseUrl = "https://github.com/timewave-computer/zero.nix/blob/main";
+            attributePath = [ "flakeModules" name ];
+            intro = "";
+          }) self.flakeModules);
+      };
+
+      flakeModuleOptionsMd = lib.mapAttrs
+        (name: _: docsFlake.packages.${system}."generated-docs-${name}")
+        self.flakeModules;
+
     in {
       packages.docs = stdenv.mkDerivation {
 

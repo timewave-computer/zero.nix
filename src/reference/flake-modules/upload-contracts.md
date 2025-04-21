@@ -29,7 +29,7 @@ Run `nix flake lock` and you're set.
 
 ## Options
 
-## perSystem\.upload-contracts\.networkDefaults {#opt-perSystem.upload-contracts.networkDefaults}
+## perSystem\.upload-contracts\.network-defaults {#opt-perSystem.upload-contracts.network-defaults}
 
 Default settings to merge into all networks\.
 Options are the same as the ones for each network\.
@@ -82,7 +82,7 @@ attribute set of (submodule)
 
 
 
-## perSystem\.upload-contracts\.networks\.\<name>\.chainDefaults {#opt-perSystem.upload-contracts.networks._name_.chainDefaults}
+## perSystem\.upload-contracts\.networks\.\<name>\.chain-defaults {#opt-perSystem.upload-contracts.networks._name_.chain-defaults}
 
 
 
@@ -216,11 +216,11 @@ absolute path
 
 
 
-## perSystem\.upload-contracts\.networks\.\<name>\.chains\.\<name>\.contractDefaults {#opt-perSystem.upload-contracts.networks._name_.chains._name_.contractDefaults}
+## perSystem\.upload-contracts\.networks\.\<name>\.chains\.\<name>\.contract-defaults {#opt-perSystem.upload-contracts.networks._name_.chains._name_.contract-defaults}
 
 
 
-Default settings to merge into all contracts
+Default settings to merge into all contracts\.
 
 
 
@@ -241,7 +241,7 @@ module
 
 
 
-Default settings to merge into all contracts
+Contracts to upload to this chain\.
 
 
 
