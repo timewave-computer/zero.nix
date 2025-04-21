@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Uploading Contracts - Zero.nix Docs</title>
+        <title>Build Valence Contracts - Zero.nix Docs</title>
 
 
         <!-- Custom HTML head -->
@@ -129,7 +129,7 @@
                         <a href="https://github.com/timewave-computer/zero.nix" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
-                        <a href="https://github.com/timewave-computer/zero.nix/edit/main/manual/./tutorials/uploading-contracts.md" title="Suggest an edit" aria-label="Suggest an edit">
+                        <a href="https://github.com/timewave-computer/zero.nix/edit/main/manual/./tutorials/build-valence-contracts.md" title="Suggest an edit" aria-label="Suggest an edit">
                             <i id="git-edit-button" class="fa fa-edit"></i>
                         </a>
 
@@ -158,110 +158,17 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="uploading-contracts"><a class="header" href="#uploading-contracts">Uploading Contracts</a></h1>
-<p>Zero.nix provides the flake module
-<a href="../reference/flake-modules/valence-contracts.html"><code>upload-contracts</code></a>
-to automate the process of uploading contracts to cosmos based
-chains.</p>
-<h2 id="example"><a class="header" href="#example">Example</a></h2>
-<p>Here is an example of a flake.nix that exports scripts to upload
-valence_processor and valence_base_account contracts to neutron and juno.</p>
-<pre><code class="language-nix">{
-  nixConfig = {
-    extra-substituters = "https://timewave.cachix.org";
-    extra-trusted-public-keys = ''
-      timewave.cachix.org-1:nu3Uqsm3sikI9xFK3Mt4AD4Q6z+j6eS9+kND1vtznq4=
-    '';
-  };
-
-  description = "Uploading valence_authorization contract to neutron and juno";
-
-  outputs = inputs @ {flake-parts, ...}:
-    flake-parts.lib.mkFlake {inherit inputs;} {
-      systems = [
-        "x86_64-linux"
-      ];
-      perSystem = { lib, inputs', ... }: {
-        upload-contracts = {
-          networks.mainnet = {
-            chainDefaults = { name, ... }: {
-              contracts = {
-                valence_authorization.package = inputs'.zero-nix.packages.valence-contracts-main;
-                valence_base_account.package = inputs'.zero-nix.packages.valence-contracts-main;
-              };
-              chain-id = lib.mkDefault "${name}-1";
-              max-fees = "1000000";
-            };
-            chains = {
-              neutron = {
-                chain-id = "neutron-1";
-                node-address = "https://rpc-voidara.neutron-1.neutron.org";
-                denom = "untrn";
-              };
-              juno = {
-                chain-id = "juno-1";
-                node-address = "https://juno-rpc.polkachu.com:443";
-                denom = "ujuno";
-              };
-            };
-          };
-        };
-      };
-    };
-
-  inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs";
-    flake-parts.url = "github:hercules-ci/flake-parts";
-    zero-nix.url = "github:timewave-computer/zero.nix";
-  };
-}
-</code></pre>
-<p>To then make use of the scripts use <code>nix run</code>.
-Code IDs will be printed out in toml format.</p>
-<h3 id="uploading-contracts-for-an-individual-chain"><a class="header" href="#uploading-contracts-for-an-individual-chain">Uploading contracts for an individual chain</a></h3>
-<p>Run <code>nix run .#&lt;network&gt;-&lt;chain&gt;-upload-contracts</code>.</p>
-<p>For example, to upload neutron mainnet contracts run the following:</p>
-<pre><code class="language-bash">nix run .#mainnet-neutron-upload-contracts -- --admin-address &lt;admin-address&gt;
-</code></pre>
-<p>Code ids will be printed out at the end in toml format.</p>
-<h3 id="uploading-a-network-of-chains"><a class="header" href="#uploading-a-network-of-chains">Uploading a network of chains</a></h3>
-<p>To upload all contracts for every chain in a network use:</p>
-<pre><code class="language-bash">nix run .#mainnet-upload-contracts -- --admin-address &lt;admin-key-name&gt;
-</code></pre>
-<p>This script will create a <code>contracts.toml</code> for the whole network in <code>mainnet-contracts/contracts.toml</code>.</p>
-<p>The uploading process doesn't yet support command line arguments per chain, so when uploading a network of chains it is recommended to have addresses with the same key name for all chains and then pass the key name as the admin address.</p>
-<p>If it is necessary to specify different admin addresses per chain, then it must be set in flake.nix with the <code>admin-address</code> key. To override the mainnet neutron admin-address, for example, go to the "networks.mainnet.chains" section of flake.nix and set admin-address like so:</p>
-<pre><code class="language-nix">networks.mainnet.chains = {
-  neutron = {
-    admin-address = "neutron1...";
-</code></pre>
-<h3 id="customizing-contract-uploads"><a class="header" href="#customizing-contract-uploads">Customizing contract uploads</a></h3>
-<p>The contract uploading script can be passed various arguments similar to how the admin address was passed above. To see all the arguments of the script run:</p>
-<pre><code class="language-bash">nix run github:timewave-computer/zero.nix#upload-contract -- --help
-</code></pre>
-<p>Note: all options have to be passed after the "--" to ensure they get passed to the script instead of the nix command.</p>
-<p>Every option has an equivalent environment variable as described in the help menu. These variables can optionally be set in flake.nix for declarative configuration. Options passed in the command line will always override settings in environment variables (or set through nix).</p>
-<p>As an example, to upload neutron contracts with a different rpc, run:</p>
-<pre><code class="language-bash">nix run .#mainnet-neutron-upload-contracts --admin-address &lt;admin-address&gt; --node-address &lt;rpc url&gt;
-</code></pre>
-<h3 id="manually-print-code-ids"><a class="header" href="#manually-print-code-ids">Manually print code ids</a></h3>
-<p>A script is available to print the code ids of any collection of chains. To do so, run:</p>
-<pre><code class="language-bash">nix run .#print-contracts-toml &lt;chain yaml files&gt;
-</code></pre>
-<p>The chain yaml files are the ones living in the contracts-data folder created by the upload scripts.</p>
-<p>For example, to print the contracts.toml for contracts on just neutron and juno on mainnet, run:</p>
-<pre><code class="language-bash">nix run .#print-contracts-toml mainnet/contracts-data/neutron.yaml mainnet/contracts-data/juno.yaml 
-</code></pre>
+                        <h1 id="build-valence-contracts"><a class="header" href="#build-valence-contracts">Build Valence Contracts</a></h1>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../tutorials/building-valence-contracts.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../tutorials/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../reference/flake-modules/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../tutorials/upload-contracts.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -271,11 +178,11 @@ Code IDs will be printed out in toml format.</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../tutorials/building-valence-contracts.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../tutorials/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../reference/flake-modules/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../tutorials/upload-contracts.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
