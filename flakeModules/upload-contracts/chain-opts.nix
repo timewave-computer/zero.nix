@@ -154,7 +154,7 @@ in
         Keyring backend to use.
       '';
     };
-    contractDefaults = lib.mkOption {
+    contract-defaults = lib.mkOption {
       type = types.deferredModule;
       default = {};
       description = ''
@@ -163,7 +163,7 @@ in
     };
     contracts = lib.mkOption {
       type = types.attrsOf (types.submodule {
-        imports = [ contractOpts config.contractDefaults ];
+        imports = [ contractOpts config.contract-defaults ];
       });
       default = {};
       description = ''

@@ -45,7 +45,7 @@ in
         };
       in
       {
-        options.upload-contracts.networkDefaults = lib.mkOption {
+        options.upload-contracts.network-defaults = lib.mkOption {
           type = types.deferredModule;
           default = {};
           description = ''
@@ -63,7 +63,7 @@ in
           type = types.attrsOf (types.submodule {
               imports = [
                 networkOpts
-                config.upload-contracts.networkDefaults
+                config.upload-contracts.network-defaults
               ];
             });
           default = {};
