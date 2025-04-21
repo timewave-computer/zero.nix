@@ -1,12 +1,19 @@
 { self, inputs, ... }:
+let
+  default-inputs = {
+    zero-nix = self;
+    cosmos-nix = inputs.cosmos-nix;
+  };
+in
 {
   flake.flakeModules = {
-    upload-contracts = import ./upload-contracts {
-      zero-nix = self;
-      inherit (inputs) cosmos-nix;
+    upload-contracts = {
+      imports = [ ./upload-contracts/default.nix ];
+      perSystem.upload-contracts = { inherit default-inputs; };
     };
-    valence-contracts = import ./valence-contracts.nix {
-      zero-nix = self;
+    valence-contracts = {
+      imports = [ ./valence-contracts.nix ];
+      perSystem.valence-contracts = { inherit default-inputs; };
     };
   };
 }

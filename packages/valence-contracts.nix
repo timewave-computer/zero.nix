@@ -1,4 +1,4 @@
-{ lib, inputs, ... }:
+{ lib, self, inputs, ... }:
 let
   valence-contracts-srcs = lib.filterAttrs (name: _:
     lib.hasPrefix "valence-contracts" name
@@ -8,6 +8,10 @@ in
 
 {
   perSystem = {
+    valence-contracts.default-inputs = {
+      zero-nix = self;
+      cosmos-nix = inputs.cosmos-nix;
+    };
     valence-contracts.builds =
       lib.mapAttrs
         (name: input: {
