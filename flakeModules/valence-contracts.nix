@@ -84,7 +84,7 @@ in
       config = lib.mkMerge [
         (lib.mkIf config.valence-contracts.upload {
           upload-contracts.default-inputs = {
-            inherit (cfg) cosmos-nix zero-nix;
+            inherit (cfg.default-inputs) cosmos-nix zero-nix;
           };
           upload-contracts.network-defaults.chain-defaults = { config, ... }: {
             contracts = lib.mkMerge [
