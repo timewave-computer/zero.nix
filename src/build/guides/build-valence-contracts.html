@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Upload Contracts - Zero.nix Docs</title>
+        <title>Build Valence Contracts - Zero.nix Docs</title>
 
 
         <!-- Custom HTML head -->
@@ -129,7 +129,7 @@
                         <a href="https://github.com/timewave-computer/zero.nix" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
-                        <a href="https://github.com/timewave-computer/zero.nix/edit/main/manual/./tutorials/upload-contracts.md" title="Suggest an edit" aria-label="Suggest an edit">
+                        <a href="https://github.com/timewave-computer/zero.nix/edit/main/manual/./guides/build-valence-contracts.md" title="Suggest an edit" aria-label="Suggest an edit">
                             <i id="git-edit-button" class="fa fa-edit"></i>
                         </a>
 
@@ -158,17 +158,80 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="upload-contracts"><a class="header" href="#upload-contracts">Upload Contracts</a></h1>
+                        <h1 id="build-valence-contracts"><a class="header" href="#build-valence-contracts">Build Valence Contracts</a></h1>
+<p>Zero.nix contains a flake module <a href="../reference/flake-modules/valence-contracts.html"><code>valence-contracts</code></a>
+that exports packages for valence contracts.
+Zero.nix uses this module to export packages for all releases and the main branch of valence-protocol contracts.</p>
+<h2 id="example"><a class="header" href="#example">Example</a></h2>
+<p>Here is an example of a flake that creates a package for valence-protocol contracts from the latest main revision.</p>
+<pre><code class="language-nix">{
+  nixConfig = {
+    extra-substituters = "https://timewave.cachix.org";
+    extra-trusted-public-keys = ''
+      timewave.cachix.org-1:nu3Uqsm3sikI9xFK3Mt4AD4Q6z+j6eS9+kND1vtznq4=
+    '';
+  };
+
+  description = "Package for valence-protocol contracts.";
+
+  outputs = inputs @ {flake-parts, ...}:
+    flake-parts.lib.mkFlake {inherit inputs;} {
+      systems = [
+        "x86_64-linux"
+      ];
+      perSystem = { system, ... }: {
+        valence-contracts.builds = {
+          main = {
+            version = "main";
+            src = inputs.valence-contracts-main;
+          };
+        }
+      };
+    };
+
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs";
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    zero-nix.url = "github:timewave-computer/zero.nix";
+    valence-contracts-main.url = "github:timewave-computer/valence-protocol";
+    valence-contracts-main.flake = false;
+  };
+}
+</code></pre>
+<p>The resulting package can then be built</p>
+<h2 id="adding-versions-to-zeronix"><a class="header" href="#adding-versions-to-zeronix">Adding versions to zero.nix</a></h2>
+<p>Supposing that valence-protocol version X.Y.Z was just released,
+the package for that version's contracts would have to be added
+to this repository.</p>
+<p>First add the add the input for the tag to the flake.nix, by
+addling these two lines inside the <code>inputs</code> section.</p>
+<pre><code class="language-nix">  inputs = {
+    valence-contracts-vX_Y_Z.url = "github:timewave-computer/valence-protocol/vX.Y.Z";  
+    valence-contracts-vX_Y_Z.flake = false;
+  };
+</code></pre>
+<p>The <code>valence-contracts</code> package file will automatically export
+contract packages for all inputs starting with
+"valence-contracts", so the package can immediately be built
+once the input is added with the following command:</p>
+<pre><code class="language-bash">nix build .#valence-contracts-vX_Y_Z
+</code></pre>
+<p>This command can take up to 30 min depending on the machine its run in.</p>
+<p>To then make use of the package, be sure to update the zero.nix
+input of any flake depending on zero.nix
+If the input is called <code>zero-nix</code> in the flake then run:</p>
+<pre><code class="language-bash">nix flake update zero-nix
+</code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../tutorials/build-valence-contracts.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../guides/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../reference/flake-modules/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../guides/upload-contracts.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -178,11 +241,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../tutorials/build-valence-contracts.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../guides/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../reference/flake-modules/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../guides/upload-contracts.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
