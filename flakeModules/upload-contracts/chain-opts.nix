@@ -103,13 +103,14 @@ in
     command = lib.mkOption {
       type = types.path;
       default =
-        lib.assertMsg
+        assert (lib.assertMsg
           (config.package ? meta.mainProgram)
           ''
-            The package option has no meta.mainProgram, so the chain binary cannot be inferred.
-            Please set the command option with the exact path to the chain node.
+            The package option for chain ${name} has no meta.mainProgram,
+            so the chain binary cannot be inferred. Please set the command
+            option with the exact path to the chain node.
             For example, "''${cosmos-nix.packages.gaia}/bin/gaiad".
-          ''
+          '');
           (lib.getExe config.package)
           ;
       defaultText = lib.literalExpression ''
