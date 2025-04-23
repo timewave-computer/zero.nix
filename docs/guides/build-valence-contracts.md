@@ -12,7 +12,10 @@ Here is an example of a flake that creates a package for valence-protocol contra
 {{#include ../../templates/build-valence-contracts/flake.nix}}
 ``` 
 
-The resulting package can then be built
+The resulting package can then be built with 
+```bash
+nix build .#valence-contracts-main
+```
 
 ## Adding versions to zero.nix
 
