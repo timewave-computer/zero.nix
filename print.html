@@ -204,7 +204,9 @@ Zero.nix uses this module to export packages for all releases and the main branc
   };
 }
 </code></pre>
-<p>The resulting package can then be built</p>
+<p>The resulting package can then be built with</p>
+<pre><code class="language-bash">nix build .#valence-contracts-main
+</code></pre>
 <h2 id="adding-versions-to-zeronix"><a class="header" href="#adding-versions-to-zeronix">Adding versions to zero.nix</a></h2>
 <p>Supposing that valence-protocol version X.Y.Z was just released,
 the package for that version's contracts would have to be added
