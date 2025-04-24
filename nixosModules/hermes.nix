@@ -95,7 +95,7 @@ in
     };
   };
 
-  config = {
+  config = lib.mkIf cfg.enable {
     services.cosmos.nodeDefaults.genesisAccounts = {
       hermes = {
         amount = "1000000000000";
