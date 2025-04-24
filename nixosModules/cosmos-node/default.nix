@@ -253,6 +253,7 @@ in
           defaultNodeAddressesModule
         ] ++ options.services.cosmos.nodeDefaults.definitions;
       });
+      default = {};
     };
   };
 
