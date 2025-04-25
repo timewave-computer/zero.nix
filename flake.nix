@@ -22,6 +22,7 @@
         ./packages/default.nix
         ./tools/default.nix
         ./docs/default.nix
+        ./templates/default.nix
         ./flakeModules/valence-contracts.nix
       ];
     };
