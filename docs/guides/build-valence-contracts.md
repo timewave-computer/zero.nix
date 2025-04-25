@@ -23,8 +23,9 @@ Supposing that valence-protocol version X.Y.Z was just released,
 the package for that version's contracts would have to be added
 to this repository.
 
-First add the add the input for the tag to the flake.nix, by
-addling these two lines inside the `inputs` section.
+First add the add the input for the tag to the
+[flake.nix in zero.nix](https://github.com/timewave-computer/zero.nix/blob/main/flake.nix)
+, by adding these two lines inside the `inputs` section.
 ```nix
   inputs = {
     valence-contracts-vX_Y_Z.url = "github:timewave-computer/valence-protocol/vX.Y.Z";  
