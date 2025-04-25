@@ -34,15 +34,13 @@
 
       perSystem = {
         pkgs,
-        inputs,
+        inputs',
         ...
       }: {
-        devshells.workshop = {pkgs, ...}: {
+        devshells.default = {pkgs, ...}: {
           commands = [
-            {package = pkgs.cargo;}
-            {package = pkgs.rustc;}
-            {package = inputs'.packages.sp1-rust;}
-            {package = inputs'.packages.sp1;}
+            {package = inputs'.zero-nix.packages.sp1-rust;}
+            {package = inputs'.zero-nix.packages.sp1;}
           ];
         };
       };
