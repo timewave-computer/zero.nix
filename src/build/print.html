@@ -163,6 +163,7 @@ for building, testing, and deploying interchain programs</p>
 <ul>
 <li><a href="guides/./build-valence-contracts.html">Build Valence Contracts</a></li>
 <li><a href="guides/./upload-contracts.html">Upload Contracts</a></li>
+<li><a href="guides/./zk-development.html">ZK Development</a></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="build-valence-contracts"><a class="header" href="#build-valence-contracts">Build Valence Contracts</a></h1>
 <p>Zero.nix contains a flake module <a href="guides/../reference/flake-modules/valence-contracts.html"><code>valence-contracts</code></a>
@@ -324,6 +325,66 @@ Code IDs will be printed out in toml format.</p>
 <p>For example, to print the contracts.toml for contracts on just neutron and juno on mainnet, run:</p>
 <pre><code class="language-bash">nix run .#print-contracts-toml mainnet/contracts-data/neutron.yaml mainnet/contracts-data/juno.yaml 
 </code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="zk-development"><a class="header" href="#zk-development">ZK Development</a></h1>
+<p>Zero.nix provides the <code>sp1</code> and <code>sp1-rust</code> packages to make it
+easy to setup a nix development shell with sp1 tooling.</p>
+<p>To use them create a flake.nix with the following contents:</p>
+<pre><code class="language-nix">{
+  description = "Valence ZK development environment";
+
+  nixConfig.extra-experimental-features = "nix-command flakes";
+  nixConfig.extra-substituters = "https://timewave.cachix.org";
+  nixConfig.extra-trusted-public-keys = ''
+    colmena.cachix.org-1:7BzpDnjjH8ki2CT3f6GdOk7QAzPOl+1t3LvTLXqYcSg=
+    cosmos-nix.cachix.org-1:I9dmz4kn5+JExjPxOd9conCzQVHPl0Jo1Cdp6s+63d4=
+    nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=
+  '';
+
+
+  inputs = {
+    nixpkgs.url = "nixpkgs/nixos-24.11";
+
+    flake-parts.url = "github:hercules-ci/flake-parts";
+
+    devshell.url = "github:numtide/devshell";
+
+    zero-nix.url = "github:timewave-computer/zero.nix";
+  };
+
+  outputs = {
+    self,
+    flake-parts,
+    ...
+  } @ inputs:
+    flake-parts.lib.mkFlake {inherit inputs;} {
+      imports = [
+        inputs.devshell.flakeModule
+      ];
+
+      systems = ["x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin"];
+
+      perSystem = {
+        pkgs,
+        inputs,
+        ...
+      }: {
+        devshells.workshop = {pkgs, ...}: {
+          commands = [
+            {package = pkgs.cargo;}
+            {package = pkgs.rustc;}
+            {package = inputs'.packages.sp1-rust;}
+            {package = inputs'.packages.sp1;}
+          ];
+        };
+      };
+    };
+}
+</code></pre>
+<p>You can also run the following command to initialize the template.</p>
+<pre><code class="language-bash">nix flake init -t github:timewave-computer/zero.nix#zk-dev
+
+</code></pre>
+<p>Then run <code>nix develop</code> to enter a devshell with the packages.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="flake-modules-reference"><a class="header" href="#flake-modules-reference">Flake Modules Reference</a></h1>
 <ul>
 <li><a href="reference/flake-modules/./upload-contracts.html">Upload Contracts Options</a></li>
