@@ -1,10 +1,11 @@
-{ lib, flake-parts-lib, ... }:
-let
+{
+  lib,
+  flake-parts-lib,
+  ...
+}: let
   inherit (flake-parts-lib) mkPerSystemOption;
   inherit (lib) types;
-
-in
-{
+in {
   _file = ./valence-contracts.nix;
   imports = [
     # Can't use zero-nix.flakeModules.upload-contracts, because it causes
@@ -13,11 +14,14 @@ in
   ];
 
   options.perSystem = mkPerSystemOption (
-    { config, system, options, ... }:
-    let
-      cfg = config.valence-contracts;
-    in
     {
+      config,
+      system,
+      options,
+      ...
+    }: let
+      cfg = config.valence-contracts;
+    in {
       options.valence-contracts.upload = lib.mkEnableOption ''
         Setup all valence contracts from latest stable release to be uploaded.
       '';
@@ -36,7 +40,7 @@ in
           Valence contract builds to add to packages output.
         '';
         default = {};
-        type = types.attrsOf (types.submodule ({ name, ... }: {
+        type = types.attrsOf (types.submodule ({name, ...}: {
           options = {
             src = lib.mkOption {
               type = types.path;
@@ -86,7 +90,7 @@ in
           upload-contracts.default-inputs = {
             inherit (cfg.default-inputs) cosmos-nix zero-nix;
           };
-          upload-contracts.network-defaults.chain-defaults = { config, ... }: {
+          upload-contracts.network-defaults.chain-defaults = {config, ...}: {
             contracts = lib.mkMerge [
               # Contract paths are inferred based on name
               # but can be manually set with the `path` option within each contract
@@ -101,6 +105,12 @@ in
                 valence_astroport_withdrawer = {};
                 valence_generic_ibc_transfer_library = {};
               }
+              (lib.mkIf (config.package.pname == "osmosis") {
+                valence_osmosis_cl_lper = {};
+                valence_osmosis_cl_withdrawer = {};
+                valence_osmosis_gamm_lper = {};
+                valence_osmosis_gamm_withdrawer = {};
+              })
               (lib.mkIf (config.package.pname == "neutron") {
                 # All contracts that are specific to neutron
                 valence_authorization = {};
@@ -113,11 +123,14 @@ in
           };
         })
         {
-          packages = lib.mapAttrs' (name: buildAttrs: {
-            name = "valence-contracts-${buildAttrs.version}";
-            value = cfg.default-inputs.zero-nix.tools.${system}.buildValenceContracts buildAttrs;
-          }) config.valence-contracts.builds;
+          packages =
+            lib.mapAttrs' (name: buildAttrs: {
+              name = "valence-contracts-${buildAttrs.version}";
+              value = cfg.default-inputs.zero-nix.tools.${system}.buildValenceContracts buildAttrs;
+            })
+            config.valence-contracts.builds;
         }
       ];
-    });
+    }
+  );
 }
