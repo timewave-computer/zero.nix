@@ -1,10 +1,25 @@
-{ cosmos-nix }:
-{ name, lib, config, pkgs, options, data-dir, ... }:
-let
+{cosmos-nix}: {
+  name,
+  lib,
+  config,
+  pkgs,
+  options,
+  data-dir,
+  ...
+}: let
   inherit (lib) types;
   jsonFormat = pkgs.formats.json {};
 
-  contractOpts = { name, config, ... }: {
+  contractOpts = {
+    name,
+    config,
+    ...
+  }: {
+    options.enable =
+      lib.mkEnableOption "upload this contract"
+      // {
+        default = true;
+      };
     options.package = lib.mkOption {
       type = types.package;
       description = ''
@@ -34,7 +49,10 @@ let
     options.instantiate = lib.mkOption {
       type = types.bool;
       default = false;
-      apply = x: if x then "1" else "0";
+      apply = x:
+        if x
+        then "1"
+        else "0";
       description = ''
         Whether or not to instantiate contract.
       '';
@@ -50,8 +68,7 @@ let
       '';
     };
   };
-in
-{
+in {
   options = {
     node-address = lib.mkOption {
       type = types.str;
@@ -102,17 +119,14 @@ in
     };
     command = lib.mkOption {
       type = types.path;
-      default =
-        assert (lib.assertMsg
-          (config.package ? meta.mainProgram)
-          ''
-            The package option for chain ${name} has no meta.mainProgram,
-            so the chain binary cannot be inferred. Please set the command
-            option with the exact path to the chain node.
-            For example, "''${cosmos-nix.packages.gaia}/bin/gaiad".
-          '');
-          (lib.getExe config.package)
-          ;
+      default = assert (lib.assertMsg
+        (config.package ? meta.mainProgram)
+        ''
+          The package option for chain ${name} has no meta.mainProgram,
+          so the chain binary cannot be inferred. Please set the command
+          option with the exact path to the chain node.
+          For example, "''${cosmos-nix.packages.gaia}/bin/gaiad".
+        ''); (lib.getExe config.package);
       defaultText = lib.literalExpression ''
         "''${package}/bin/''${package.meta.mainProgram}"
       '';
@@ -164,7 +178,7 @@ in
     };
     contracts = lib.mkOption {
       type = types.attrsOf (types.submodule {
-        imports = [ contractOpts config.contract-defaults ];
+        imports = [contractOpts config.contract-defaults];
       });
       default = {};
       description = ''
