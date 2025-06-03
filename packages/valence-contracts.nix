@@ -1,23 +1,27 @@
-{ lib, self, inputs, ... }:
-let
-  valence-contracts-srcs = lib.filterAttrs (name: _:
-    lib.hasPrefix "valence-contracts" name
-  ) inputs;
-  getVersion = lib.removePrefix "valence-contracts-";
-in
-
 {
+  self,
+  inputs,
+  ...
+}: {
   perSystem = {
     valence-contracts.default-inputs = {
       zero-nix = self;
       cosmos-nix = inputs.cosmos-nix;
     };
-    valence-contracts.builds =
-      lib.mapAttrs
-        (name: input: {
-          src = input;
-          version = getVersion name;
-        })
-        valence-contracts-srcs;
+    valence-contracts.builds = {
+      valence-contracts-v0_1_1 = {
+        src = inputs.valence-contracts-v0_1_1;
+        version = "v0_1_1";
+      };
+      valence-contracts-v0_1_2 = {
+        src = inputs.valence-contracts-v0_1_2;
+        version = "v0_1_2";
+      };
+      valence-contracts-main = {
+        src = inputs.valence-contracts-main;
+        version = "main";
+        rust-version = "1.85.0";
+      };
+    };
   };
 }

@@ -1981,11 +1981,11 @@
     "valence-contracts-main": {
       "flake": false,
       "locked": {
-        "lastModified": 1743118505,
-        "narHash": "sha256-EMy3NNv7naemwcEI7fN1+kAaZQLxudRaOLBTM1iP9Cc=",
+        "lastModified": 1748888666,
+        "narHash": "sha256-u4ggiVVO1+lOsxN86TVXSfuMP5MCWoJuiyg352g2h2I=",
         "owner": "timewave-computer",
         "repo": "valence-protocol",
-        "rev": "9a37fe1dc2feafb5283879915bf8597776ffb443",
+        "rev": "91bb2e27311a36b85564ea2d4f50b95242297c14",
         "type": "github"
       },
       "original": {
