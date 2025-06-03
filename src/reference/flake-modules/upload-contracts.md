@@ -258,6 +258,32 @@ attribute set of (submodule)
 
 
 
+## perSystem\.upload-contracts\.networks\.\<name>\.chains\.\<name>\.contracts\.\<name>\.enable {#opt-perSystem.upload-contracts.networks._name_.chains._name_.contracts._name_.enable}
+
+
+
+Whether to enable upload this contract\.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+` true `
+
+
+
+*Example:*
+` true `
+
+*Declared by:*
+ - [upload-contracts/default\.nix](https://github.com/timewave-computer/zero.nix/blob/main/default.nix)
+
+
+
 ## perSystem\.upload-contracts\.networks\.\<name>\.chains\.\<name>\.contracts\.\<name>\.package {#opt-perSystem.upload-contracts.networks._name_.chains._name_.contracts._name_.package}
 
 
