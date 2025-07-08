@@ -1,6 +1,6 @@
-# Solana Development Guide
+# Solana Development
 
-This guide covers how to use zero.nix for Solana development, including setup of the Solana CLI, Anchor framework, and platform tools.
+This document covers how to use zero.nix for Solana development, including setup of the Solana CLI, Anchor framework, and platform tools.
 
 ## Overview
 
@@ -224,22 +224,6 @@ Override environment variables in your `flake.nix`:
 }
 ```
 
-## Troubleshooting
-
-### Common Issues
-
-1. **Platform tools not found**
-   - Run `setup-solana` to initialize environment
-   - Verify `PLATFORM_TOOLS_DIR` is set correctly
-
-2. **SBF compilation fails**
-   - Ensure `cargo-build-sbf` is available in PATH
-   - Check that `SBF_SDK_PATH` points to platform tools
-
-3. **Anchor build errors**
-   - Verify Anchor.toml configuration
-   - Check that all dependencies are available
-
 ### Debug Mode
 
 Enable verbose output for debugging:
@@ -271,48 +255,11 @@ Add zero.nix to your `flake.nix`:
 }
 ```
 
-### Multi-Chain Development
+## Documentation
 
-Combine with other zero.nix modules:
-
-```nix
-{
-  outputs = { self, zero-nix }: 
-    zero-nix.lib.mkFlake {
-      inherit self;
-      src = ./.;
-      
-      # Enable multiple development environments
-      devShells = {
-        # Solana development
-        solana = zero-nix.devShells.default.override {
-          buildInputs = [ zero-nix.packages.solana-tools ];
-        };
-        
-        # Cosmos development  
-        cosmos = zero-nix.devShells.default.override {
-          buildInputs = [ zero-nix.packages.cosmos-tools ];
-        };
-      };
-    };
-}
-```
-
-## Next Steps
-
-- Explore the [Anchor documentation](https://book.anchor-lang.com/)
-- Learn about [Solana program development](https://docs.solana.com/developing/programming-model/overview)
-- Check out [Solana CLI reference](https://docs.solana.com/cli)
-- Join the [Solana Discord](https://discord.gg/solana)
-
-## Contributing
-
-To contribute improvements to the Solana development environment:
-
-1. Fork the [zero.nix repository](https://github.com/timewave-computer/zero.nix)
-2. Make your changes to `packages/default.nix`
-3. Test with `nix develop`
-4. Submit a pull request
+- [Anchor Book](https://book.anchor-lang.com/)
+- [Solana program development](https://docs.solana.com/developing/programming-model/overview)
+- [Solana CLI reference](https://docs.solana.com/cli)
 
 ## Version Information
 
