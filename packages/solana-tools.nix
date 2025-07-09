@@ -304,7 +304,9 @@ EOF
     # Set up platform tools environment for SBF compilation  
     export PLATFORM_TOOLS_DIR=${solana-node}/platform-tools
     export SBF_SDK_PATH=${solana-node}/platform-tools
-    export PATH="${solana-node}/platform-tools/rust/bin:${solana-node}/bin:$PATH"
+    
+    # IMPORTANT: Put cargo-shim first in PATH to intercept +nightly calls
+    export PATH="${cargo-shim}/bin:${solana-node}/platform-tools/rust/bin:${solana-node}/bin:$PATH"
     
     # Set required environment variables
     export SOURCE_DATE_EPOCH="${commonEnv.SOURCE_DATE_EPOCH}" 
@@ -330,9 +332,9 @@ EOF
     
     # Check if this is for IDL generation and use nightly rust
     if [[ "$*" == *"idl"* ]]; then
-      export PATH="${nightly-rust}/bin:${solana-node}/bin:$PATH"
+      export PATH="${nightly-rust}/bin:${cargo-shim}/bin:${solana-node}/bin:$PATH"
       export RUSTC="${nightly-rust}/bin/rustc"
-      export CARGO="${nightly-rust}/bin/cargo"
+      export CARGO="${cargo-shim}/bin/cargo"
     fi
     
     # Run anchor with platform tools environment
