@@ -339,10 +339,27 @@ EOF
     exec "${anchor}/bin/anchor" "$@"
   '';
 
+  # Create a cargo shim that intercepts +nightly calls
+  cargo-shim = pkgs.writeShellScriptBin "cargo" ''
+    set -e
+    
+    # Check if the first argument is +nightly
+    if [[ "$1" == "+nightly" ]]; then
+      # Shift off the +nightly argument
+      shift
+      # Use the nightly rust cargo
+      exec "${nightly-rust}/bin/cargo" "$@"
+    else
+      # Use the default cargo
+      exec "${solana-node}/platform-tools/rust/bin/cargo" "$@"
+    fi
+  '';
+
 in {
   # Individual packages
   inherit solana-node anchor setup-solana nightly-rust;
   anchor-wrapper = anchor-wrapper;
+  cargo-shim = cargo-shim;
   
   # Combined solana development environment
   solana-tools = pkgs.symlinkJoin {
@@ -350,6 +367,7 @@ in {
     paths = [
       solana-node
       anchor-wrapper
+      cargo-shim
       setup-solana
     ];
   };
