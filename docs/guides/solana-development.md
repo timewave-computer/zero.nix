@@ -202,7 +202,7 @@ These environment variables ensure that:
 
 ### Custom Configuration
 
-Override environment variables in your `flake.nix`:
+Extend the development environment in your `flake.nix`:
 
 ```nix
 {
@@ -211,15 +211,15 @@ Override environment variables in your `flake.nix`:
       inherit self;
       src = ./.;
       
-      devShells.default = zero-nix.devShells.default.override {
-        shellHook = ''
+      devShells.default = zero-nix.devShells.default.overrideAttrs (oldAttrs: {
+        shellHook = (oldAttrs.shellHook or "") + ''
           # Custom solana configuration
           solana config set --url https://api.mainnet-beta.solana.com
           
           # Project-specific setup
           echo "My Solana project initialized"
         '';
-      };
+      });
     };
 }
 ```
@@ -245,12 +245,12 @@ Add zero.nix to your `flake.nix`:
   };
 
   outputs = { self, zero-nix }: {
-    devShells.default = zero-nix.devShells.default.override {
-      buildInputs = with zero-nix.legacyPackages.${system}; [
+    devShells.default = zero-nix.devShells.default.overrideAttrs (oldAttrs: {
+      buildInputs = (oldAttrs.buildInputs or []) ++ (with zero-nix.legacyPackages.${system}; [
         solana-tools
         # Add your existing tools here
-      ];
-    };
+      ]);
+    });
   };
 }
 ```
