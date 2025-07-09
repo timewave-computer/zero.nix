@@ -32,7 +32,9 @@
       };
       
       # Solana packages from solana-tools.nix
-      inherit (solana-tools) solana-node anchor setup-solana nightly-rust anchor-wrapper solana-tools;
+      inherit (solana-tools) anchor setup-solana nightly-rust anchor-wrapper;
+      # Export the separate packages
+      inherit (solana-tools) solana-node solana-dev-tools solana-tools;
     };
     
     devShells.default = pkgs.mkShell {
