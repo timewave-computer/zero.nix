@@ -329,11 +329,13 @@ EOF
     mkdir -p "$CARGO_HOME" "$RUSTUP_HOME"
     
     # Check if this is for IDL generation and use nightly rust
-    if [[ "$*" == *"idl"* ]]; then
-      export PATH="${nightly-rust}/bin:${solana-node}/bin:$PATH"
-      export RUSTC="${nightly-rust}/bin/rustc"
-      export CARGO="${nightly-rust}/bin/cargo"
-    fi
+    case " $@ " in
+      *" idl "*)
+        export PATH="${nightly-rust}/bin:${solana-node}/bin:$PATH"
+        export RUSTC="${nightly-rust}/bin/rustc"
+        export CARGO="${nightly-rust}/bin/cargo"
+        ;;
+    esac
     
     # Run anchor with platform tools environment
     exec "${anchor}/bin/anchor" "$@"
