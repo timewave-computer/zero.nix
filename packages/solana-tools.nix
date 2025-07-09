@@ -358,12 +358,34 @@ EOF
   '';
 
 in {
-  # Individual packages
-  inherit solana-node anchor setup-solana nightly-rust;
-  anchor-wrapper = anchor-wrapper;
-  cargo-shim = cargo-shim;
+  # Separate packages for different use cases
   
-  # Combined solana development environment
+  # 1. Just the Solana node/validator (no dev tools)
+  solana-node = pkgs.symlinkJoin {
+    name = "solana-node";
+    paths = [
+      solana-node
+    ];
+    meta = {
+      description = "Solana node and CLI tools for running validators and interacting with the network";
+    };
+  };
+  
+  # 2. Development toolchain (includes node + dev tools)
+  solana-dev-tools = pkgs.symlinkJoin {
+    name = "solana-dev-tools";
+    paths = [
+      solana-node
+      anchor-wrapper
+      cargo-shim
+      setup-solana
+    ];
+    meta = {
+      description = "Complete Solana development environment with Anchor and build tools";
+    };
+  };
+  
+  # Legacy alias for backward compatibility
   solana-tools = pkgs.symlinkJoin {
     name = "solana-tools";
     paths = [
@@ -373,4 +395,7 @@ in {
       setup-solana
     ];
   };
+  
+  # Export individual components for advanced use
+  inherit anchor setup-solana nightly-rust anchor-wrapper cargo-shim;
 } 
