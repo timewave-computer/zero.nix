@@ -25,35 +25,36 @@
       ];
       
       flake = {
-        nixosConfigurations.ethereum-node = inputs.nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            inputs.zero-nix.nixosModules.ethereum-node
-            {
-              # Basic system configuration
-              boot.isContainer = true;
-              system.stateVersion = "23.11";
-              networking.hostName = "ethereum-node";
-              
-              # Ethereum node configuration
-              services.ethereum.nodes.mainnet = {
-                execution = {
-                  network = "mainnet";
-                  syncMode = "snap";
+        nixosConfigurations = inputs.nixpkgs.lib.genAttrs systems (system:
+          inputs.nixpkgs.lib.nixosSystem {
+            inherit system;
+            modules = [
+              inputs.zero-nix.nixosModules.ethereum-node
+              {
+                # Basic system configuration
+                boot.isContainer = true;
+                system.stateVersion = "23.11";
+                networking.hostName = "ethereum-node";
+                
+                # Ethereum node configuration
+                services.ethereum.nodes.mainnet = {
+                  execution = {
+                    network = "mainnet";
+                    syncMode = "snap";
+                  };
+                  consensus = {
+                    network = "mainnet";
+                    checkpointSyncUrl = "https://mainnet.checkpoint.sigp.io";
+                  };
+                  openFirewall = true;
                 };
-                consensus = {
-                  network = "mainnet";
-                  checkpointSyncUrl = "https://mainnet.checkpoint.sigp.io";
-                };
-                openFirewall = true;
-              };
-              
-              # Disable systemd-resolved for container compatibility
-              systemd.services.systemd-resolved.enable = false;
-              networking.useHostResolvConf = true;
-            }
-          ];
-        };
+                
+                # Disable systemd-resolved for container compatibility
+                systemd.services.systemd-resolved.enable = false;
+                networking.useHostResolvConf = true;
+              }
+            ];
+          });
       };
     };
 } 

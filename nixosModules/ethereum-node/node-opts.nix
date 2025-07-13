@@ -4,9 +4,6 @@
 let
   inherit (lib) types;
   
-  tomlFormat = pkgs.formats.toml {};
-  jsonFormat = pkgs.formats.json {};
-  
   executionClientOpts = {
     options = {
       enable = lib.mkOption {
@@ -124,12 +121,6 @@ in
       type = types.path;
       default = "/var/lib/ethereum-node-${name}/jwt.hex";
       description = "JWT secret file path for Engine API authentication";
-    };
-    
-    dataDir = lib.mkOption {
-      type = types.path;
-      default = "/var/lib/ethereum-node-${name}";
-      description = "Base data directory for the node";
     };
     
     openFirewall = lib.mkOption {

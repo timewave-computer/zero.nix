@@ -53,6 +53,7 @@ let
         Type = "oneshot";
         User = "ethereum";
         Group = "ethereum";
+        StateDirectory = "ethereum-node-${name}";
       };
     };
   };
@@ -79,9 +80,9 @@ let
           ${gethCmd} ${networkFlag} \
             --datadir "${nodeCfg.execution.datadir}" \
             --http --http.addr "0.0.0.0" --http.port ${toString nodeCfg.execution.rpcPort} \
-            --http.api "eth,net,web3,txpool" \
+            --http.api "eth,net,web3" \
             --ws --ws.addr "0.0.0.0" --ws.port ${toString (nodeCfg.execution.rpcPort + 1)} \
-            --ws.api "eth,net,web3,txpool" \
+            --ws.api "eth,net,web3" \
             --port ${toString nodeCfg.execution.p2pPort} \
             --syncmode ${nodeCfg.execution.syncMode} \
             --authrpc.addr "127.0.0.1" --authrpc.port ${toString (nodeCfg.execution.rpcPort + 100)} \
