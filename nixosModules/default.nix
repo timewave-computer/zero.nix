@@ -16,5 +16,11 @@
         zero-nix = self';
       }
     );
+    ethereum-node = moduleWithSystem (
+      {self', ... }:
+      import ./ethereum-node {
+        zero-nix = self';
+      }
+    );
   };
 }

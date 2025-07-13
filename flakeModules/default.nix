@@ -15,5 +15,9 @@ in
       imports = [ ./valence-contracts.nix ];
       perSystem.valence-contracts = { inherit default-inputs; };
     };
+    ethereum-development = {
+      imports = [ ./ethereum-development/default.nix ];
+      perSystem.ethereum-development = { inherit default-inputs; };
+    };
   };
 }

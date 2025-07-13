@@ -1,6 +1,7 @@
 {
   imports = [
     ./valence-contracts.nix
+    ./ethereum.nix
   ];
   perSystem = { pkgs, config, ... }: {
     packages = {

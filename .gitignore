@@ -1,0 +1,14 @@
+# Nix build artifacts
+result*
+
+# Ethereum node data directories
+data/
+geth/
+lighthouse/
+
+# Ethereum authentication
+*.hex
+jwt.secret
+
+# Test directories
+/tmp/test-* 

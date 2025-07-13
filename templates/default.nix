@@ -18,5 +18,21 @@ in
         ${commonWelcome}
       '';
     };
+    ethereum-node = {
+      path = ./ethereum-node;
+      description = "Ethereum node deployment with geth and lighthouse";
+      welcomeText = ''
+        # Ethereum node deployment
+        ## Provided services
+         - geth: Ethereum execution client
+         - lighthouse: Ethereum consensus client
+
+        ## Usage
+         - Deploy: `nixos-rebuild switch --flake .#ethereum-node`
+         - Monitor: `systemctl status ethereum-execution-mainnet ethereum-consensus-mainnet`
+
+        ${commonWelcome}
+      '';
+    };
   };
 }
