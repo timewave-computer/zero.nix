@@ -1,5 +1,34 @@
-# Nix build artifacts
+# Nix build outputs
 result*
+.direnv/
+
+# Development environments
+.vscode/
+.cursor/
+
+# Rust/Cargo
+target/
+Cargo.lock
+**/*.rs.bk
+*.pdb
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+
+# General
+*.backup
+*.bak
+*.orig
+
+# Working
+work/
 
 # Ethereum node data directories
 data/
@@ -11,4 +40,4 @@ lighthouse/
 jwt.secret
 
 # Test directories
-/tmp/test-* 
+/tmp/test-*
