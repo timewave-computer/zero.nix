@@ -16,6 +16,7 @@ in {
         pkgs,
         self',
         system,
+        options,
         ...
       }: let
         cfg = config.ethereum-development;
@@ -30,7 +31,7 @@ in {
           };
         };
         
-        config = lib.mkIf cfg.enable {
+        config = lib.mkIf cfg.enable (lib.optionalAttrs (options ? devshells) {
           devshells.ethereum = {
             name = "ethereum-development";
             
@@ -66,7 +67,7 @@ in {
                 lighthouse bn --network ${if cfg.network == "mainnet" then "mainnet" else cfg.network} --datadir ./data/lighthouse
             '';
           };
-        };
+        });
       }
     );
   };

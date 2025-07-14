@@ -47,7 +47,7 @@ let
       sha256 = if pkgs.stdenv.isDarwin then
         "sha256-upgxwAEvh11+IKVQ1FaZGlx8Z8Ps0CEScsbu4Hv3WH0="  # v2.0.22 macOS ARM64 hash
       else
-        "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";  # TODO: Get correct Linux hash with: nix store prefetch-file --json https://github.com/anza-xyz/agave/releases/download/v2.0.22/solana-release-x86_64-unknown-linux-gnu.tar.bz2
+        "sha256-kDXSnCXZHYSQt18AtnuBHcqyK9wxEemNx9on7CKW328=";  # v2.0.22 Linux x86_64 hash
     };
 
     # Platform tools source
@@ -59,7 +59,7 @@ let
       sha256 = if pkgs.stdenv.isDarwin then
         "sha256-eZ5M/O444icVXIP7IpT5b5SoQ9QuAcA1n7cSjiIW0t0="  # v1.48 macOS ARM64 hash
       else
-        "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";  # TODO: Get correct Linux hash with: nix store prefetch-file --json https://github.com/anza-xyz/platform-tools/releases/download/v1.48/platform-tools-linux-x86_64.tar.bz2
+        "sha256-qdMVf5N9X2+vQyGjWoA14PgnEUpmOwFQ20kuiT7CdZc=";  # v1.48 Linux x86_64 hash
     };
 
     nativeBuildInputs = with pkgs; [
@@ -82,6 +82,9 @@ let
       darwin.apple_sdk.frameworks.Security
       darwin.apple_sdk.frameworks.SystemConfiguration
     ];
+    
+    # Disable stripping to avoid issues with text files and scripts
+    dontStrip = true;
 
     unpackPhase = ''
       runHook preUnpack
@@ -156,30 +159,20 @@ let
       # Fix broken symlinks
       find $out -type l ! -exec test -e {} \; -delete 2>/dev/null || true
       
-      # Create wrapper scripts for key tools
+      # Use wrapProgram to wrap key tools with proper environment
       for tool in solana solana-keygen solana-test-validator; do
         if [ -f "$out/bin/$tool" ]; then
-          # Backup original binary
-          mv "$out/bin/$tool" "$out/bin/.$tool-original"
-          
-          # Create wrapper script
-          cat > "$out/bin/$tool" << EOF
-#!/bin/bash
-export PLATFORM_TOOLS_DIR="$out/platform-tools"
-export SBF_SDK_PATH="$out/platform-tools"
-export PATH="$out/platform-tools/rust/bin:$out/platform-tools/llvm/bin:\$PATH"
-exec "$out/bin/.$tool-original" "\$@"
-EOF
-          chmod +x "$out/bin/$tool"
+          wrapProgram "$out/bin/$tool" \
+            --set PLATFORM_TOOLS_DIR "$out/platform-tools" \
+            --set SBF_SDK_PATH "$out/platform-tools" \
+            --prefix PATH : "$out/platform-tools/rust/bin" \
+            --prefix PATH : "$out/platform-tools/llvm/bin"
         fi
       done
       
       # Create special wrapper for cargo-build-sbf that bypasses platform tools installation
       if [ -f "$out/bin/cargo-build-sbf" ]; then
-        # Backup original binary
-        mv "$out/bin/cargo-build-sbf" "$out/bin/.cargo-build-sbf-original"
-        
-        # Create wrapper script that uses cargo directly with SBF target
+        # Create a custom script that uses cargo directly with SBF target
         cat > "$out/bin/cargo-build-sbf" << EOF
 #!/bin/bash
 export PLATFORM_TOOLS_DIR="$out/platform-tools"

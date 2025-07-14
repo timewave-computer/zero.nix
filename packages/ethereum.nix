@@ -22,8 +22,18 @@
         subPackages = [ "cmd/geth" ];
         
         # Build configuration
-        env.CGO_ENABLED = "0";
+        env.CGO_ENABLED = if pkgs.stdenv.isLinux then "1" else "0";
         buildFlags = [ "-mod=readonly" ];
+        
+        # Add necessary inputs for CGO on Linux
+        buildInputs = with pkgs; lib.optionals stdenv.isLinux [
+          glibc
+          gcc
+        ];
+        
+        nativeBuildInputs = with pkgs; lib.optionals stdenv.isLinux [
+          pkg-config
+        ];
         
         meta = with pkgs.lib; {
           description = "Official Go implementation of the Ethereum protocol";
