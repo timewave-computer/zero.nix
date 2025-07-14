@@ -164,6 +164,7 @@ for building, testing, and deploying interchain programs</p>
 <li><a href="guides/./build-valence-contracts.html">Build Valence Contracts</a></li>
 <li><a href="guides/./upload-contracts.html">Upload Contracts</a></li>
 <li><a href="guides/./zk-development.html">ZK Development</a></li>
+<li><a href="guides/./solana-development.html">Solana Development</a></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="build-valence-contracts"><a class="header" href="#build-valence-contracts">Build Valence Contracts</a></h1>
 <p>Zero.nix contains a flake module <a href="guides/../reference/flake-modules/valence-contracts.html"><code>valence-contracts</code></a>
@@ -384,6 +385,220 @@ easy to setup a nix development shell with sp1 tooling.</p>
 
 </code></pre>
 <p>Then run <code>nix develop</code> to enter a devshell with the packages.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="solana-development"><a class="header" href="#solana-development">Solana Development</a></h1>
+<p>This document covers how to use zero.nix for Solana development, including setup of the Solana CLI, Anchor framework, and platform tools.</p>
+<h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
+<p>Zero.nix provides a complete Solana development environment with:</p>
+<ul>
+<li><strong>Solana CLI</strong> (v2.0.22) - Core Solana command-line tools</li>
+<li><strong>Anchor CLI</strong> (v0.31.1) - Solana development framework</li>
+<li><strong>Platform Tools</strong> (v1.48) - Rust compiler and LLVM tools optimized for Solana</li>
+<li><strong>SBF compilation</strong> - Support for Solana Berkeley Format programs</li>
+</ul>
+<h2 id="quick-start"><a class="header" href="#quick-start">Quick Start</a></h2>
+<h3 id="using-the-template"><a class="header" href="#using-the-template">Using the Template</a></h3>
+<p>Create a new Solana project using the zero.nix template:</p>
+<pre><code class="language-bash">nix flake new -t github:timewave-computer/zero.nix#solana-dev my-solana-project
+cd my-solana-project
+nix develop
+</code></pre>
+<h3 id="manual-setup"><a class="header" href="#manual-setup">Manual Setup</a></h3>
+<p>Add zero.nix to your existing Solana project:</p>
+<pre><code class="language-nix">{
+  description = "My Solana project";
+
+  inputs = {
+    zero-nix.url = "github:timewave-computer/zero.nix";
+  };
+
+  outputs = { self, zero-nix }: 
+    zero-nix.lib.mkFlake {
+      inherit self;
+      src = ./.;
+    };
+}
+</code></pre>
+<h2 id="development-environment"><a class="header" href="#development-environment">Development Environment</a></h2>
+<h3 id="entering-the-development-environment"><a class="header" href="#entering-the-development-environment">Entering the Development Environment</a></h3>
+<pre><code class="language-bash">nix develop
+</code></pre>
+<p>This provides access to:</p>
+<ul>
+<li><code>solana</code> - Solana CLI tools</li>
+<li><code>anchor</code> - Anchor framework CLI</li>
+<li><code>cargo-build-sbf</code> - SBF program compilation</li>
+<li><code>setup-solana</code> - Environment initialization script</li>
+</ul>
+<h3 id="environment-setup"><a class="header" href="#environment-setup">Environment Setup</a></h3>
+<p>Initialize the Solana development environment:</p>
+<pre><code class="language-bash">setup-solana
+</code></pre>
+<p>This script:</p>
+<ul>
+<li>Creates necessary cache directories</li>
+<li>Verifies platform tools installation</li>
+<li>Sets up proper permissions</li>
+</ul>
+<h2 id="working-with-anchor"><a class="header" href="#working-with-anchor">Working with Anchor</a></h2>
+<h3 id="creating-a-new-anchor-project"><a class="header" href="#creating-a-new-anchor-project">Creating a New Anchor Project</a></h3>
+<pre><code class="language-bash">anchor init my-project
+cd my-project
+</code></pre>
+<h3 id="building-anchor-programs"><a class="header" href="#building-anchor-programs">Building Anchor Programs</a></h3>
+<pre><code class="language-bash"># Build the program
+anchor build
+
+# Build with SBF compilation
+cargo-build-sbf
+</code></pre>
+<h3 id="testing-anchor-programs"><a class="header" href="#testing-anchor-programs">Testing Anchor Programs</a></h3>
+<pre><code class="language-bash"># Run tests
+anchor test
+
+# Run tests with local validator
+anchor test --skip-local-validator
+</code></pre>
+<h2 id="solana-cli-usage"><a class="header" href="#solana-cli-usage">Solana CLI Usage</a></h2>
+<h3 id="configuration"><a class="header" href="#configuration">Configuration</a></h3>
+<pre><code class="language-bash"># Configure Solana CLI for devnet
+solana config set --url https://api.devnet.solana.com
+
+# Generate a new keypair
+solana-keygen new
+
+# Check balance
+solana balance
+</code></pre>
+<h3 id="local-development"><a class="header" href="#local-development">Local Development</a></h3>
+<pre><code class="language-bash"># Start local test validator
+solana-test-validator
+
+# Deploy to local cluster
+solana program deploy target/deploy/my_program.so
+</code></pre>
+<h2 id="platform-tools"><a class="header" href="#platform-tools">Platform Tools</a></h2>
+<p>The zero.nix Solana environment includes platform tools that provide:</p>
+<ul>
+<li><strong>Rust toolchain</strong> - Optimized for Solana development</li>
+<li><strong>LLVM tools</strong> - Required for SBF compilation</li>
+<li><strong>Cargo extensions</strong> - SBF-specific build tools</li>
+</ul>
+<h3 id="platform-tools-environment"><a class="header" href="#platform-tools-environment">Platform Tools Environment</a></h3>
+<p>Platform tools are automatically configured with:</p>
+<ul>
+<li><code>PLATFORM_TOOLS_DIR</code> - Points to platform tools directory</li>
+<li><code>SBF_SDK_PATH</code> - SDK path for SBF compilation</li>
+<li><code>PATH</code> - Extended to include platform tools</li>
+</ul>
+<h2 id="sbf-program-development"><a class="header" href="#sbf-program-development">SBF Program Development</a></h2>
+<h3 id="building-sbf-programs"><a class="header" href="#building-sbf-programs">Building SBF Programs</a></h3>
+<pre><code class="language-bash"># Build SBF programs directly
+cargo-build-sbf --manifest-path=Cargo.toml
+
+# Build with Anchor (recommended)
+anchor build
+</code></pre>
+<h3 id="sbf-compilation-environment"><a class="header" href="#sbf-compilation-environment">SBF Compilation Environment</a></h3>
+<p>The environment automatically configures:</p>
+<ul>
+<li>Rust toolchain compatible with Solana</li>
+<li>LLVM tools for SBF target compilation</li>
+<li>Proper linker settings for macOS</li>
+</ul>
+<h2 id="available-tools"><a class="header" href="#available-tools">Available Tools</a></h2>
+<h3 id="core-tools"><a class="header" href="#core-tools">Core Tools</a></h3>
+<ul>
+<li><strong>solana</strong> - Main Solana CLI</li>
+<li><strong>solana-keygen</strong> - Key generation and management</li>
+<li><strong>solana-test-validator</strong> - Local test validator</li>
+<li><strong>anchor</strong> - Anchor framework CLI</li>
+<li><strong>cargo-build-sbf</strong> - SBF program compilation</li>
+</ul>
+<h3 id="development-tools"><a class="header" href="#development-tools">Development Tools</a></h3>
+<ul>
+<li><strong>rustc</strong> - Rust compiler</li>
+<li><strong>cargo</strong> - Rust package manager</li>
+<li><strong>rust-analyzer</strong> - Rust language server</li>
+<li><strong>nodejs</strong> - JavaScript runtime</li>
+<li><strong>python3</strong> - Python interpreter</li>
+</ul>
+<h2 id="configuration-1"><a class="header" href="#configuration-1">Configuration</a></h2>
+<h3 id="environment-variables"><a class="header" href="#environment-variables">Environment Variables</a></h3>
+<p>The development environment automatically sets:</p>
+<pre><code class="language-bash">MACOSX_DEPLOYMENT_TARGET=11.0           # macOS deployment target
+SOLANA_INSTALL_DIR=$HOME/.cache/solana  # Solana cache directory
+ANCHOR_VERSION=0.31.1                   # Anchor version
+SOLANA_VERSION=2.0.22                   # Solana version
+RUST_BACKTRACE=1                        # Enable Rust backtraces
+PLATFORM_TOOLS_DIR=&lt;nix-store-path&gt;     # Platform tools directory (avoids redownloading)
+SBF_SDK_PATH=&lt;nix-store-path&gt;           # SBF SDK path for compilation
+PROTOC=&lt;nix-store-path&gt;/bin/protoc      # Protocol buffers compiler
+CARGO_HOME=$HOME/.cache/solana/v1.48/cargo     # Cargo cache directory (prevents redownloading)
+RUSTUP_HOME=$HOME/.cache/solana/v1.48/rustup   # Rustup cache directory (prevents redownloading)
+</code></pre>
+<p>These environment variables ensure that:</p>
+<ul>
+<li>Platform tools are not redownloaded on each build</li>
+<li>SBF compilation uses the pre-installed tools</li>
+<li>Proper macOS deployment target is set</li>
+<li>Debugging information is available</li>
+<li>Cargo and rustup use cached platform tools configuration</li>
+</ul>
+<h3 id="custom-configuration"><a class="header" href="#custom-configuration">Custom Configuration</a></h3>
+<p>Extend the development environment in your <code>flake.nix</code>:</p>
+<pre><code class="language-nix">{
+  outputs = { self, zero-nix }: 
+    zero-nix.lib.mkFlake {
+      inherit self;
+      src = ./.;
+      
+      devShells.default = zero-nix.devShells.default.overrideAttrs (oldAttrs: {
+        shellHook = (oldAttrs.shellHook or "") + ''
+          # Custom solana configuration
+          solana config set --url https://api.mainnet-beta.solana.com
+          
+          # Project-specific setup
+          echo "My Solana project initialized"
+        '';
+      });
+    };
+}
+</code></pre>
+<h3 id="debug-mode"><a class="header" href="#debug-mode">Debug Mode</a></h3>
+<p>Enable verbose output for debugging:</p>
+<pre><code class="language-bash">RUST_BACKTRACE=full anchor build
+</code></pre>
+<h2 id="integration-with-existing-projects"><a class="header" href="#integration-with-existing-projects">Integration with Existing Projects</a></h2>
+<h3 id="adding-to-existing-rust-projects"><a class="header" href="#adding-to-existing-rust-projects">Adding to Existing Rust Projects</a></h3>
+<p>Add zero.nix to your <code>flake.nix</code>:</p>
+<pre><code class="language-nix">{
+  inputs = {
+    zero-nix.url = "github:timewave-computer/zero.nix";
+  };
+
+  outputs = { self, zero-nix }: {
+    devShells.default = zero-nix.devShells.default.overrideAttrs (oldAttrs: {
+      buildInputs = (oldAttrs.buildInputs or []) ++ (with zero-nix.legacyPackages.${system}; [
+        solana-tools
+        # Add your existing tools here
+      ]);
+    });
+  };
+}
+</code></pre>
+<h2 id="documentation"><a class="header" href="#documentation">Documentation</a></h2>
+<ul>
+<li><a href="https://book.anchor-lang.com/">Anchor Book</a></li>
+<li><a href="https://docs.solana.com/developing/programming-model/overview">Solana program development</a></li>
+<li><a href="https://docs.solana.com/cli">Solana CLI reference</a></li>
+</ul>
+<h2 id="version-information"><a class="header" href="#version-information">Version Information</a></h2>
+<ul>
+<li><strong>Solana CLI</strong>: v2.0.22</li>
+<li><strong>Anchor CLI</strong>: v0.31.1</li>
+<li><strong>Platform Tools</strong>: v1.48</li>
+<li><strong>Rust</strong>: Compatible with Solana (via platform tools)</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="flake-modules-reference"><a class="header" href="#flake-modules-reference">Flake Modules Reference</a></h1>
 <ul>
 <li><a href="reference/flake-modules/./upload-contracts.html">Upload Contracts Options</a></li>

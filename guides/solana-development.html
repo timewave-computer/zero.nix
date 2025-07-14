@@ -1,0 +1,426 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Solana Development - Zero.nix Docs</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Zero.nix Docs</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/timewave-computer/zero.nix" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/timewave-computer/zero.nix/edit/main/manual/./guides/solana-development.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="solana-development"><a class="header" href="#solana-development">Solana Development</a></h1>
+<p>This document covers how to use zero.nix for Solana development, including setup of the Solana CLI, Anchor framework, and platform tools.</p>
+<h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
+<p>Zero.nix provides a complete Solana development environment with:</p>
+<ul>
+<li><strong>Solana CLI</strong> (v2.0.22) - Core Solana command-line tools</li>
+<li><strong>Anchor CLI</strong> (v0.31.1) - Solana development framework</li>
+<li><strong>Platform Tools</strong> (v1.48) - Rust compiler and LLVM tools optimized for Solana</li>
+<li><strong>SBF compilation</strong> - Support for Solana Berkeley Format programs</li>
+</ul>
+<h2 id="quick-start"><a class="header" href="#quick-start">Quick Start</a></h2>
+<h3 id="using-the-template"><a class="header" href="#using-the-template">Using the Template</a></h3>
+<p>Create a new Solana project using the zero.nix template:</p>
+<pre><code class="language-bash">nix flake new -t github:timewave-computer/zero.nix#solana-dev my-solana-project
+cd my-solana-project
+nix develop
+</code></pre>
+<h3 id="manual-setup"><a class="header" href="#manual-setup">Manual Setup</a></h3>
+<p>Add zero.nix to your existing Solana project:</p>
+<pre><code class="language-nix">{
+  description = "My Solana project";
+
+  inputs = {
+    zero-nix.url = "github:timewave-computer/zero.nix";
+  };
+
+  outputs = { self, zero-nix }: 
+    zero-nix.lib.mkFlake {
+      inherit self;
+      src = ./.;
+    };
+}
+</code></pre>
+<h2 id="development-environment"><a class="header" href="#development-environment">Development Environment</a></h2>
+<h3 id="entering-the-development-environment"><a class="header" href="#entering-the-development-environment">Entering the Development Environment</a></h3>
+<pre><code class="language-bash">nix develop
+</code></pre>
+<p>This provides access to:</p>
+<ul>
+<li><code>solana</code> - Solana CLI tools</li>
+<li><code>anchor</code> - Anchor framework CLI</li>
+<li><code>cargo-build-sbf</code> - SBF program compilation</li>
+<li><code>setup-solana</code> - Environment initialization script</li>
+</ul>
+<h3 id="environment-setup"><a class="header" href="#environment-setup">Environment Setup</a></h3>
+<p>Initialize the Solana development environment:</p>
+<pre><code class="language-bash">setup-solana
+</code></pre>
+<p>This script:</p>
+<ul>
+<li>Creates necessary cache directories</li>
+<li>Verifies platform tools installation</li>
+<li>Sets up proper permissions</li>
+</ul>
+<h2 id="working-with-anchor"><a class="header" href="#working-with-anchor">Working with Anchor</a></h2>
+<h3 id="creating-a-new-anchor-project"><a class="header" href="#creating-a-new-anchor-project">Creating a New Anchor Project</a></h3>
+<pre><code class="language-bash">anchor init my-project
+cd my-project
+</code></pre>
+<h3 id="building-anchor-programs"><a class="header" href="#building-anchor-programs">Building Anchor Programs</a></h3>
+<pre><code class="language-bash"># Build the program
+anchor build
+
+# Build with SBF compilation
+cargo-build-sbf
+</code></pre>
+<h3 id="testing-anchor-programs"><a class="header" href="#testing-anchor-programs">Testing Anchor Programs</a></h3>
+<pre><code class="language-bash"># Run tests
+anchor test
+
+# Run tests with local validator
+anchor test --skip-local-validator
+</code></pre>
+<h2 id="solana-cli-usage"><a class="header" href="#solana-cli-usage">Solana CLI Usage</a></h2>
+<h3 id="configuration"><a class="header" href="#configuration">Configuration</a></h3>
+<pre><code class="language-bash"># Configure Solana CLI for devnet
+solana config set --url https://api.devnet.solana.com
+
+# Generate a new keypair
+solana-keygen new
+
+# Check balance
+solana balance
+</code></pre>
+<h3 id="local-development"><a class="header" href="#local-development">Local Development</a></h3>
+<pre><code class="language-bash"># Start local test validator
+solana-test-validator
+
+# Deploy to local cluster
+solana program deploy target/deploy/my_program.so
+</code></pre>
+<h2 id="platform-tools"><a class="header" href="#platform-tools">Platform Tools</a></h2>
+<p>The zero.nix Solana environment includes platform tools that provide:</p>
+<ul>
+<li><strong>Rust toolchain</strong> - Optimized for Solana development</li>
+<li><strong>LLVM tools</strong> - Required for SBF compilation</li>
+<li><strong>Cargo extensions</strong> - SBF-specific build tools</li>
+</ul>
+<h3 id="platform-tools-environment"><a class="header" href="#platform-tools-environment">Platform Tools Environment</a></h3>
+<p>Platform tools are automatically configured with:</p>
+<ul>
+<li><code>PLATFORM_TOOLS_DIR</code> - Points to platform tools directory</li>
+<li><code>SBF_SDK_PATH</code> - SDK path for SBF compilation</li>
+<li><code>PATH</code> - Extended to include platform tools</li>
+</ul>
+<h2 id="sbf-program-development"><a class="header" href="#sbf-program-development">SBF Program Development</a></h2>
+<h3 id="building-sbf-programs"><a class="header" href="#building-sbf-programs">Building SBF Programs</a></h3>
+<pre><code class="language-bash"># Build SBF programs directly
+cargo-build-sbf --manifest-path=Cargo.toml
+
+# Build with Anchor (recommended)
+anchor build
+</code></pre>
+<h3 id="sbf-compilation-environment"><a class="header" href="#sbf-compilation-environment">SBF Compilation Environment</a></h3>
+<p>The environment automatically configures:</p>
+<ul>
+<li>Rust toolchain compatible with Solana</li>
+<li>LLVM tools for SBF target compilation</li>
+<li>Proper linker settings for macOS</li>
+</ul>
+<h2 id="available-tools"><a class="header" href="#available-tools">Available Tools</a></h2>
+<h3 id="core-tools"><a class="header" href="#core-tools">Core Tools</a></h3>
+<ul>
+<li><strong>solana</strong> - Main Solana CLI</li>
+<li><strong>solana-keygen</strong> - Key generation and management</li>
+<li><strong>solana-test-validator</strong> - Local test validator</li>
+<li><strong>anchor</strong> - Anchor framework CLI</li>
+<li><strong>cargo-build-sbf</strong> - SBF program compilation</li>
+</ul>
+<h3 id="development-tools"><a class="header" href="#development-tools">Development Tools</a></h3>
+<ul>
+<li><strong>rustc</strong> - Rust compiler</li>
+<li><strong>cargo</strong> - Rust package manager</li>
+<li><strong>rust-analyzer</strong> - Rust language server</li>
+<li><strong>nodejs</strong> - JavaScript runtime</li>
+<li><strong>python3</strong> - Python interpreter</li>
+</ul>
+<h2 id="configuration-1"><a class="header" href="#configuration-1">Configuration</a></h2>
+<h3 id="environment-variables"><a class="header" href="#environment-variables">Environment Variables</a></h3>
+<p>The development environment automatically sets:</p>
+<pre><code class="language-bash">MACOSX_DEPLOYMENT_TARGET=11.0           # macOS deployment target
+SOLANA_INSTALL_DIR=$HOME/.cache/solana  # Solana cache directory
+ANCHOR_VERSION=0.31.1                   # Anchor version
+SOLANA_VERSION=2.0.22                   # Solana version
+RUST_BACKTRACE=1                        # Enable Rust backtraces
+PLATFORM_TOOLS_DIR=&lt;nix-store-path&gt;     # Platform tools directory (avoids redownloading)
+SBF_SDK_PATH=&lt;nix-store-path&gt;           # SBF SDK path for compilation
+PROTOC=&lt;nix-store-path&gt;/bin/protoc      # Protocol buffers compiler
+CARGO_HOME=$HOME/.cache/solana/v1.48/cargo     # Cargo cache directory (prevents redownloading)
+RUSTUP_HOME=$HOME/.cache/solana/v1.48/rustup   # Rustup cache directory (prevents redownloading)
+</code></pre>
+<p>These environment variables ensure that:</p>
+<ul>
+<li>Platform tools are not redownloaded on each build</li>
+<li>SBF compilation uses the pre-installed tools</li>
+<li>Proper macOS deployment target is set</li>
+<li>Debugging information is available</li>
+<li>Cargo and rustup use cached platform tools configuration</li>
+</ul>
+<h3 id="custom-configuration"><a class="header" href="#custom-configuration">Custom Configuration</a></h3>
+<p>Extend the development environment in your <code>flake.nix</code>:</p>
+<pre><code class="language-nix">{
+  outputs = { self, zero-nix }: 
+    zero-nix.lib.mkFlake {
+      inherit self;
+      src = ./.;
+      
+      devShells.default = zero-nix.devShells.default.overrideAttrs (oldAttrs: {
+        shellHook = (oldAttrs.shellHook or "") + ''
+          # Custom solana configuration
+          solana config set --url https://api.mainnet-beta.solana.com
+          
+          # Project-specific setup
+          echo "My Solana project initialized"
+        '';
+      });
+    };
+}
+</code></pre>
+<h3 id="debug-mode"><a class="header" href="#debug-mode">Debug Mode</a></h3>
+<p>Enable verbose output for debugging:</p>
+<pre><code class="language-bash">RUST_BACKTRACE=full anchor build
+</code></pre>
+<h2 id="integration-with-existing-projects"><a class="header" href="#integration-with-existing-projects">Integration with Existing Projects</a></h2>
+<h3 id="adding-to-existing-rust-projects"><a class="header" href="#adding-to-existing-rust-projects">Adding to Existing Rust Projects</a></h3>
+<p>Add zero.nix to your <code>flake.nix</code>:</p>
+<pre><code class="language-nix">{
+  inputs = {
+    zero-nix.url = "github:timewave-computer/zero.nix";
+  };
+
+  outputs = { self, zero-nix }: {
+    devShells.default = zero-nix.devShells.default.overrideAttrs (oldAttrs: {
+      buildInputs = (oldAttrs.buildInputs or []) ++ (with zero-nix.legacyPackages.${system}; [
+        solana-tools
+        # Add your existing tools here
+      ]);
+    });
+  };
+}
+</code></pre>
+<h2 id="documentation"><a class="header" href="#documentation">Documentation</a></h2>
+<ul>
+<li><a href="https://book.anchor-lang.com/">Anchor Book</a></li>
+<li><a href="https://docs.solana.com/developing/programming-model/overview">Solana program development</a></li>
+<li><a href="https://docs.solana.com/cli">Solana CLI reference</a></li>
+</ul>
+<h2 id="version-information"><a class="header" href="#version-information">Version Information</a></h2>
+<ul>
+<li><strong>Solana CLI</strong>: v2.0.22</li>
+<li><strong>Anchor CLI</strong>: v0.31.1</li>
+<li><strong>Platform Tools</strong>: v1.48</li>
+<li><strong>Rust</strong>: Compatible with Solana (via platform tools)</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../guides/zk-development.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../reference/flake-modules/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../guides/zk-development.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../reference/flake-modules/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

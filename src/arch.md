@@ -32,6 +32,11 @@ The system includes packages for various blockchain-related tools:
   - Manages specific contract packages for the Valence Protocol
   - Supports multiple contract versions (v0.1.1, v0.1.2, and main)
 
+- **Solana Tools** (`packages/solana-tools.nix`):
+  - Provides complete Solana development environment including CLI, Anchor framework, and platform tools
+  - Supports SBF (Solana Berkeley Format) program compilation
+  - Includes Solana CLI (v2.0.22), Anchor CLI (v0.31.1), and Platform Tools (v1.48)
+
 ### 3. Flake Modules
 
 The flake modules extend the functionality of the system:
@@ -50,6 +55,15 @@ Additional tooling to support the blockchain simulation environment:
 - **Build Valence Contracts** (`tools/build-valence-contracts/`):
   - Tools for building Valence Protocol contracts from source
   - Integrates with the Rust toolchain via crane and rust-overlay
+
+### 5. Templates
+
+Development environment templates for different blockchain platforms:
+
+- **Solana Development** (`templates/solana-development/`):
+  - Ready-to-use template for Solana development projects
+  - Includes complete Solana toolchain with Anchor framework
+  - Supports SBF program compilation and testing
 
 ## Architecture
 
@@ -260,4 +274,6 @@ Zero.nix can be used to simulate various multi-chain scenarios, such as:
 - Validating IBC protocol implementations
 - Developing and testing cross-chain applications
 - Benchmarking relayer performance under different network conditions
-- Simulating complex multi-chain application workflows 
+- Simulating complex multi-chain application workflows
+- Developing Solana programs with SBF compilation support
+- Testing Solana smart contracts using the Anchor framework 
