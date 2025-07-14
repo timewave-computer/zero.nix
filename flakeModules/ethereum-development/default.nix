@@ -31,32 +31,39 @@ in {
         };
         
         config = lib.mkIf cfg.enable {
-          devShells.ethereum = pkgs.mkShell {
+          devshells.ethereum = {
             name = "ethereum-development";
             
-            packages = with pkgs; [
-              # Basic ethereum tools
-              self'.packages.geth
-              self'.packages.lighthouse
-              
-              # Development tools
-              curl
-              jq
-              openssl
+            commands = [
+              {
+                package = self'.packages.geth;
+                help = "Ethereum execution client";
+              }
+              {
+                package = self'.packages.lighthouse;
+                help = "Ethereum consensus client";
+              }
+              {
+                package = pkgs.curl;
+                help = "HTTP client for API testing";
+              }
+              {
+                package = pkgs.jq;
+                help = "JSON processor for API responses";
+              }
+              {
+                package = pkgs.openssl;
+                help = "SSL/TLS toolkit";
+              }
             ];
             
-            shellHook = ''
-              echo "Ethereum development environment"
-              echo "Network: ${cfg.network}"
-              echo ""
-              echo "Available tools:"
-              echo "  - geth: Ethereum execution client"
-              echo "  - lighthouse: Ethereum consensus client"
-              echo ""
-              echo "Quick start:"
-              echo "  geth ${if cfg.network == "mainnet" then "" else "--${cfg.network}"} --datadir ./data/geth --http --ws"
-              echo "  lighthouse bn --network ${if cfg.network == "mainnet" then "mainnet" else cfg.network} --datadir ./data/lighthouse"
-              echo ""
+            motd = ''
+              {14}{bold}Ethereum development environment{reset}
+              {9}Network: ${cfg.network}{reset}
+              
+              {13}Quick start:{reset}
+                geth ${if cfg.network == "mainnet" then "" else "--${cfg.network}"} --datadir ./data/geth --http --ws
+                lighthouse bn --network ${if cfg.network == "mainnet" then "mainnet" else cfg.network} --datadir ./data/lighthouse
             '';
           };
         };
