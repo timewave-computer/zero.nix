@@ -15,6 +15,7 @@ in {
         config,
         pkgs,
         self',
+        system,
         ...
       }: let
         cfg = config.ethereum-development;
