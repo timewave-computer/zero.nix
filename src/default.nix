@@ -36,7 +36,10 @@
 
       docsFlake = flake-parts-lib.mkFlake { inherit inputs; } {
         systems = [ system ];
-        imports = [ "${inputs.flake-parts-website}/render/render-module.nix" ];
+        imports = [ 
+          "${inputs.flake-parts-website}/render/render-module.nix" 
+          inputs.devshell.flakeModule
+        ];
         perSystem.render.officialFlakeInputs = inputs;
         perSystem.render.inputs =
           {
