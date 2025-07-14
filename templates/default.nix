@@ -40,5 +40,41 @@ in
         ${commonWelcome}
       '';
     };
+    
+    ethereum-node = {
+      path = ./ethereum-node;
+      description = "Ethereum node deployment with geth and lighthouse";
+      welcomeText = ''
+        # Ethereum node deployment
+        ## Provided services
+         - geth: Ethereum execution client
+         - lighthouse: Ethereum consensus client
+
+        ## Usage
+         - Deploy: `nixos-rebuild switch --flake .#ethereum-node`
+         - Monitor: `systemctl status ethereum-execution-mainnet ethereum-consensus-mainnet`
+
+        ${commonWelcome}
+      '';
+    };
+    
+    ethereum-development = {
+      path = ./ethereum-development;
+      description = "Ethereum development environment with geth and lighthouse";
+      welcomeText = ''
+        # Ethereum development environment
+        ## Provided tools
+         - geth: Ethereum execution client
+         - lighthouse: Ethereum consensus client
+         - curl, jq, openssl: Development utilities
+
+        ## Usage
+         - Enter shell: `nix develop`
+         - Start testnet: `geth --sepolia --datadir ./data/geth --http --ws`
+         - Start consensus: `lighthouse bn --network sepolia --datadir ./data/lighthouse`
+
+        ${commonWelcome}
+      '';
+    };
   };
 }

@@ -29,3 +29,15 @@ Cargo.lock
 
 # Working
 work/
+
+# Ethereum node data directories
+data/
+geth/
+lighthouse/
+
+# Ethereum authentication
+*.hex
+jwt.secret
+
+# Test directories
+/tmp/test-*

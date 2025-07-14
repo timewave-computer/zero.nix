@@ -17,7 +17,9 @@
         "x86_64-linux"
       ];
       imports = [
+        inputs.devshell.flakeModule
         ./flakeModules/default.nix
+        ./flakeModules/ethereum-development/default.nix
         ./nixosModules/default.nix
         ./packages/default.nix
         ./tools/default.nix
@@ -25,6 +27,16 @@
         ./templates/default.nix
         ./flakeModules/valence-contracts.nix
       ];
+      
+      perSystem = {
+        pkgs,
+        inputs',
+        ...
+      }: {
+        # Enable ethereum development environment
+        ethereum-development.enable = true;
+        ethereum-development.network = "sepolia";
+      };
     };
 
   inputs = {
@@ -33,6 +45,7 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     crane.url = "github:ipetkov/crane";
     rust-overlay.url = "github:oxalica/rust-overlay";
+    devshell.url = "github:numtide/devshell";
     flake-parts-website.url = "github:hercules-ci/flake.parts-website";
     # This is a flake but we just need the render module
     # Theres a lot of inputs so it would pollute the lock file if its added as a flake
