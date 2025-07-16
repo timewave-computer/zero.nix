@@ -20,6 +20,7 @@
         inputs.devshell.flakeModule
         ./flakeModules/default.nix
         ./flakeModules/ethereum-development/default.nix
+        ./flakeModules/neutron-darwin.nix
         ./nixosModules/default.nix
         ./packages/default.nix
         ./tools/default.nix
