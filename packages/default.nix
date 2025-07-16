@@ -32,6 +32,11 @@
         inherit (config.packages) sp1-rust;
       };
       
+      # Neutron with Darwin support
+      neutron-darwin = (pkgs.callPackage ./neutron-darwin.nix {}).neutron;
+      libwasmvm = (pkgs.callPackage ./neutron-darwin.nix {}).libwasmvm;
+      neutrond = (pkgs.callPackage ./neutron-darwin.nix {}).neutrond;
+      
       # Solana packages from solana-tools.nix
       inherit (solana-tools) solana-node anchor setup-solana nightly-rust anchor-wrapper solana-tools;
     };
@@ -53,6 +58,9 @@
         # Include our custom packages
         config.packages.upload-contract
         
+        # Neutron with Darwin support
+        config.packages.neutron-darwin
+        
         # Solana development tools
         config.packages.solana-tools
         
@@ -71,6 +79,7 @@
       shellHook = ''
         echo "Welcome to zero.nix development environment"
         echo "Available packages: upload-contract, local-ic, sp1-rust, sp1"
+        echo "Neutron: neutrond (with macOS support via libwasmvm ${if pkgs.stdenv.isDarwin then "2.1.5" else "from cosmos-nix"})"
         echo "Solana tools: solana-node, anchor, setup-solana, nightly-rust"
         echo ""
         echo "Run 'setup-solana' to initialize Solana development environment"
