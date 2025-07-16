@@ -20,12 +20,14 @@ let
       owner = "CosmWasm";
       repo = "wasmvm";
       rev = "v${version}";
-      hash = "sha256-gdFxL/9K3uE3Ymu3OUYWnT7qibGWjXMvNkVHUQgQqL0=";
+      hash = "sha256-qxrAYLUsVSLBZ1GqS5/Yq+K1ZCLqBSq3M0ws1mmWMqs=";
     };
 
     sourceRoot = "${src.name}/libwasmvm";
     
-    cargoHash = "sha256-8Sge63vFK3fOMZXqA7hxnJV5r0VvJvqhUlgKDiEMKLQ=";
+    # Use the newer fetch method for git dependencies
+    useFetchCargoVendor = true;
+    cargoHash = "sha256-Q7Enw2pwZB7kzdf/tde/Q/dZhiDCUp19YWd2UY0Hq8w=";
 
     nativeBuildInputs = lib.optionals stdenv.isDarwin [
       darwin.cctools
@@ -65,21 +67,19 @@ let
       owner = "neutron-org";
       repo = "neutron";
       rev = "v${version}";
-      hash = "sha256-4vgJMdJFXvAJKE7zJEcJCeYZ+YT5OdNlT3HzfuGOiN8=";
+      hash = "sha256-kduM7WzJLGmw4Yg450UQZvv3s86jc3VXmion/CAdg+Y=";
     };
 
-    vendorHash = "sha256-VnJKGYjU6eZVAQPG9OJ7Kxb7oWJkLXzS8xGvVnFj0jg=";
-
-    # Apply patch to remove admin module message filtering
-    patches = [
-      ./neutron-skip-ccv-msg-filter.patch
-    ];
+    vendorHash = "sha256-wJvvogrVr+rpdZkkHnqwwRlbbuTrlJhKwQ0e71eYXJc=";
 
     # Enable CGO for libwasmvm
-    CGO_ENABLED = "1";
+    env.CGO_ENABLED = "1";
 
     # Set build tags
-    tags = [ "netgo" "skip_ccv_msg_filter" ];
+    tags = [ "netgo" ];
+
+    # Only build the main binary, not test packages
+    subPackages = [ "cmd/neutrond" ];
 
     # Darwin-specific build inputs
     nativeBuildInputs = [ makeWrapper ] ++ lib.optionals stdenv.isDarwin [
@@ -127,8 +127,6 @@ let
 
   # Create a smart wrapper following the quartz pattern
   neutronWrapper = writeShellScriptBin "neutron" ''
-    #!/usr/bin/env bash
-    
     # Function to check if a command exists
     command_exists() {
       command -v "$1" >/dev/null 2>&1
@@ -136,7 +134,7 @@ let
     
     # First, try the Nix-built neutrond
     if [ -x "${neutrond}/bin/neutrond" ]; then
-      export ${if stdenv.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH"}="${libwasmvm}/lib:$${if stdenv.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH"}"
+      export ${if stdenv.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH"}="${libwasmvm}/lib:''${${if stdenv.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH"}:+:''${${if stdenv.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH"}}}"
       exec "${neutrond}/bin/neutrond" "$@"
     # Fall back to system neutrond if available
     elif command_exists neutrond; then
@@ -144,7 +142,6 @@ let
       exec neutrond "$@"
     else
       echo "Error: neutrond not found. Please install neutron or ensure it's in your PATH." >&2
-      echo "You can install it via this flake or visit https://docs.neutron.org for installation instructions." >&2
       exit 1
     fi
   '';
