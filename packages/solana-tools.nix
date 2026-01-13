@@ -81,7 +81,6 @@ let
       systemd        # provides libudev.so.1
       ncurses        # provides libncurses.so.6, libtinfo.so.6, libpanel.so.6
       libxml2        # provides libxml2.so.2
-      libedit        # provides libedit.so.2
       xz             # provides liblzma.so.5
     ] ++ lib.optionals stdenv.isDarwin [
       darwin.apple_sdk.frameworks.Security
@@ -94,12 +93,13 @@ let
     # Ignore optional dependencies that aren't needed for normal usage:
     # - SGX libraries (Intel secure enclave, only for specialized hardware)
     # - OpenCL (GPU acceleration, optional)
-    # - Python (only needed for lldb debugging)
+    # - LLDB debugging libraries (libpython, libedit for lldb)
     autoPatchelfIgnoreMissingDeps = [
       "libsgx_uae_service.so"
       "libsgx_urts.so"
       "libOpenCL.so.1"
       "libpython3.10.so.1.0"
+      "libedit.so.2"           # lldb debugging (nixpkgs has libedit.so.0)
     ];
 
     unpackPhase = ''
